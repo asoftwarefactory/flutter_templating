@@ -2,6 +2,8 @@
 //
 //     final template = templateFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 Template templateFromJson(String str) => Template.fromJson(json.decode(str));
@@ -22,6 +24,7 @@ class Template {
     this.dataProviders,
     this.steps,
     this.name,
+    this.migrationType,
   });
 
   final String? id;
@@ -36,6 +39,7 @@ class Template {
   final List<DataProvider>? dataProviders;
   final List<Step>? steps;
   final String? name;
+  final String? migrationType;
 
   Template copyWith({
     String? id,
@@ -50,6 +54,7 @@ class Template {
     List<DataProvider>? dataProviders,
     List<Step>? steps,
     String? name,
+    String? migrationType,
   }) =>
       Template(
         id: id ?? this.id,
@@ -64,6 +69,7 @@ class Template {
         dataProviders: dataProviders ?? this.dataProviders,
         steps: steps ?? this.steps,
         name: name ?? this.name,
+        migrationType: migrationType ?? this.migrationType,
       );
 
   factory Template.fromJson(Map<String, dynamic> json) => Template(
@@ -100,6 +106,7 @@ class Template {
             ? []
             : List<Step>.from(json["steps"]!.map((x) => Step.fromJson(x))),
         name: json["name"],
+        migrationType: json["migrationType"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -128,6 +135,7 @@ class Template {
             ? []
             : List<dynamic>.from(steps!.map((x) => x.toJson())),
         "name": name,
+        "migrationType": migrationType,
       };
 }
 
@@ -174,7 +182,7 @@ class DataProvider {
         name: json["name"],
         type: json["type"],
         dataProviderName: json["dataProviderName"],
-        inputs: json["inputs"] == null
+        inputs: json["outputs"] == null
             ? []
             : List<Put>.from(json["inputs"]!.map((x) => Put.fromJson(x))),
         outputs: json["outputs"] == null
@@ -188,9 +196,8 @@ class DataProvider {
         "name": name,
         "type": type,
         "dataProviderName": dataProviderName,
-        "inputs": inputs == null
-            ? []
-            : List<dynamic>.from(inputs!.map((x) => x.toJson())),
+        "inputs":
+            inputs == null ? [] : List<dynamic>.from(inputs!.map((x) => x)),
         "outputs": outputs == null
             ? []
             : List<dynamic>.from(outputs!.map((x) => x.toJson())),
@@ -234,11 +241,11 @@ class Description {
     this.label,
   });
 
-  final String? culture;
+  final Culture? culture;
   final String? label;
 
   Description copyWith({
-    String? culture,
+    Culture? culture,
     String? label,
   }) =>
       Description(
@@ -247,12 +254,12 @@ class Description {
       );
 
   factory Description.fromJson(Map<String, dynamic> json) => Description(
-        culture: json["culture"],
+        culture: cultureValues.map[json["culture"]]!,
         label: json["label"],
       );
 
   Map<String, dynamic> toJson() => {
-        "culture": culture,
+        "culture": cultureValues.reverse[culture],
         "label": label,
       };
 }
@@ -353,6 +360,10 @@ class Condition {
       };
 }
 
+enum Culture { IT, EN }
+
+final cultureValues = EnumValues({"en": Culture.EN, "it": Culture.IT});
+
 class Section {
   Section({
     this.id,
@@ -361,6 +372,7 @@ class Section {
     this.names,
     this.descriptions,
     this.hidden,
+    this.readonly,
     this.fieldType,
     this.isArray,
     this.defaultValue,
@@ -370,6 +382,7 @@ class Section {
     this.children,
     this.type,
     this.workflowFieldId,
+    this.autocomplete,
   });
 
   final String? id;
@@ -378,15 +391,17 @@ class Section {
   final List<Description>? names;
   final List<Description>? descriptions;
   final bool? hidden;
+  final bool? readonly;
   final String? fieldType;
   final bool? isArray;
   final String? defaultValue;
   final List<Validator>? validators;
   final List<Item>? items;
   final bool? multiple;
-  final List<String>? children;
-  final String? type;
+  final List<Section>? children;
+  final Type? type;
   final String? workflowFieldId;
+  final TemplateFieldAutocomplete? autocomplete;
 
   Section copyWith({
     String? id,
@@ -395,15 +410,17 @@ class Section {
     List<Description>? names,
     List<Description>? descriptions,
     bool? hidden,
+    bool? readonly,
     String? fieldType,
     bool? isArray,
     String? defaultValue,
     List<Validator>? validators,
     List<Item>? items,
     bool? multiple,
-    List<String>? children,
-    String? type,
+    List<Section>? children,
+    Type? type,
     String? workflowFieldId,
+    TemplateFieldAutocomplete? autocomplete,
   }) =>
       Section(
         id: id ?? this.id,
@@ -412,6 +429,7 @@ class Section {
         names: names ?? this.names,
         descriptions: descriptions ?? this.descriptions,
         hidden: hidden ?? this.hidden,
+        readonly: readonly ?? this.readonly,
         fieldType: fieldType ?? this.fieldType,
         isArray: isArray ?? this.isArray,
         defaultValue: defaultValue ?? this.defaultValue,
@@ -421,6 +439,7 @@ class Section {
         children: children ?? this.children,
         type: type ?? this.type,
         workflowFieldId: workflowFieldId ?? this.workflowFieldId,
+        autocomplete: autocomplete ?? this.autocomplete,
       );
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
@@ -436,6 +455,7 @@ class Section {
             : List<Description>.from(
                 json["descriptions"]!.map((x) => Description.fromJson(x))),
         hidden: json["hidden"],
+        readonly: json["readonly"],
         fieldType: json["fieldType"],
         isArray: json["isArray"],
         defaultValue: json["defaultValue"],
@@ -449,9 +469,12 @@ class Section {
         multiple: json["multiple"],
         children: json["children"] == null
             ? []
-            : List<String>.from(json["children"]!.map((x) => x)),
-        type: json["type"],
+            : List<Section>.from(
+                json["children"]!.map((x) => Section.fromJson(x))),
+        type: typeValues.map[json["type"]]!,
         workflowFieldId: json["workflowFieldId"],
+        autocomplete:
+            TemplateFieldAutocomplete.fromJson(json["autocomplete"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
@@ -465,6 +488,7 @@ class Section {
             ? []
             : List<dynamic>.from(descriptions!.map((x) => x.toJson())),
         "hidden": hidden,
+        "readonly": readonly,
         "fieldType": fieldType,
         "isArray": isArray,
         "defaultValue": defaultValue,
@@ -475,11 +499,83 @@ class Section {
             ? []
             : List<dynamic>.from(items!.map((x) => x.toJson())),
         "multiple": multiple,
-        "children":
-            children == null ? [] : List<dynamic>.from(children!.map((x) => x)),
-        "type": type,
+        "children": children == null
+            ? []
+            : List<dynamic>.from(children!.map((x) => x.toJson())),
+        "type": typeValues.reverse[type],
         "workflowFieldId": workflowFieldId,
+        "autocomplete": autocomplete?.toJson(),
       };
+}
+
+class TemplateFieldAutocomplete {
+  final String? name;
+  final List<TemplateAutocompleteFieldMapping>? inputs;
+  TemplateFieldAutocomplete({
+    this.name,
+    this.inputs,
+  });
+
+  TemplateFieldAutocomplete copyWith({
+    String? name,
+    List<TemplateAutocompleteFieldMapping>? inputs,
+  }) {
+    return TemplateFieldAutocomplete(
+      name: name ?? this.name,
+      inputs: inputs ?? this.inputs,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'inputs': inputs?.map((x) => x.toJson()).toList(),
+    };
+  }
+
+  factory TemplateFieldAutocomplete.fromJson(Map<String, dynamic> map) {
+    return TemplateFieldAutocomplete(
+      name: map['name'],
+      inputs: map['inputs'] != null
+          ? List<TemplateAutocompleteFieldMapping>.from(map['inputs']
+              ?.map((x) => TemplateAutocompleteFieldMapping.fromJson(x)))
+          : null,
+    );
+  }
+}
+
+class TemplateAutocompleteFieldMapping {
+  final String? fieldId;
+  final String? autocompleteFieldName;
+  TemplateAutocompleteFieldMapping({
+    this.fieldId,
+    this.autocompleteFieldName,
+  });
+
+  TemplateAutocompleteFieldMapping copyWith({
+    String? fieldId,
+    String? autocompleteFieldName,
+  }) {
+    return TemplateAutocompleteFieldMapping(
+      fieldId: fieldId ?? this.fieldId,
+      autocompleteFieldName:
+          autocompleteFieldName ?? this.autocompleteFieldName,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fieldId': fieldId,
+      'autocompleteFieldName': autocompleteFieldName,
+    };
+  }
+
+  factory TemplateAutocompleteFieldMapping.fromJson(Map<String, dynamic> map) {
+    return TemplateAutocompleteFieldMapping(
+      fieldId: map['fieldId'],
+      autocompleteFieldName: map['autocompleteFieldName'],
+    );
+  }
 }
 
 class Item {
@@ -510,6 +606,10 @@ class Item {
         "label": label,
       };
 }
+
+enum Type { GROUP, FIELD }
+
+final typeValues = EnumValues({"Field": Type.FIELD, "Group": Type.GROUP});
 
 class Validator {
   Validator({
@@ -622,4 +722,16 @@ class Step {
         "groupIds":
             groupIds == null ? [] : List<dynamic>.from(groupIds!.map((x) => x)),
       };
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

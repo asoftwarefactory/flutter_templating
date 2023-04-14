@@ -41,6 +41,20 @@ class Template {
   final String? name;
   final String? migrationType;
 
+  String get pNameid => "id";
+  String get pNamegroupId => "groupId";
+  String get pNamecreatedAt => "createdAt";
+  String get pNameisValid => "isValid";
+  String get pNamescopes => "scopes";
+  String get pNamenames => "names";
+  String get pNamedescriptions => "descriptions";
+  String get pNamesections => "sections";
+  String get pNameenabledIfRules => "enabledIfRules";
+  String get pNamedataProviders => "dataProviders";
+  String get pNamesteps => "steps";
+  String get pNamename => "name";
+  String get pNamemigrationType => "migrationType";
+
   Template copyWith({
     String? id,
     String? groupId,
@@ -158,6 +172,14 @@ class DataProvider {
   final List<Put>? outputs;
   final String? sectionChildId;
 
+  String get pNameid => "id";
+  String get pNamename => "name";
+  String get pNametype => "type";
+  String get pNamedataProviderName => "dataProviderName";
+  String get pNameinputs => "inputs";
+  String get pNameoutputs => "outputs";
+  String get pNamesectionChildId => "sectionChildId";
+
   DataProvider copyWith({
     String? id,
     String? name,
@@ -214,6 +236,9 @@ class Put {
   final String? fieldId;
   final String? dataProviderFieldName;
 
+  String get pNamefieldId => "fieldId";
+  String get pNamedataProviderFieldName => "dataProviderFieldName";
+
   Put copyWith({
     String? fieldId,
     String? dataProviderFieldName,
@@ -243,6 +268,9 @@ class Description {
 
   final Culture? culture;
   final String? label;
+
+  String get pNameculture => "culture";
+  String get pNamelabel => "label";
 
   Description copyWith({
     Culture? culture,
@@ -278,6 +306,12 @@ class EnabledIfRule {
   final List<Condition>? conditions;
   final List<String>? groupIds;
   final List<String>? fieldIds;
+
+  String get pNameid => "id";
+  String get pNamename => "name";
+  String get pNameconditions => "conditions";
+  String get pNamegroupIds => "groupIds";
+  String get pNamefieldIds => "fieldIds";
 
   EnabledIfRule copyWith({
     String? id,
@@ -332,6 +366,10 @@ class Condition {
   final String? fieldId;
   final String? constraint;
   final List<String>? values;
+
+  String get pNamefieldId => "fieldId";
+  String get pNameconstraint => "constraint";
+  String get pNamevalues => "values";
 
   Condition copyWith({
     String? fieldId,
@@ -392,7 +430,7 @@ class Section {
   final List<Description>? descriptions;
   final bool? hidden;
   final bool? readonly;
-  final String? fieldType;
+  final FieldTypes? fieldType;
   final bool? isArray;
   final String? defaultValue;
   final List<Validator>? validators;
@@ -403,6 +441,24 @@ class Section {
   final String? workflowFieldId;
   final TemplateFieldAutocomplete? autocomplete;
 
+  String get pNameid => "id";
+  String get pNamename => "name";
+  String get pNamesearchable => "searchable";
+  String get pNamenames => "names";
+  String get pNamedescriptions => "descriptions";
+  String get pNamehidden => "hidden";
+  String get pNamereadonly => "readonly";
+  String get pNamefieldType => "fieldType";
+  String get pNameisArray => "isArray";
+  String get pNamedefaultValue => "defaultValue";
+  String get pNamevalidators => "validators";
+  String get pNameitems => "items";
+  String get pNamemultiple => "multiple";
+  String get pNamechildren => "children";
+  String get pNametype => "type";
+  String get pNameworkflowFieldId => "workflowFieldId";
+  String get pNameautocomplete => "autocomplete";
+
   Section copyWith({
     String? id,
     String? name,
@@ -411,7 +467,7 @@ class Section {
     List<Description>? descriptions,
     bool? hidden,
     bool? readonly,
-    String? fieldType,
+    FieldTypes? fieldType,
     bool? isArray,
     String? defaultValue,
     List<Validator>? validators,
@@ -456,7 +512,7 @@ class Section {
                 json["descriptions"]!.map((x) => Description.fromJson(x))),
         hidden: json["hidden"],
         readonly: json["readonly"],
-        fieldType: json["fieldType"],
+        fieldType: fieldTypesValues.map[json["fieldType"]],
         isArray: json["isArray"],
         defaultValue: json["defaultValue"],
         validators: json["validators"] == null
@@ -465,7 +521,7 @@ class Section {
                 json["validators"]!.map((x) => Validator.fromJson(x))),
         items: json["items"] == null
             ? []
-            : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
+            : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
         multiple: json["multiple"],
         children: json["children"] == null
             ? []
@@ -489,7 +545,7 @@ class Section {
             : List<dynamic>.from(descriptions!.map((x) => x.toJson())),
         "hidden": hidden,
         "readonly": readonly,
-        "fieldType": fieldType,
+        "fieldType": fieldTypesValues.reverse[fieldType],
         "isArray": isArray,
         "defaultValue": defaultValue,
         "validators": validators == null
@@ -508,6 +564,32 @@ class Section {
       };
 }
 
+enum FieldTypes {
+  String,
+  Integer,
+  Decimal,
+  Currency,
+  Boolean,
+  DateUtc,
+  DateNoUtc,
+  DateTime,
+  Time,
+  File,
+}
+
+final fieldTypesValues = EnumValues({
+  "String": FieldTypes.String,
+  "Integer": FieldTypes.Integer,
+  "Decimal": FieldTypes.Decimal,
+  "Currency": FieldTypes.Currency,
+  "Boolean": FieldTypes.Boolean,
+  "DateUtc": FieldTypes.DateUtc,
+  "DateNoUtc": FieldTypes.DateNoUtc,
+  "DateTime": FieldTypes.DateTime,
+  "Time": FieldTypes.Time,
+  "File": FieldTypes.File,
+});
+
 class TemplateFieldAutocomplete {
   final String? name;
   final List<TemplateAutocompleteFieldMapping>? inputs;
@@ -515,6 +597,9 @@ class TemplateFieldAutocomplete {
     this.name,
     this.inputs,
   });
+
+  String get pNamename => "name";
+  String get pNameinputs => "inputs";
 
   TemplateFieldAutocomplete copyWith({
     String? name,
@@ -552,6 +637,9 @@ class TemplateAutocompleteFieldMapping {
     this.autocompleteFieldName,
   });
 
+  String get pNamefieldId => "fieldId";
+  String get pNameautocompleteFieldName => "autocompleteFieldName";
+
   TemplateAutocompleteFieldMapping copyWith({
     String? fieldId,
     String? autocompleteFieldName,
@@ -584,11 +672,14 @@ class Item {
     this.label,
   });
 
-  final String? key;
+  final dynamic key;
   final String? label;
 
+  String get pNamekey => "key";
+  String get pNamelabel => "label";
+
   Item copyWith({
-    String? key,
+    dynamic key,
     String? label,
   }) =>
       Item(
@@ -637,6 +728,18 @@ class Validator {
   final String? dateValueType;
   final String? regex;
   final List<String>? extensions;
+
+  String get pNametype => "type";
+  String get pNamerequired => "required";
+  String get pNamenumOfDecimals => "numOfDecimals";
+  String get pNamenumber => "number";
+  String get pNamedate => "date";
+  String get pNameinclude => "include";
+  String get pNamelength => "length";
+  String get pNamedateValue => "dateValue";
+  String get pNamedateValueType => "dateValueType";
+  String get pNameregex => "regex";
+  String get pNameextensions => "extensions";
 
   Validator copyWith({
     String? type,
@@ -704,6 +807,8 @@ class Step {
   });
 
   final List<String>? groupIds;
+
+  String get pNamegroupIds => "groupIds";
 
   Step copyWith({
     List<String>? groupIds,

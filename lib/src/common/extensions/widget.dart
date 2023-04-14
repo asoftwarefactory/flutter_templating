@@ -10,6 +10,10 @@ extension ExtWidget on Widget {
     return SizedBox.expand(child: this);
   }
 
+  Widget expandIntoColumnOrRow() {
+    return Expanded(child: this);
+  }
+
   Widget list() {
     return SingleChildScrollView(child: this);
   }
@@ -21,16 +25,26 @@ extension ExtWidget on Widget {
     );
   }
 
+  Widget sized({
+    double? width,
+    double? height,
+  }) {
+    return SizedBox(width: width, height: height, child: this);
+  }
+
   Widget border({
+    bool Function()? borderIf,
     double radius = 0.0,
     Color borderColor = Colors.black,
     double borderSize = 1,
   }) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-        border: Border.all(color: borderColor, width: borderSize),
-      ),
+      decoration: (borderIf?.call() ?? true)
+          ? BoxDecoration(
+              borderRadius: BorderRadius.circular(radius),
+              border: Border.all(color: borderColor, width: borderSize),
+            )
+          : null,
       child: this,
     );
   }

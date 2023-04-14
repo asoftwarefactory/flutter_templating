@@ -6,6 +6,8 @@
 
 import 'dart:convert';
 
+import 'package:uuid/uuid.dart';
+
 Template templateFromJson(String str) => Template.fromJson(json.decode(str));
 
 String templateToJson(Template data) => json.encode(data.toJson());
@@ -37,23 +39,23 @@ class Template {
   final List<Section>? sections;
   final List<EnabledIfRule>? enabledIfRules;
   final List<DataProvider>? dataProviders;
-  final List<Step>? steps;
+  final List<TemplateStep>? steps;
   final String? name;
-  final String? migrationType;
+  final TemplateMigrationTypes? migrationType;
 
-  String get pNameid => "id";
-  String get pNamegroupId => "groupId";
-  String get pNamecreatedAt => "createdAt";
-  String get pNameisValid => "isValid";
-  String get pNamescopes => "scopes";
-  String get pNamenames => "names";
-  String get pNamedescriptions => "descriptions";
-  String get pNamesections => "sections";
-  String get pNameenabledIfRules => "enabledIfRules";
-  String get pNamedataProviders => "dataProviders";
-  String get pNamesteps => "steps";
-  String get pNamename => "name";
-  String get pNamemigrationType => "migrationType";
+  static String get pNameid => "id";
+  static String get pNamegroupId => "groupId";
+  static String get pNamecreatedAt => "createdAt";
+  static String get pNameisValid => "isValid";
+  static String get pNamescopes => "scopes";
+  static String get pNamenames => "names";
+  static String get pNamedescriptions => "descriptions";
+  static String get pNamesections => "sections";
+  static String get pNameenabledIfRules => "enabledIfRules";
+  static String get pNamedataProviders => "dataProviders";
+  static String get pNamesteps => "steps";
+  static String get pNamename => "name";
+  static String get pNamemigrationType => "migrationType";
 
   Template copyWith({
     String? id,
@@ -66,9 +68,9 @@ class Template {
     List<Section>? sections,
     List<EnabledIfRule>? enabledIfRules,
     List<DataProvider>? dataProviders,
-    List<Step>? steps,
+    List<TemplateStep>? steps,
     String? name,
-    String? migrationType,
+    TemplateMigrationTypes? migrationType,
   }) =>
       Template(
         id: id ?? this.id,
@@ -118,9 +120,9 @@ class Template {
                 json["dataProviders"]!.map((x) => DataProvider.fromJson(x))),
         steps: json["steps"] == null
             ? []
-            : List<Step>.from(json["steps"]!.map((x) => Step.fromJson(x))),
+            : List<TemplateStep>.from(json["steps"]!.map((x) => TemplateStep.fromJson(x))),
         name: json["name"],
-        migrationType: json["migrationType"],
+        migrationType: templateMigrationTypesValues.map[json["migrationType"]],
       );
 
   Map<String, dynamic> toJson() => {
@@ -149,7 +151,7 @@ class Template {
             ? []
             : List<dynamic>.from(steps!.map((x) => x.toJson())),
         "name": name,
-        "migrationType": migrationType,
+        "migrationType": templateMigrationTypesValues.reverse[migrationType],
       };
 }
 
@@ -172,13 +174,13 @@ class DataProvider {
   final List<Put>? outputs;
   final String? sectionChildId;
 
-  String get pNameid => "id";
-  String get pNamename => "name";
-  String get pNametype => "type";
-  String get pNamedataProviderName => "dataProviderName";
-  String get pNameinputs => "inputs";
-  String get pNameoutputs => "outputs";
-  String get pNamesectionChildId => "sectionChildId";
+  static String get pNameid => "id";
+  static String get pNamename => "name";
+  static String get pNametype => "type";
+  static String get pNamedataProviderName => "dataProviderName";
+  static String get pNameinputs => "inputs";
+  static String get pNameoutputs => "outputs";
+  static String get pNamesectionChildId => "sectionChildId";
 
   DataProvider copyWith({
     String? id,
@@ -236,8 +238,8 @@ class Put {
   final String? fieldId;
   final String? dataProviderFieldName;
 
-  String get pNamefieldId => "fieldId";
-  String get pNamedataProviderFieldName => "dataProviderFieldName";
+  static String get pNamefieldId => "fieldId";
+  static String get pNamedataProviderFieldName => "dataProviderFieldName";
 
   Put copyWith({
     String? fieldId,
@@ -269,8 +271,8 @@ class Description {
   final Culture? culture;
   final String? label;
 
-  String get pNameculture => "culture";
-  String get pNamelabel => "label";
+  static String get pNameculture => "culture";
+  static String get pNamelabel => "label";
 
   Description copyWith({
     Culture? culture,
@@ -307,11 +309,11 @@ class EnabledIfRule {
   final List<String>? groupIds;
   final List<String>? fieldIds;
 
-  String get pNameid => "id";
-  String get pNamename => "name";
-  String get pNameconditions => "conditions";
-  String get pNamegroupIds => "groupIds";
-  String get pNamefieldIds => "fieldIds";
+  static String get pNameid => "id";
+  static String get pNamename => "name";
+  static String get pNameconditions => "conditions";
+  static String get pNamegroupIds => "groupIds";
+  static String get pNamefieldIds => "fieldIds";
 
   EnabledIfRule copyWith({
     String? id,
@@ -367,9 +369,9 @@ class Condition {
   final String? constraint;
   final List<String>? values;
 
-  String get pNamefieldId => "fieldId";
-  String get pNameconstraint => "constraint";
-  String get pNamevalues => "values";
+  static String get pNamefieldId => "fieldId";
+  static String get pNameconstraint => "constraint";
+  static String get pNamevalues => "values";
 
   Condition copyWith({
     String? fieldId,
@@ -433,7 +435,7 @@ class Section {
   final FieldTypes? fieldType;
   final bool? isArray;
   final String? defaultValue;
-  final List<Validator>? validators;
+  final List<SectionValidator>? validators;
   final List<Item>? items;
   final bool? multiple;
   final List<Section>? children;
@@ -441,23 +443,23 @@ class Section {
   final String? workflowFieldId;
   final TemplateFieldAutocomplete? autocomplete;
 
-  String get pNameid => "id";
-  String get pNamename => "name";
-  String get pNamesearchable => "searchable";
-  String get pNamenames => "names";
-  String get pNamedescriptions => "descriptions";
-  String get pNamehidden => "hidden";
-  String get pNamereadonly => "readonly";
-  String get pNamefieldType => "fieldType";
-  String get pNameisArray => "isArray";
-  String get pNamedefaultValue => "defaultValue";
-  String get pNamevalidators => "validators";
-  String get pNameitems => "items";
-  String get pNamemultiple => "multiple";
-  String get pNamechildren => "children";
-  String get pNametype => "type";
-  String get pNameworkflowFieldId => "workflowFieldId";
-  String get pNameautocomplete => "autocomplete";
+  static String get pNameid => "id";
+  static String get pNamename => "name";
+  static String get pNamesearchable => "searchable";
+  static String get pNamenames => "names";
+  static String get pNamedescriptions => "descriptions";
+  static String get pNamehidden => "hidden";
+  static String get pNamereadonly => "readonly";
+  static String get pNamefieldType => "fieldType";
+  static String get pNameisArray => "isArray";
+  static String get pNamedefaultValue => "defaultValue";
+  static String get pNamevalidators => "validators";
+  static String get pNameitems => "items";
+  static String get pNamemultiple => "multiple";
+  static String get pNamechildren => "children";
+  static String get pNametype => "type";
+  static String get pNameworkflowFieldId => "workflowFieldId";
+  static String get pNameautocomplete => "autocomplete";
 
   Section copyWith({
     String? id,
@@ -470,7 +472,7 @@ class Section {
     FieldTypes? fieldType,
     bool? isArray,
     String? defaultValue,
-    List<Validator>? validators,
+    List<SectionValidator>? validators,
     List<Item>? items,
     bool? multiple,
     List<Section>? children,
@@ -517,8 +519,8 @@ class Section {
         defaultValue: json["defaultValue"],
         validators: json["validators"] == null
             ? []
-            : List<Validator>.from(
-                json["validators"]!.map((x) => Validator.fromJson(x))),
+            : List<SectionValidator>.from(
+                json["validators"]!.map((x) => SectionValidator.fromJson(x))),
         items: json["items"] == null
             ? []
             : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
@@ -598,8 +600,8 @@ class TemplateFieldAutocomplete {
     this.inputs,
   });
 
-  String get pNamename => "name";
-  String get pNameinputs => "inputs";
+  static String get pNamename => "name";
+  static String get pNameinputs => "inputs";
 
   TemplateFieldAutocomplete copyWith({
     String? name,
@@ -637,8 +639,8 @@ class TemplateAutocompleteFieldMapping {
     this.autocompleteFieldName,
   });
 
-  String get pNamefieldId => "fieldId";
-  String get pNameautocompleteFieldName => "autocompleteFieldName";
+  static String get pNamefieldId => "fieldId";
+  static String get pNameautocompleteFieldName => "autocompleteFieldName";
 
   TemplateAutocompleteFieldMapping copyWith({
     String? fieldId,
@@ -675,8 +677,8 @@ class Item {
   final dynamic key;
   final String? label;
 
-  String get pNamekey => "key";
-  String get pNamelabel => "label";
+  static String get pNamekey => "key";
+  static String get pNamelabel => "label";
 
   Item copyWith({
     dynamic key,
@@ -702,8 +704,8 @@ enum Type { GROUP, FIELD }
 
 final typeValues = EnumValues({"Field": Type.FIELD, "Group": Type.GROUP});
 
-class Validator {
-  Validator({
+class SectionValidator {
+  SectionValidator({
     this.type,
     this.required,
     this.numOfDecimals,
@@ -729,19 +731,19 @@ class Validator {
   final String? regex;
   final List<String>? extensions;
 
-  String get pNametype => "type";
-  String get pNamerequired => "required";
-  String get pNamenumOfDecimals => "numOfDecimals";
-  String get pNamenumber => "number";
-  String get pNamedate => "date";
-  String get pNameinclude => "include";
-  String get pNamelength => "length";
-  String get pNamedateValue => "dateValue";
-  String get pNamedateValueType => "dateValueType";
-  String get pNameregex => "regex";
-  String get pNameextensions => "extensions";
+  static String get pNametype => "type";
+  static String get pNamerequired => "required";
+  static String get pNamenumOfDecimals => "numOfDecimals";
+  static String get pNamenumber => "number";
+  static String get pNamedate => "date";
+  static String get pNameinclude => "include";
+  static String get pNamelength => "length";
+  static String get pNamedateValue => "dateValue";
+  static String get pNamedateValueType => "dateValueType";
+  static String get pNameregex => "regex";
+  static String get pNameextensions => "extensions";
 
-  Validator copyWith({
+  SectionValidator copyWith({
     String? type,
     bool? required,
     int? numOfDecimals,
@@ -754,7 +756,7 @@ class Validator {
     String? regex,
     List<String>? extensions,
   }) =>
-      Validator(
+      SectionValidator(
         type: type ?? this.type,
         required: required ?? this.required,
         numOfDecimals: numOfDecimals ?? this.numOfDecimals,
@@ -768,7 +770,8 @@ class Validator {
         extensions: extensions ?? this.extensions,
       );
 
-  factory Validator.fromJson(Map<String, dynamic> json) => Validator(
+  factory SectionValidator.fromJson(Map<String, dynamic> json) =>
+      SectionValidator(
         type: json["type"],
         required: json["required"],
         numOfDecimals: json["numOfDecimals"],
@@ -801,23 +804,29 @@ class Validator {
       };
 }
 
-class Step {
-  Step({
+class TemplateStep {
+  TemplateStep({
     this.groupIds,
-  });
+  }) {
+    _id = const Uuid().v1();
+  }
+
+  // not implemented by the server
+  late final String _id;
 
   final List<String>? groupIds;
 
-  String get pNamegroupIds => "groupIds";
+  static String get pNameid => "id";
+  static String get pNamegroupIds => "groupIds";
 
-  Step copyWith({
+  TemplateStep copyWith({
     List<String>? groupIds,
   }) =>
-      Step(
+      TemplateStep(
         groupIds: groupIds ?? this.groupIds,
       );
 
-  factory Step.fromJson(Map<String, dynamic> json) => Step(
+  factory TemplateStep.fromJson(Map<String, dynamic> json) => TemplateStep(
         groupIds: json["groupIds"] == null
             ? []
             : List<String>.from(json["groupIds"]!.map((x) => x)),
@@ -827,7 +836,19 @@ class Step {
         "groupIds":
             groupIds == null ? [] : List<dynamic>.from(groupIds!.map((x) => x)),
       };
+
+  String get id {
+    return _id;
+  }
 }
+
+enum TemplateMigrationTypes { Disabled, Permissive, Restrictive }
+
+final templateMigrationTypesValues = EnumValues({
+  "Disabled": TemplateMigrationTypes.Disabled,
+  "Permissive": TemplateMigrationTypes.Permissive,
+  "Restrictive": TemplateMigrationTypes.Restrictive
+});
 
 class EnumValues<T> {
   Map<String, T> map;

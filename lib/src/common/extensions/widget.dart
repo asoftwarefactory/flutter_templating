@@ -33,13 +33,13 @@ extension ExtWidget on Widget {
   }
 
   Widget border({
-    bool Function()? borderIf,
+    bool enable = true,
     double radius = 0.0,
     Color borderColor = Colors.black,
     double borderSize = 1,
   }) {
     return Container(
-      decoration: (borderIf?.call() ?? true)
+      decoration: enable
           ? BoxDecoration(
               borderRadius: BorderRadius.circular(radius),
               border: Border.all(color: borderColor, width: borderSize),

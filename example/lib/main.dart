@@ -3,7 +3,7 @@ import 'package:flutter_templating/flutter_templating.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(FlutterTemplating(child: const MyApp())); // initialize FlutterTemplating package - required
 }
 
 class MyApp extends StatelessWidget {

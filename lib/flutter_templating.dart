@@ -21,6 +21,7 @@ export 'src/common/models/template.dart';
 // WIDGETS
 export 'src/common/widgets/core_template_widget.dart';
 // export 'src/common/widgets/field.dart';
+export 'src/common/widgets/flutter_templating.dart';
 // export 'src/common/widgets/section_step_title_widget.dart';
 // export 'src/common/widgets/section_step_widget.dart';
 // export 'src/common/widgets/template_multistepper_widget.dart';

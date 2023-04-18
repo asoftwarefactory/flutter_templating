@@ -6,6 +6,7 @@ class FlutterTemplating extends InheritedWidget {
     super.key,
     required Widget child,
   }) : super(
+            // TODO : (ProviderScope) check if it creates any problem, with riverpod used outside the library
             child: ProviderScope(
                 child:
                     child)); // riverpod initialize, package depends on riverpod

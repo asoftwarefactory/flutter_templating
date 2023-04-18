@@ -4,8 +4,8 @@ import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
 import 'template_multistepper_widget.dart';
 
-class CoreTemplateWidget extends StatelessWidget {
-  const CoreTemplateWidget({super.key, required this.template});
+class CoreTemplateRenderWidget extends StatelessWidget {
+  const CoreTemplateRenderWidget({super.key, required this.template});
   final Template template;
   @override
   Widget build(BuildContext context) {

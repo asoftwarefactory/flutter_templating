@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
+import '../utils/app_sizes.dart';
 import 'template_stepper_widget.dart';
 
 class CoreTemplateRenderWidget extends StatelessWidget {
@@ -28,7 +30,15 @@ class TemplateContainerWidget extends StatelessWidget {
     return Card(
       child: Column(
         children: [
-          if (template.name != null) buildTitleTemplate(template.name!),
+          Column(children: [
+            if (template.names != null)
+              AutoSizeText(
+                  template.names!.getDescriptionLabelTranslated(context) ?? ''),
+            if (template.descriptions != null)
+              AutoSizeText(template.descriptions!
+                      .getDescriptionLabelTranslated(context) ??
+                  ''),
+          ]),
           TemplateStepperWidget(
             formGroupTemplate:
                 FormGroupExt.createFormGroupFromTemplateJSON(template),
@@ -39,8 +49,9 @@ class TemplateContainerWidget extends StatelessWidget {
     );
   }
 
-  Widget buildTitleTemplate(String name) {
-    return Row(children: [AutoSizeText(name).expandIntoColumnOrRow()])
-        .margin(const EdgeInsets.symmetric(vertical: 10));
+  Widget buildTitleTemplate(String title, {String? description}) {
+    return Row(children: [
+      AutoSizeText(title).expandIntoColumnOrRow(),
+    ]).margin(const EdgeInsets.symmetric(vertical: Sizes.p12));
   }
 }

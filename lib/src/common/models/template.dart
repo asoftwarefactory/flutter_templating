@@ -120,7 +120,8 @@ class Template {
                 json["dataProviders"]!.map((x) => DataProvider.fromJson(x))),
         steps: json["steps"] == null
             ? []
-            : List<TemplateStep>.from(json["steps"]!.map((x) => TemplateStep.fromJson(x))),
+            : List<TemplateStep>.from(
+                json["steps"]!.map((x) => TemplateStep.fromJson(x))),
         name: json["name"],
         migrationType: templateMigrationTypesValues.map[json["migrationType"]],
       );
@@ -268,14 +269,14 @@ class Description {
     this.label,
   });
 
-  final Culture? culture;
+  final String? culture;
   final String? label;
 
   static String get pNameculture => "culture";
   static String get pNamelabel => "label";
 
   Description copyWith({
-    Culture? culture,
+    String? culture,
     String? label,
   }) =>
       Description(
@@ -284,12 +285,12 @@ class Description {
       );
 
   factory Description.fromJson(Map<String, dynamic> json) => Description(
-        culture: cultureValues.map[json["culture"]]!,
+        culture: json["culture"],
         label: json["label"],
       );
 
   Map<String, dynamic> toJson() => {
-        "culture": cultureValues.reverse[culture],
+        "culture": culture,
         "label": label,
       };
 }
@@ -400,9 +401,9 @@ class Condition {
       };
 }
 
-enum Culture { IT, EN }
+/* enum Culture { IT, EN }
 
-final cultureValues = EnumValues({"en": Culture.EN, "it": Culture.IT});
+final cultureValues = EnumValues({"en": Culture.EN, "it": Culture.IT}); */
 
 class Section {
   Section({

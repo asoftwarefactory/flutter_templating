@@ -1,8 +1,7 @@
-import 'package:collection/collection.dart';
 import '../models/template.dart';
 
 extension TemplateExt on Template {
-  List<Section> getSectionsFromTemplateStep(String templateStepId) {
+  /* List<Section> getSectionsFromTemplateStep(String templateStepId) {
     final currentStep = (steps ?? [])
         .firstWhereOrNull((element) => element.id == templateStepId);
 
@@ -22,5 +21,5 @@ extension TemplateExt on Template {
       sections.addAll(getSectionsFromTemplateStep(stepId));
     }
     return sections;
-  }
+  } */
 }

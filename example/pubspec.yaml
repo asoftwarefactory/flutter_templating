@@ -43,6 +43,7 @@ dependencies:
     path: ../
   flutter_localizations:
     sdk: flutter
+  flutter_dropzone: ^3.0.5
     
 dev_dependencies:
   flutter_test:

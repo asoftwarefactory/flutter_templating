@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       supportedLocales: const [
         Locale("en", "US"),
-        Locale("it"),
+        // Locale("it"),
       ],
       localizationsDelegates: const [
         // AppLocalizations.delegate,
@@ -32,19 +32,33 @@ class MyApp extends StatelessWidget {
       locale: const Locale("it"),
       title: "template app",
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const TemplateLoader(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class TemplateLoader extends StatelessWidget {
+  const TemplateLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: TemplatePage(
+        template: templateFromJson(jsonTemplate),
+      ),
+    );
+  }
+}
+
+class TemplatePage extends StatelessWidget {
+  final Template template;
+  const TemplatePage({super.key, required this.template});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: CoreTemplateRenderWidget(template: templateFromJson(jsonTemplate)),
+      body: CoreTemplateRenderWidget(template: template),
     );
   }
 }

@@ -16,7 +16,6 @@ extension ExtListDescription on List<Description> {
     Locale? locale,
   }) {
     final l = locale ?? getAppLocale(context);
-    debugPrint("current locale ${l.languageCode}");
     final currentDescription = _getDescription(l, this);
     if (currentDescription != null) {
       return currentDescription;

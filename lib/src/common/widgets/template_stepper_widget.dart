@@ -34,13 +34,13 @@ class TemplateStepperWidget extends StatelessWidget {
             return Row(
               children: <Widget>[
                 IconButton(
-                  icon: const Icon(Icons.arrow_downward_rounded),
-                  onPressed: details.onStepContinue,
+                  onPressed: details.onStepCancel,
+                  icon: const Icon(Icons.arrow_upward_rounded),
                 ),
                 gapW12,
                 IconButton(
-                  onPressed: details.onStepCancel,
-                  icon: const Icon(Icons.arrow_upward_rounded),
+                  icon: const Icon(Icons.arrow_downward_rounded),
+                  onPressed: details.onStepContinue,
                 ),
               ],
             ).createMargin(const EdgeInsets.symmetric(vertical: 0));
@@ -98,5 +98,3 @@ class TemplateStepperWidget extends StatelessWidget {
     );
   }
 }
-
-

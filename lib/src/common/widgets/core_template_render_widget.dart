@@ -28,19 +28,17 @@ class TemplateContainerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReactiveFormBuilder(
       form: () => _formGroup,
-      builder: (ctx, form, _) => LayoutBuilder(builder: (context, constraints) {
-        return Card(
-          child: Column(
-            children: [
-              _buildTemplateTitle(context),
-              TemplateStepperWidget(
-                formGroupTemplate: form,
-                template: template,
-              ).expandIntoColumnOrRow(),
-            ],
-          ),
-        ).createMargin(const EdgeInsets.all(Sizes.p4));
-      }),
+      builder: (ctx, form, _) => Card(
+        child: Column(
+          children: [
+            _buildTemplateTitle(context),
+            TemplateStepperWidget(
+              formGroupTemplate: form,
+              template: template,
+            ).expandIntoColumnOrRow(),
+          ],
+        ),
+      ).createMargin(const EdgeInsets.all(Sizes.p4)),
     );
   }
 

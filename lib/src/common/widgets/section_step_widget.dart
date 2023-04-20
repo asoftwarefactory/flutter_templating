@@ -6,7 +6,7 @@ import 'package:flutter_templating/src/common/utils/app_sizes.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import '../models/field.dart';
-import 'field.dart';
+import 'section_field_widget.dart';
 
 class SectionStepWidget extends StatelessWidget {
   const SectionStepWidget({
@@ -23,8 +23,7 @@ class SectionStepWidget extends StatelessWidget {
 
   Widget _buildField(BuildContext context) {
     if (section.type == Type.FIELD && section.fieldType != null) {
-      //
-      return FieldWidget(
+      return SectionFieldWidget(
         field: FieldModel(
           label: section.names?.getDescriptionLabelTranslated(context),
           type: section.fieldType!,

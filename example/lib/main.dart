@@ -5,8 +5,7 @@ import 'src/constants/json_template_mock.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(FlutterTemplating(
-      child: const MyApp())); // initialize FlutterTemplating package - required
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

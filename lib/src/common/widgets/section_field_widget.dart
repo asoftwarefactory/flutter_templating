@@ -3,10 +3,10 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../models/field.dart';
 import '../models/template.dart';
 
-class FieldWidget extends StatelessWidget {
+class SectionFieldWidget extends StatelessWidget {
   final FieldModel field;
 
-  const FieldWidget({super.key, required this.field});
+  const SectionFieldWidget({super.key, required this.field});
 
   @override
   Widget build(BuildContext context) {

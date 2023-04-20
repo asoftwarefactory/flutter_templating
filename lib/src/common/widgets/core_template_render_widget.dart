@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -12,10 +13,7 @@ class CoreTemplateRenderWidget extends StatelessWidget {
   final Template template;
   @override
   Widget build(BuildContext context) {
-    if (FlutterTemplating.of(context) == null) {
-      throw Exception("FlutterTemplating not initialized");
-    }
-    return TemplateContainerWidget(template: template);
+    return ProviderScope(child: TemplateContainerWidget(template: template));
   }
 }
 

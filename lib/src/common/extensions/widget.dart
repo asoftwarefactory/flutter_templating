@@ -14,8 +14,22 @@ extension ExtWidget on Widget {
     return Expanded(child: this);
   }
 
+  Widget row({bool center = false}) {
+    return Row(
+      mainAxisAlignment:
+          center ? MainAxisAlignment.center : MainAxisAlignment.start,
+      children: [
+        this,
+      ],
+    );
+  }
+
   Widget list() {
     return SingleChildScrollView(child: this);
+  }
+
+  Widget flexible() {
+    return Flexible(child: this);
   }
 
   Widget padding(EdgeInsetsGeometry padding) {
@@ -49,7 +63,7 @@ extension ExtWidget on Widget {
     );
   }
 
-  Widget margin(EdgeInsetsGeometry margin) {
+  Widget createMargin(EdgeInsetsGeometry margin) {
     return Container(
       margin: margin,
       child: this,

@@ -1,7 +1,11 @@
-class FieldModel {
-  final String name;
-  final String type;
-  final List<String>? options;
+import 'package:flutter_templating/src/common/models/template.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
-  FieldModel({required this.name, required this.type, this.options});
+class FieldModel {
+  final String? label;
+  final FieldTypes type;
+  
+  final FormControl formControl;
+
+  FieldModel({required this.formControl, this.label, required this.type});
 }

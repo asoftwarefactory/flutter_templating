@@ -21,6 +21,10 @@ version: 1.0.0+1
 environment:
   sdk: '>=2.19.6 <3.0.0'
 
+# to add because flutter_localizations uses intl ^0.17.0 and flutter_templating uses intl ^0.18.0
+dependency_overrides:
+  intl: ^0.17.0
+
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -37,7 +41,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_templating:
     path: ../
-
+  flutter_localizations:
+    sdk: flutter
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter

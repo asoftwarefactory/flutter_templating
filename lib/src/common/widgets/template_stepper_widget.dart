@@ -3,12 +3,13 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
+import 'package:flutter_templating/src/common/extensions/widget.dart';
+import 'package:flutter_templating/src/common/utils/app_sizes.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/template_step.dart';
 import 'package:flutter_templating/src/common/widgets/section_step_widget.dart';
-
-import '../utils/app_sizes.dart';
+import '../notifiers/indexed_notifier.dart';
 
 class TemplateStepperWidget extends StatelessWidget {
   final Template template;
@@ -24,12 +25,26 @@ class TemplateStepperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final templateStepperBuilderProvider =
-        StateNotifierProvider<_IndexedNotifier, int>(
-            (ref) => _IndexedNotifier());
+        StateNotifierProvider<IndexedNotifier, int>((ref) => IndexedNotifier());
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
         final index = ref.watch(templateStepperBuilderProvider);
         return Stepper(
+          controlsBuilder: (ctx, details) {
+            return Row(
+              children: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.arrow_downward_rounded),
+                  onPressed: details.onStepContinue,
+                ),
+                gapW12,
+                IconButton(
+                  onPressed: details.onStepCancel,
+                  icon: const Icon(Icons.arrow_upward_rounded),
+                ),
+              ],
+            ).createMargin(const EdgeInsets.symmetric(vertical: 0));
+          },
           onStepCancel: () {
             if (index > 0) {
               return ref
@@ -51,49 +66,35 @@ class TemplateStepperWidget extends StatelessWidget {
           steps: template.steps?.map((step) {
                 final sectionsFromStep =
                     step.getSectionsFromStep(template.sections ?? []);
-                final sections = <Section>[];
                 return Step(
+                  state: StepState.indexed,
                   content: Column(
                     children: sectionsFromStep.map((section) {
-                      sections.add(section);
                       return SectionStepWidget(
                         formGroupTemplate: formGroupTemplate,
                         section: section,
                       );
                     }).toList(),
                   ),
-                  title: Column(
-                    children: [
-                      AutoSizeText(sections.lastOrNull?.names
-                              ?.getDescriptionLabelTranslated(context) ??
-                          ""),
-                      gapH12,
-                      AutoSizeText(sections.lastOrNull?.descriptions
-                              ?.getDescriptionLabelTranslated(context) ??
-                          ""),
-                    ],
-                  ),
+                  title: AutoSizeText(
+                    sectionsFromStep.firstOrNull?.names
+                            ?.getDescriptionLabelTranslated(context) ??
+                        "",
+                    maxLines: 10,
+                    overflow: TextOverflow.ellipsis,
+                  ).flexible().padding(const EdgeInsets.all(Sizes.p4)),
+                  subtitle: AutoSizeText(
+                    sectionsFromStep.firstOrNull?.descriptions
+                            ?.getDescriptionLabelTranslated(context) ??
+                        "",
+                    maxLines: 10,
+                    overflow: TextOverflow.ellipsis,
+                  ).flexible().padding(const EdgeInsets.all(Sizes.p4)),
                 );
               }).toList() ??
               <Step>[],
-        );
+        ).createMargin(const EdgeInsets.all(Sizes.p4));
       },
     );
-  }
-}
-
-class _IndexedNotifier extends StateNotifier<int> {
-  _IndexedNotifier({int index = 0}) : super(index);
-
-  void increment() {
-    state += 1;
-  }
-
-  void decrement() {
-    state -= 1;
-  }
-
-  void set(int index) {
-    state = index;
   }
 }

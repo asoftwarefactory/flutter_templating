@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../models/template.dart';
 
@@ -188,5 +189,19 @@ extension FormGroupExt on FormGroup {
                 []),
       }),
     });
+  }
+
+  FormGroup? getFormGroupFromSection(Section section) {
+    final sectionLabel = Template.pNamesections;
+    final sectionControls = control(sectionLabel);
+
+    if (sectionControls is FormArray) {
+      return sectionControls.controls.firstWhereOrNull((element) {
+        final id = element.value[Section.pNameid];
+        return id == section.id;
+      }) as FormGroup?;
+    } else {
+      throw Exception("sectionControls as not FormArray");
+    }
   }
 }

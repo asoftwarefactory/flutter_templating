@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'src/constants/json_template_mock.dart';
 
@@ -16,10 +17,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         cardTheme: const CardTheme(
-          elevation: 4,
+          elevation: 10,
           color: Colors.white,
         ),
       ),
+      supportedLocales: const [
+        Locale("en", "US"),
+        Locale("it"),
+      ],
+      localizationsDelegates: const [
+        // AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      locale: const Locale("it"),
       title: "template app",
       debugShowCheckedModeBanner: false,
       home: const HomePage(),

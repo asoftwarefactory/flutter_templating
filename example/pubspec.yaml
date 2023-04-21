@@ -46,6 +46,7 @@ dependencies:
   flutter_dropzone: ^3.0.5
   shared_preferences: ^2.1.0
   url_strategy: ^0.2.0
+  easy_localization: ^3.0.1
     
 dev_dependencies:
   flutter_test:
@@ -77,7 +78,8 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
+  assets:
+    - assets/translations/
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

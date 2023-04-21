@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'src/common/errors/register_error_handlers.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   registerErrorHandlers();
   setPathUrlStrategy();
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      fallbackLocale: const Locale('en', 'US'),
+      path: 'assets/translations',
+      supportedLocales: const [
+        Locale("en", "US"),
+        Locale("it"),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,16 +30,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      supportedLocales: const [
-        Locale("en", "US"),
-        Locale("it", "IT"),
-      ],
-      localizationsDelegates: const [
-        // AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      locale: const Locale("it"),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       title: "template app",
       theme: ThemeData(
         cardTheme: const CardTheme(
@@ -128,9 +133,8 @@ class _TemplateLoaderState extends State<TemplateLoader> {
       widget.changeTemplate?.call(_template!);
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(_templateStorageKey, value);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
   @override
@@ -183,8 +187,6 @@ class _TemplateLoaderState extends State<TemplateLoader> {
     return const SizedBox();
   }
 }
-
-
 
 /* 
 class CustomCodeInputWidget extends StatefulWidget {

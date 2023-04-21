@@ -50,14 +50,14 @@ class TemplateContainerWidget extends StatelessWidget {
           maxLines: 10,
           overflow: TextOverflow.ellipsis,
           minFontSize: Sizes.p20,
-        ).flexible().row().padding(const EdgeInsets.all(Sizes.p4)),
+        ).row().padding(const EdgeInsets.all(Sizes.p4)),
       if (template.descriptions != null)
         AutoSizeText(
           template.descriptions!.getDescriptionLabelTranslated(context) ?? '',
           maxLines: 10,
           overflow: TextOverflow.ellipsis,
           minFontSize: Sizes.p16,
-        ).flexible().row().padding(const EdgeInsets.all(Sizes.p4)),
+        ).row().padding(const EdgeInsets.all(Sizes.p4)),
     ]);
   }
 }

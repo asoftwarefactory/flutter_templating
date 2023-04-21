@@ -82,17 +82,17 @@ class TemplateStepperWidget extends StatelessWidget {
                         "",
                     maxLines: 10,
                     overflow: TextOverflow.ellipsis,
-                  ).flexible().padding(const EdgeInsets.all(Sizes.p4)),
+                  ).padding(const EdgeInsets.all(Sizes.p4)),
                   subtitle: AutoSizeText(
                     sectionsFromStep.firstOrNull?.descriptions
                             ?.getDescriptionLabelTranslated(context) ??
                         "",
                     maxLines: 10,
                     overflow: TextOverflow.ellipsis,
-                  ).flexible().padding(const EdgeInsets.all(Sizes.p4)),
+                  ).padding(const EdgeInsets.all(Sizes.p4)),
                 );
               }).toList() ??
-              <Step>[],
+              <Step>[const Step(content: SizedBox(), title: SizedBox())],
         ).createMargin(const EdgeInsets.all(Sizes.p4));
       },
     );

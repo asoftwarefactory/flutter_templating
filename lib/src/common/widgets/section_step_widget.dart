@@ -39,7 +39,7 @@ class SectionStepWidget extends StatelessWidget {
               minFontSize: Sizes.p20,
               maxLines: 10,
               overflow: TextOverflow.ellipsis,
-            ).flexible().row().padding(const EdgeInsets.all(Sizes.p4)),
+            ).row().padding(const EdgeInsets.all(Sizes.p4)),
             if (section.descriptions != null) gapH4,
             if (section.descriptions != null)
               AutoSizeText(
@@ -48,7 +48,7 @@ class SectionStepWidget extends StatelessWidget {
                 maxLines: 10,
                 minFontSize: Sizes.p16,
                 overflow: TextOverflow.ellipsis,
-              ).flexible().row().padding(const EdgeInsets.all(Sizes.p4)),
+              ).row().padding(const EdgeInsets.all(Sizes.p4)),
             gapH4,
             ...section.children?.map((e) {
                   return SectionStepWidget(

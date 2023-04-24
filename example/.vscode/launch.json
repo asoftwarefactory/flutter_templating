@@ -19,6 +19,11 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
-        }
+        }, {
+            "name": "example 1",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_1.dart"
+        },
     ]
 }

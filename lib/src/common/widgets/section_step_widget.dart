@@ -5,7 +5,6 @@ import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:flutter_templating/src/common/utils/app_sizes.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
-import '../models/field.dart';
 import 'section_field_widget.dart';
 
 class SectionStepWidget extends StatelessWidget {
@@ -22,13 +21,10 @@ class SectionStepWidget extends StatelessWidget {
   }
 
   Widget _buildField(BuildContext context) {
-    if (section.type == Type.FIELD && section.fieldType != null) {
+    if (section.type == Type.FIELD) {
       return SectionFieldWidget(
-        field: FieldModel(
-          label: section.names?.getDescriptionLabelTranslated(context),
-          type: section.fieldType!,
-          formControl: FormControl(),
-        ),
+        section: section,
+        formGroup: formGroupTemplate,
       ).createMargin(const EdgeInsets.all(Sizes.p4));
     } else if (section.type == Type.GROUP) {
       return Card(

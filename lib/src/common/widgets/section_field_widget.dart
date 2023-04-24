@@ -1,68 +1,127 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import '../models/field.dart';
+import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import '../models/template.dart';
 
-class SectionFieldWidget extends StatelessWidget {
-  final FieldModel field;
+class SectionFieldWidget extends StatefulWidget {
+  final Section section;
+  final FormGroup formGroup;
+  const SectionFieldWidget({
+    Key? key,
+    required this.section,
+    required this.formGroup,
+  }) : super(key: key);
 
-  const SectionFieldWidget({super.key, required this.field});
+  @override
+  State<SectionFieldWidget> createState() => _SectionFieldWidgetState();
+}
+
+class _SectionFieldWidgetState extends State<SectionFieldWidget> {
+  final FormControl _control = FormControl();
+  @override
+  void initState() {
+    if (widget.section.id == null) {
+      throw Exception("section id null");
+    } else {
+      widget.formGroup.addAll({widget.section.id!: _control});
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    switch (field.type) {
+    if (widget.section.isArray == true) {
+      return buildMultipleChild();
+    } else {
+      return buildSimpleChild();
+    }
+  }
+
+  // es TextField
+  Widget buildSimpleChild() {
+    switch (widget.section.fieldType) {
       case FieldTypes.String:
         return ReactiveTextField(
+          readOnly: widget.section.readonly ?? false,
           decoration: InputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: Text(field.label ?? ''),
-            hintText: field.label,
+            label: Text(
+                widget.section.names?.getDescriptionLabelTranslated(context) ??
+                    ''),
+            hintText:
+                widget.section.names?.getDescriptionLabelTranslated(context) ??
+                    '',
             border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(5.0),
               ),
             ),
-            helperText: '',
-            // suffixIcon: const Icon(Icons.calendar_today),
           ),
-          /*  decoration: InputDecoration(
-            labelText: field.label,
-          ), */
-          formControl: field.formControl,
+          formControl: _control,
         );
-
-      /* case 'number':
-        return TextFormField(
-          decoration: InputDecoration(
-            labelText: field.name,
-          ),
+      case FieldTypes.Integer:
+        return ReactiveTextField(
+          readOnly: widget.section.readonly ?? false,
           keyboardType: TextInputType.number,
-          // onSaved: (value) => onSaved(field.name, value),
-        );
-      case 'email':
-        return TextFormField(
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
-            labelText: field.name,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            label: Text(
+                widget.section.names?.getDescriptionLabelTranslated(context) ??
+                    ''),
+            hintText:
+                widget.section.names?.getDescriptionLabelTranslated(context) ??
+                    '',
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.0),
+              ),
+            ),
           ),
-          keyboardType: TextInputType.emailAddress,
-          onSaved: (value) => onSaved(field.name, value),
+          formControl: _control,
         );
-      case 'password':
-        return TextFormField(
+      case FieldTypes.Decimal:
+        return ReactiveTextField(
+          readOnly: widget.section.readonly ?? false,
+          keyboardType: const TextInputType.numberWithOptions(
+              decimal: true, signed: false),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+            TextInputFormatter.withFunction((oldValue, newValue) {
+              try {
+                final text = newValue.text;
+                if (text.isNotEmpty) double.parse(text);
+                return newValue;
+              // ignore: empty_catches
+              } catch (e) {}
+              return oldValue;
+            }),
+          ],
           decoration: InputDecoration(
-            labelText: field.name,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            label: Text(
+                widget.section.names?.getDescriptionLabelTranslated(context) ??
+                    ''),
+            hintText:
+                widget.section.names?.getDescriptionLabelTranslated(context) ??
+                    '',
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.0),
+              ),
+            ),
           ),
-          obscureText: true,
-          onSaved: (value) => onSaved(field.name, value),
+          formControl: _control,
         );
-      case 'checkbox':
-        return CheckboxListTile(
-          title: Text(field.name),
-          value: false,
-          onChanged: (value) => onSaved(field.name, value),
-        ); */
       default:
         return const SizedBox();
     }
+  }
+
+  // es Array String Build dropdown String
+  Widget buildMultipleChild() {
+    return const SizedBox();
   }
 }

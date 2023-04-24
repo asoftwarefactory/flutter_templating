@@ -21,21 +21,24 @@ class TemplateContainerWidget extends StatelessWidget {
   final Template template;
   TemplateContainerWidget({Key? key, required this.template}) : super(key: key);
 
-  late final _formGroup =
-      FormGroupExt.createFormGroupFromTemplateJSON(template);
+  late final _formGroup = FormGroup({});
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveFormBuilder(
-      form: () => _formGroup,
-      builder: (ctx, form, _) => Card(
+    return ReactiveForm(
+      formGroup: _formGroup,
+      child: Card(
         child: Column(
           children: [
             _buildTemplateTitle(context),
-            TemplateStepperWidget(
-              formGroupTemplate: form,
-              template: template,
-            ).expandIntoColumnOrRow(),
+            Builder(
+              builder: (context) {
+                return TemplateStepperWidget(
+                  formGroupTemplate: _formGroup,
+                  template: template,
+                ).expandIntoColumnOrRow();
+              },
+            ),
           ],
         ),
       ).createMargin(const EdgeInsets.all(Sizes.p4)),

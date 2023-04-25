@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_templating/src/common/widgets/inputs/string_input_widget.dart';
+import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import '../models/template.dart';
+import 'inputs/bool_switch_input_widget.dart';
+import 'inputs/currency_input_widget.dart';
+import 'inputs/date_time_input_widget.dart';
+import 'inputs/decimal_input_widget.dart';
+import 'inputs/file_input_widget.dart';
+import 'inputs/int_input_widget.dart';
 
-class SectionFieldWidget extends StatefulWidget {
+class SectionFieldWidget extends StatelessWidget {
   final Section section;
   final FormGroup formGroup;
+
   const SectionFieldWidget({
-    Key? key,
+    super.key,
     required this.section,
     required this.formGroup,
-  }) : super(key: key);
+  });
 
-  @override
-  State<SectionFieldWidget> createState() => _SectionFieldWidgetState();
-}
-
-class _SectionFieldWidgetState extends State<SectionFieldWidget> {
-  final FormControl _control = FormControl();
-  @override
-  void initState() {
-    if (widget.section.id == null) {
+  void _addFormControlToFormGroup(FormControl control) {
+    if (section.id == null) {
       throw Exception("section id null");
     } else {
-      widget.formGroup.addAll({widget.section.id!: _control});
+      if (formGroup.contains(section.id!) == false) {
+        formGroup.addAll({section.id!: control});
+      }
     }
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.section.isArray == true) {
+    if (section.isArray == true) {
       return buildMultipleChild();
     } else {
       return buildSimpleChild();
@@ -41,79 +41,68 @@ class _SectionFieldWidgetState extends State<SectionFieldWidget> {
 
   // es TextField
   Widget buildSimpleChild() {
-    switch (widget.section.fieldType) {
+    switch (section.fieldType) {
       case FieldTypes.String:
-        return ReactiveTextField(
-          readOnly: widget.section.readonly ?? false,
-          decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: Text(
-                widget.section.names?.getDescriptionLabelTranslated(context) ??
-                    ''),
-            hintText:
-                widget.section.names?.getDescriptionLabelTranslated(context) ??
-                    '',
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.0),
-              ),
-            ),
-          ),
-          formControl: _control,
+        final control = FormControl<String>();
+        _addFormControlToFormGroup(control);
+        return StringInputWidget(
+          control: control,
+          section: section,
         );
       case FieldTypes.Integer:
-        return ReactiveTextField(
-          readOnly: widget.section.readonly ?? false,
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: Text(
-                widget.section.names?.getDescriptionLabelTranslated(context) ??
-                    ''),
-            hintText:
-                widget.section.names?.getDescriptionLabelTranslated(context) ??
-                    '',
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.0),
-              ),
-            ),
-          ),
-          formControl: _control,
+        final control = FormControl<int>();
+        _addFormControlToFormGroup(control);
+        return IntInputWidget(
+          control: control,
+          section: section,
         );
       case FieldTypes.Decimal:
-        return ReactiveTextField(
-          readOnly: widget.section.readonly ?? false,
-          keyboardType: const TextInputType.numberWithOptions(
-              decimal: true, signed: false),
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-            TextInputFormatter.withFunction((oldValue, newValue) {
-              try {
-                final text = newValue.text;
-                if (text.isNotEmpty) double.parse(text);
-                return newValue;
-              // ignore: empty_catches
-              } catch (e) {}
-              return oldValue;
-            }),
-          ],
-          decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            label: Text(
-                widget.section.names?.getDescriptionLabelTranslated(context) ??
-                    ''),
-            hintText:
-                widget.section.names?.getDescriptionLabelTranslated(context) ??
-                    '',
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.0),
-              ),
-            ),
-          ),
-          formControl: _control,
+        final control = FormControl<double>();
+        _addFormControlToFormGroup(control);
+        return DecimalInputWidget(
+          control: control,
+          section: section,
+        );
+      case FieldTypes.Currency:
+        final control = FormControl<double>();
+        _addFormControlToFormGroup(control);
+        return CurrencyInputWidget(
+          control: control,
+          section: section,
+        );
+      case FieldTypes.Boolean:
+        final control = FormControl<bool>();
+        _addFormControlToFormGroup(control);
+        return BoolSwitchInputWidget(
+          control: control,
+          section: section,
+        );
+
+      // DATES -----------------------------------------------------
+      case FieldTypes.DateUtc:
+        final control = FormControl<DateTime>();
+        _addFormControlToFormGroup(control);
+        return DateTimeInputWidget(control: control, section: section);
+      case FieldTypes.DateNoUtc:
+        final control = FormControl<DateTime>();
+        _addFormControlToFormGroup(control);
+        return DateTimeInputWidget(control: control, section: section);
+      case FieldTypes.DateTime:
+        final control = FormControl<DateTime>();
+        _addFormControlToFormGroup(control);
+        return DateTimeInputWidget(control: control, section: section);
+      case FieldTypes.Time:
+        final control = FormControl<DateTime>();
+        _addFormControlToFormGroup(control);
+        return DateTimeInputWidget(control: control, section: section);
+      // DATES ----------------------------------------------------- END
+
+      case FieldTypes.File:
+        final control = FormControl<MultiFile<String>>();
+        _addFormControlToFormGroup(control);
+        return FileInputWidget(
+          control: control,
+          section: section,
         );
       default:
         return const SizedBox();

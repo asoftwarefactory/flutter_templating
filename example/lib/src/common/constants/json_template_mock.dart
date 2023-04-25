@@ -1,8 +1,8 @@
 const jsonTemplate = """
 {
-    "id": "47",
+    "id": "50",
     "groupId": "17",
-    "createdAt": "2023-04-17T09:32:37.5344602Z",
+    "createdAt": "2023-04-25T15:04:47.4084174Z",
     "isValid": true,
     "scopes": [
         "Works"
@@ -126,6 +126,131 @@ const jsonTemplate = """
                     "readonly": false,
                     "fieldType": "String",
                     "isArray": true,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "cf954f61-c9f1-43fc-a366-59ce9c93b8de",
+                    "name": "test currency",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test currency"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test currency"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test currency"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test currency"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "Currency",
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [
+                        {
+                            "type": "DecimalNumbersValidator",
+                            "required": null,
+                            "numOfDecimals": 2,
+                            "number": null,
+                            "date": null,
+                            "include": null,
+                            "length": null,
+                            "dateValue": null,
+                            "dateValueType": null,
+                            "regex": null,
+                            "extensions": []
+                        }
+                    ],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "fbe2c855-93f3-4801-92da-c5e9aa286351",
+                    "name": "test file",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test file"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test file"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test file"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test file"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "File",
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "09e4cb53-cd48-4540-9d91-06d532facfba",
+                    "name": "test boolean",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test bool"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test bool"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test bool"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test bool"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "Boolean",
+                    "isArray": false,
                     "defaultValue": null,
                     "validators": [],
                     "items": [],

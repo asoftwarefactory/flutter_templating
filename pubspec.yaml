@@ -17,11 +17,18 @@ dependencies:
   # for dates manipulation
   jiffy: ^6.1.0
 
-  
+  # forms
   reactive_forms: ^14.3.0
+  reactive_raw_autocomplete: ^0.6.0
+  reactive_file_picker: ^0.12.0
+
+
   uuid: ^3.0.7
   collection: ^1.17.0
   auto_size_text: ^3.0.0
+  intl: ^0.18.1
+  universal_platform: ^1.0.0+1
+  
   
   
 

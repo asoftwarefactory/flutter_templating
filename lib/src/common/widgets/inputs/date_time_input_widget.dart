@@ -4,6 +4,7 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
 import '../../utils/app_sizes.dart';
+import '../custom_main_text.dart';
 
 class DateTimeInputWidget extends StatelessWidget {
   const DateTimeInputWidget({
@@ -28,7 +29,7 @@ class DateTimeInputWidget extends StatelessWidget {
               ),
             ),
             gapW12,
-            AutoSizeText(
+            CustomMainText(
                 section.names?.getDescriptionLabelTranslated(context) ?? ''),
           ],
         );

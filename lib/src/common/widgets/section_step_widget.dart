@@ -5,6 +5,7 @@ import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:flutter_templating/src/common/utils/app_sizes.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import 'custom_main_text.dart';
 import 'section_field_widget.dart';
 
 class SectionStepWidget extends StatelessWidget {
@@ -17,7 +18,12 @@ class SectionStepWidget extends StatelessWidget {
   final FormGroup formGroupTemplate;
   @override
   Widget build(BuildContext context) {
-    return _buildField(context);
+    // hidden Feature
+    if (section.hidden == true) {
+      return const SizedBox();
+    } else {
+      return _buildField(context);
+    }
   }
 
   Widget _buildField(BuildContext context) {
@@ -30,20 +36,14 @@ class SectionStepWidget extends StatelessWidget {
       return Card(
         child: Column(
           children: [
-            AutoSizeText(
+            CustomMainText(
               section.names?.getDescriptionLabelTranslated(context) ?? '',
-              minFontSize: Sizes.p20,
-              maxLines: 10,
-              overflow: TextOverflow.ellipsis,
             ).row().padding(const EdgeInsets.all(Sizes.p4)),
             if (section.descriptions != null) gapH4,
             if (section.descriptions != null)
-              AutoSizeText(
+              CustomMainText(
                 section.descriptions?.getDescriptionLabelTranslated(context) ??
                     '',
-                maxLines: 10,
-                minFontSize: Sizes.p16,
-                overflow: TextOverflow.ellipsis,
               ).row().padding(const EdgeInsets.all(Sizes.p4)),
             gapH4,
             ...section.children?.map((e) {

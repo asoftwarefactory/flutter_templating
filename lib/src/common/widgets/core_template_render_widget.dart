@@ -1,66 +1,64 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import '../../../flutter_templating.dart';
+import '../models/template_render_input.dart';
 import '../utils/app_sizes.dart';
 import 'template_stepper_widget.dart';
+import 'title_description_widget.dart';
 
 class CoreTemplateRenderWidget extends StatelessWidget {
-  const CoreTemplateRenderWidget({super.key, required this.template});
+  const CoreTemplateRenderWidget({
+    Key? key,
+    required this.template,
+    this.templateRenderInput = const TemplateRenderInput(),
+  }) : super(key: key);
   final Template template;
+  final TemplateRenderInput templateRenderInput;
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(child: TemplateContainerWidget(template: template));
+    return ProviderScope(child: Consumer(builder: (context, ref, _) {
+      ref.read(templateRenderInputProvider.notifier).state =
+          templateRenderInput;
+      return TemplateContainerWidget(template: template);
+    }));
   }
 }
 
 class TemplateContainerWidget extends StatelessWidget {
   final Template template;
-  TemplateContainerWidget({Key? key, required this.template}) : super(key: key);
-
-  late final _formGroup = FormGroup({});
+  const TemplateContainerWidget({
+    Key? key,
+    required this.template,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    late final formGroup = FormGroup({});
     return ReactiveForm(
-      formGroup: _formGroup,
+      formGroup: formGroup,
       child: Card(
         child: Column(
           children: [
-            _buildTemplateTitle(context),
-            Builder(
-              builder: (context) {
-                return TemplateStepperWidget(
-                  formGroupTemplate: _formGroup,
-                  template: template,
-                ).expandIntoColumnOrRow();
-              },
+            TitleDescriptionWidget(
+              title:
+                  template.names!.getDescriptionLabelTranslated(context) ?? '',
+              description:
+                  template.descriptions!.getDescriptionLabelTranslated(context),
             ),
+            TemplateStepperWidget(
+              formGroupTemplate: formGroup,
+              template: template,
+            ).expandIntoColumnOrRow(),
           ],
         ),
       ).createMargin(const EdgeInsets.all(Sizes.p4)),
     );
   }
-
-  Widget _buildTemplateTitle(BuildContext context) {
-    return Column(children: [
-      if (template.names != null)
-        AutoSizeText(
-          template.names!.getDescriptionLabelTranslated(context) ?? '',
-          maxLines: 10,
-          overflow: TextOverflow.ellipsis,
-          minFontSize: Sizes.p20,
-        ).row().padding(const EdgeInsets.all(Sizes.p4)),
-      if (template.descriptions != null)
-        AutoSizeText(
-          template.descriptions!.getDescriptionLabelTranslated(context) ?? '',
-          maxLines: 10,
-          overflow: TextOverflow.ellipsis,
-          minFontSize: Sizes.p16,
-        ).row().padding(const EdgeInsets.all(Sizes.p4)),
-    ]);
-  }
 }
+
+final templateRenderInputProvider = StateProvider.autoDispose((ref) {
+  return const TemplateRenderInput();
+});

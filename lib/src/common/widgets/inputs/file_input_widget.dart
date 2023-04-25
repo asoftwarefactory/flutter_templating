@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
@@ -6,6 +7,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/template.dart';
+import '../core_template_render_widget.dart';
+import '../custom_main_text.dart';
 
 class FileInputWidget extends StatelessWidget {
   const FileInputWidget({
@@ -42,7 +45,7 @@ class FileInputWidget extends StatelessWidget {
                           }
                         : null,
                     leading: const Icon(Icons.delete),
-                    title: PlatformFileListItem(value).build(context),
+                    title: _PlatformFileListItem(value).build(context),
                   ),
                 ),
               )
@@ -58,10 +61,13 @@ class FileInputWidget extends StatelessWidget {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: _disableButtons == true ? null : pickImage,
-              child: const Text("Pick file"),
-            ),
+            Consumer(builder: (context, ref, _) {
+              return ElevatedButton(
+                onPressed: _disableButtons == true ? null : pickImage,
+                child: CustomMainText(
+                    ref.read(templateRenderInputProvider).buttonPickFileText),
+              );
+            }),
           ],
         ).sized(height: 200);
       },
@@ -75,21 +81,21 @@ class FileInputWidget extends StatelessWidget {
   }
 }
 
-abstract class ListItem {
+abstract class _ListItem {
   Widget build(BuildContext context);
 }
 
-class PlatformFileListItem extends ListItem {
+class _PlatformFileListItem extends _ListItem {
   final PlatformFile platformFile;
 
-  PlatformFileListItem(this.platformFile);
+  _PlatformFileListItem(this.platformFile);
 
   @override
   Widget build(context) {
     if (UniversalPlatform.isWeb) {
       final fileId = const Uuid().v1();
-      return Text("WEB__${fileId}__FILE");
+      return CustomMainText("WEB__${fileId}__FILE");
     }
-    return Text(platformFile.path ?? '');
+    return CustomMainText(platformFile.path ?? '');
   }
 }

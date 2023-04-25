@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
+import '../custom_main_text.dart';
 
 class StringInputWidget extends StatelessWidget {
   const StringInputWidget({
@@ -18,7 +19,7 @@ class StringInputWidget extends StatelessWidget {
       readOnly: section.readonly ?? false,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        label: AutoSizeText(
+        label: CustomMainText(
             section.names?.getDescriptionLabelTranslated(context) ?? ''),
         hintText: section.names?.getDescriptionLabelTranslated(context) ?? '',
         border: const OutlineInputBorder(

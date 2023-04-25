@@ -10,6 +10,7 @@ import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/template_step.dart';
 import 'package:flutter_templating/src/common/widgets/section_step_widget.dart';
 import '../notifiers/indexed_notifier.dart';
+import 'custom_main_text.dart';
 
 class TemplateStepperWidget extends StatelessWidget {
   final Template template;
@@ -27,7 +28,7 @@ class TemplateStepperWidget extends StatelessWidget {
     final templateStepperBuilderProvider =
         StateNotifierProvider<IndexedNotifier, int>((ref) => IndexedNotifier());
     return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+      builder: (context, ref, child) {
         final index = ref.watch(templateStepperBuilderProvider);
         return Stepper(
           controlsBuilder: (ctx, details) {
@@ -76,19 +77,15 @@ class TemplateStepperWidget extends StatelessWidget {
                       );
                     }).toList(),
                   ),
-                  title: AutoSizeText(
+                  title: CustomMainText(
                     sectionsFromStep.firstOrNull?.names
                             ?.getDescriptionLabelTranslated(context) ??
                         "",
-                    maxLines: 10,
-                    overflow: TextOverflow.ellipsis,
                   ).padding(const EdgeInsets.all(Sizes.p4)),
-                  subtitle: AutoSizeText(
+                  subtitle: CustomMainText(
                     sectionsFromStep.firstOrNull?.descriptions
                             ?.getDescriptionLabelTranslated(context) ??
                         "",
-                    maxLines: 10,
-                    overflow: TextOverflow.ellipsis,
                   ).padding(const EdgeInsets.all(Sizes.p4)),
                 );
               }).toList() ??

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../locale/locale.dart';
 import '../../models/template.dart';
+import '../custom_main_text.dart';
 import 'formatters/currency.dart';
 
 class CurrencyInputWidget extends StatelessWidget {
@@ -30,7 +31,7 @@ class CurrencyInputWidget extends StatelessWidget {
                 locale: getAppLocale(context).languageCode)
             .currencySymbol,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        label: AutoSizeText(
+        label: CustomMainText(
             section.names?.getDescriptionLabelTranslated(context) ?? ''),
         hintText: section.names?.getDescriptionLabelTranslated(context) ?? '',
         border: const OutlineInputBorder(

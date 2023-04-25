@@ -7,4 +7,10 @@ extension ExtTemplateStep on TemplateStep {
             (groupIds ?? []).any((groupId) => groupId == element.id))
         .toList();
   }
+
+  List<Section> getSectionsNotHiddenFromStep(List<Section> allSections) {
+    return getSectionsFromStep(allSections)
+        .where((element) => element.hidden != true)
+        .toList();
+  }
 }

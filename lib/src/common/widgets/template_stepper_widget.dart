@@ -79,13 +79,13 @@ class TemplateStepperWidget extends StatelessWidget {
                   ),
                   title: CustomMainText(
                     sectionsFromStep.firstOrNull?.names
-                            ?.getDescriptionLabelTranslated(context) ??
-                        "",
+                        ?.getDescriptionLabelTranslated(context),
+                    expandIntoColumnOnRow: false,
                   ).padding(const EdgeInsets.all(Sizes.p4)),
                   subtitle: CustomMainText(
                     sectionsFromStep.firstOrNull?.descriptions
-                            ?.getDescriptionLabelTranslated(context) ??
-                        "",
+                        ?.getDescriptionLabelTranslated(context),
+                    expandIntoColumnOnRow: false,
                   ).padding(const EdgeInsets.all(Sizes.p4)),
                 );
               }).toList() ??

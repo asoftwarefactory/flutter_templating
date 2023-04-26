@@ -65,7 +65,9 @@ class FileInputWidget extends StatelessWidget {
               return ElevatedButton(
                 onPressed: _disableButtons == true ? null : pickImage,
                 child: CustomMainText(
-                    ref.read(templateRenderInputProvider).buttonPickFileText),
+                  ref.read(templateRenderInputProvider).buttonPickFileText,
+                  expandIntoColumnOnRow: false,
+                ),
               );
             }),
           ],
@@ -96,6 +98,9 @@ class _PlatformFileListItem extends _ListItem {
       final fileId = const Uuid().v1();
       return CustomMainText("WEB__${fileId}__FILE");
     }
-    return CustomMainText(platformFile.path ?? '');
+    return CustomMainText(
+      platformFile.path ?? '',
+      expandIntoColumnOnRow: false,
+    );
   }
 }

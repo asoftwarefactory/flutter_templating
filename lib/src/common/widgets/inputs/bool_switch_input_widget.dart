@@ -25,8 +25,7 @@ class BoolSwitchInputWidget extends StatelessWidget {
           ),
         ),
         gapW12,
-        CustomMainText(
-            section.names?.getDescriptionLabelTranslated(context) ?? ''),
+        CustomMainText(section.names?.getDescriptionLabelTranslated(context)),
       ],
     );
   }

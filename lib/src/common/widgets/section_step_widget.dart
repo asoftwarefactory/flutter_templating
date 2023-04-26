@@ -37,13 +37,12 @@ class SectionStepWidget extends StatelessWidget {
         child: Column(
           children: [
             CustomMainText(
-              section.names?.getDescriptionLabelTranslated(context) ?? '',
+              section.names?.getDescriptionLabelTranslated(context),
             ).row().padding(const EdgeInsets.all(Sizes.p4)),
             if (section.descriptions != null) gapH4,
             if (section.descriptions != null)
               CustomMainText(
-                section.descriptions?.getDescriptionLabelTranslated(context) ??
-                    '',
+                section.descriptions?.getDescriptionLabelTranslated(context),
               ).row().padding(const EdgeInsets.all(Sizes.p4)),
             gapH4,
             ...section.children?.map((e) {

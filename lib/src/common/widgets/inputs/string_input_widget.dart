@@ -20,8 +20,10 @@ class StringInputWidget extends StatelessWidget {
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         label: CustomMainText(
-            section.names?.getDescriptionLabelTranslated(context) ?? ''),
-        hintText: section.names?.getDescriptionLabelTranslated(context) ?? '',
+          section.names?.getDescriptionLabelTranslated(context),
+          expandIntoColumnOnRow: false,
+        ),
+        hintText: section.names?.getDescriptionLabelTranslated(context),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(5.0),

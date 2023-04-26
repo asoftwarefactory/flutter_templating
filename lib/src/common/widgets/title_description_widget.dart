@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
-import '../utils/app_sizes.dart';
+import 'package:flutter_templating/src/common/widgets/core_template_render_widget.dart';
 import 'custom_main_text.dart';
 
 class TitleDescriptionWidget extends StatelessWidget {
@@ -18,14 +19,19 @@ class TitleDescriptionWidget extends StatelessWidget {
   }
 
   Widget _buildTitleDescription(BuildContext context) {
-    return Column(children: [
-      CustomMainText(
-        title,
-      ).row().padding(const EdgeInsets.all(Sizes.p4)),
-      if (description != null)
+    return Consumer(
+      builder: (ctx, ref, _) => Column(children: [
         CustomMainText(
-          description!,
-        ).row().padding(const EdgeInsets.all(Sizes.p4)),
-    ]);
+          title,
+          size: TextSize.large,
+        ).row().padding(
+            ref.read(templateRenderInputProvider).defaultPaddingWidgets),
+        if (description != null)
+          CustomMainText(
+            description!,
+          ).row().padding(
+              ref.read(templateRenderInputProvider).defaultPaddingWidgets),
+      ]),
+    );
   }
 }

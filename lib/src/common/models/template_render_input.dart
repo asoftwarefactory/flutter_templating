@@ -5,7 +5,8 @@ class TemplateRenderInput {
   final EdgeInsets defaultPaddingWidgets;
   final EdgeInsets defaultMarginWidgets;
   final String buttonPickFileText;
-  final Future<void> Function(Map<String, dynamic> data)? onTemplateFormSend;
+  final String buttonSaveTemplateText;
+  final Future<void> Function(Object? data)? onTemplateFormSend;
   final SizedBox defaultGapRow;
   final SizedBox defaultGapColumn;
   final double defaultFontSize;
@@ -19,8 +20,9 @@ class TemplateRenderInput {
     this.defaultGapRow = gapW4,
     this.defaultGapColumn = gapH4,
     this.defaultPaddingWidgets = const EdgeInsets.all(Sizes.p4),
-    this.defaultMarginWidgets = const EdgeInsets.all(Sizes.p4),
+    this.defaultMarginWidgets = const EdgeInsets.all(Sizes.p8),
     this.buttonPickFileText = "Pick File",
+    this.buttonSaveTemplateText = "Save Template",
     this.onTemplateFormSend,
   });
 }

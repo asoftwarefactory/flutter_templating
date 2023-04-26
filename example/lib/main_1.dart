@@ -63,6 +63,11 @@ class _TemplateScreenState extends State<TemplateScreen> {
       ),
       body: CoreTemplateRenderWidget(
         template: templateFromJson(jsonTemplate),
+        templateRenderInput: TemplateRenderInput(
+          onTemplateFormSend: (e) async {
+            debugPrint(e.toString());
+          },
+        ),
       ),
     );
   }

@@ -1,16 +1,16 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
+import 'package:flutter_templating/src/common/extensions/section.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
-import 'package:flutter_templating/src/common/utils/app_sizes.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/template_step.dart';
 import 'package:flutter_templating/src/common/widgets/section_step_widget.dart';
 import '../notifiers/indexed_notifier.dart';
 import 'custom_main_text.dart';
+import 'save_template_button.dart';
 
 class TemplateStepperWidget extends StatelessWidget {
   final Template template;
@@ -33,18 +33,25 @@ class TemplateStepperWidget extends StatelessWidget {
         return Stepper(
           controlsBuilder: (ctx, details) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 IconButton(
                   onPressed: details.onStepCancel,
                   icon: const Icon(Icons.arrow_upward_rounded),
                 ),
-                gapW12,
-                IconButton(
-                  icon: const Icon(Icons.arrow_downward_rounded),
-                  onPressed: details.onStepContinue,
-                ),
+                ref.read(templateRenderInputProvider).defaultGapRow,
+                // if the user is performing the last step
+                if (details.stepIndex == (template.steps?.length ?? 0) - 1)
+                  const SaveTemplateButton(),
+                // if the user is not performing the last step
+                if (details.stepIndex != (template.steps?.length ?? 0) - 1)
+                  IconButton(
+                    icon: const Icon(Icons.arrow_downward_rounded),
+                    onPressed: details.onStepContinue,
+                  ),
               ],
-            ).createMargin(const EdgeInsets.symmetric(vertical: 0));
+            ).createMargin(
+                ref.read(templateRenderInputProvider).defaultMarginWidgets);
           },
           onStepCancel: () {
             if (index > 0) {
@@ -73,7 +80,7 @@ class TemplateStepperWidget extends StatelessWidget {
                     children: sectionsFromStep.map((section) {
                       return SectionStepWidget(
                         formGroupTemplate: formGroupTemplate,
-                        section: section,
+                        section: section.getAndOrderChildrenByTypeField(),
                       );
                     }).toList(),
                   ),
@@ -81,16 +88,21 @@ class TemplateStepperWidget extends StatelessWidget {
                     sectionsFromStep.firstOrNull?.names
                         ?.getDescriptionLabelTranslated(context),
                     expandIntoColumnOnRow: false,
-                  ).padding(const EdgeInsets.all(Sizes.p4)),
+                  ).padding(ref
+                      .read(templateRenderInputProvider)
+                      .defaultPaddingWidgets),
                   subtitle: CustomMainText(
                     sectionsFromStep.firstOrNull?.descriptions
                         ?.getDescriptionLabelTranslated(context),
                     expandIntoColumnOnRow: false,
-                  ).padding(const EdgeInsets.all(Sizes.p4)),
+                  ).padding(ref
+                      .read(templateRenderInputProvider)
+                      .defaultPaddingWidgets),
                 );
               }).toList() ??
               <Step>[const Step(content: SizedBox(), title: SizedBox())],
-        ).createMargin(const EdgeInsets.all(Sizes.p4));
+        ).createMargin(
+            ref.read(templateRenderInputProvider).defaultMarginWidgets);
       },
     );
   }

@@ -1,9 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import '../../models/template.dart';
-import '../../utils/app_sizes.dart';
 import '../custom_main_text.dart';
 
 class BoolSwitchInputWidget extends StatelessWidget {
@@ -24,7 +23,9 @@ class BoolSwitchInputWidget extends StatelessWidget {
             formControl: control,
           ),
         ),
-        gapW12,
+        Consumer(builder: (ctx, ref, _) {
+          return ref.read(templateRenderInputProvider).defaultGapRow;
+        }),
         CustomMainText(section.names?.getDescriptionLabelTranslated(context)),
       ],
     );

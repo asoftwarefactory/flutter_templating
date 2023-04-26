@@ -4,8 +4,6 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
-import '../models/template_render_input.dart';
-import '../utils/app_sizes.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 
@@ -19,11 +17,12 @@ class CoreTemplateRenderWidget extends StatelessWidget {
   final TemplateRenderInput templateRenderInput;
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(child: Consumer(builder: (context, ref, _) {
-      ref.read(templateRenderInputProvider.notifier).state =
-          templateRenderInput;
-      return TemplateContainerWidget(template: template);
-    }));
+    return ProviderScope(
+      overrides: [
+        templateRenderInputProvider.overrideWith((ref) => templateRenderInput)
+      ],
+      child: TemplateContainerWidget(template: template),
+    );
   }
 }
 
@@ -39,26 +38,29 @@ class TemplateContainerWidget extends StatelessWidget {
     late final formGroup = FormGroup({});
     return ReactiveForm(
       formGroup: formGroup,
-      child: Card(
-        child: Column(
-          children: [
-            TitleDescriptionWidget(
-              title:
-                  template.names!.getDescriptionLabelTranslated(context) ?? '',
-              description:
-                  template.descriptions!.getDescriptionLabelTranslated(context),
-            ),
-            TemplateStepperWidget(
-              formGroupTemplate: formGroup,
-              template: template,
-            ).expandIntoColumnOrRow(),
-          ],
-        ),
-      ).createMargin(const EdgeInsets.all(Sizes.p4)),
+      child: Consumer(builder: (context, ref, _) {
+        return Card(
+          child: Column(
+            children: [
+              TitleDescriptionWidget(
+                title: template.names!.getDescriptionLabelTranslated(context) ??
+                    '',
+                description: template.descriptions!
+                    .getDescriptionLabelTranslated(context),
+              ),
+              TemplateStepperWidget(
+                formGroupTemplate: formGroup,
+                template: template,
+              ).expandIntoColumnOrRow(),
+            ],
+          ),
+        ).createMargin(
+            ref.read(templateRenderInputProvider).defaultMarginWidgets);
+      }),
     );
   }
 }
 
-final templateRenderInputProvider = StateProvider.autoDispose((ref) {
+final templateRenderInputProvider = StateProvider((ref) {
   return const TemplateRenderInput();
 });

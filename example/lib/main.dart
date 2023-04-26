@@ -99,7 +99,16 @@ class _TemplateScreenState extends State<TemplateScreen> {
                 ),
               ),
               if (_template != null)
-                Expanded(child: CoreTemplateRenderWidget(template: _template!))
+                Expanded(
+                  child: CoreTemplateRenderWidget(
+                    template: _template!,
+                    /* templateRenderInput: TemplateRenderInput(
+                      onTemplateFormSend: (e) async {
+                        debugPrint("hello world");
+                      },
+                    ), */
+                  ),
+                ),
             ],
           ),
         ),

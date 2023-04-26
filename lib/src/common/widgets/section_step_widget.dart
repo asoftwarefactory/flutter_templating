@@ -1,14 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
-import 'package:flutter_templating/src/common/utils/app_sizes.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
-import 'custom_main_text.dart';
 import 'section_field_widget.dart';
+import 'title_description_widget.dart';
 
-class SectionStepWidget extends StatelessWidget {
+class SectionStepWidget extends ConsumerWidget {
   const SectionStepWidget({
     super.key,
     required this.section,
@@ -17,44 +16,63 @@ class SectionStepWidget extends StatelessWidget {
   final Section section;
   final FormGroup formGroupTemplate;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // hidden Feature
     if (section.hidden == true) {
       return const SizedBox();
     } else {
-      return _buildField(context);
+      return _buildField(context, ref);
     }
   }
 
-  Widget _buildField(BuildContext context) {
+  Widget _buildField(BuildContext context, WidgetRef ref) {
     if (section.type == Type.FIELD) {
       return SectionFieldWidget(
         section: section,
         formGroup: formGroupTemplate,
-      ).createMargin(const EdgeInsets.all(Sizes.p4));
+      ).createMargin(
+          ref.read(templateRenderInputProvider).defaultMarginWidgets);
     } else if (section.type == Type.GROUP) {
-      return Card(
-        child: Column(
-          children: [
-            CustomMainText(
-              section.names?.getDescriptionLabelTranslated(context),
-            ).row().padding(const EdgeInsets.all(Sizes.p4)),
-            if (section.descriptions != null) gapH4,
-            if (section.descriptions != null)
-              CustomMainText(
-                section.descriptions?.getDescriptionLabelTranslated(context),
-              ).row().padding(const EdgeInsets.all(Sizes.p4)),
-            gapH4,
-            ...section.children?.map((e) {
-                  return SectionStepWidget(
-                    formGroupTemplate: formGroupTemplate,
-                    section: e,
-                  );
-                }).toList() ??
-                [],
-          ],
-        ),
-      ).createMargin(const EdgeInsets.all(Sizes.p4));
+      bool expanded = true;
+      return StatefulBuilder(builder: (context, reload) {
+        return Card(
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  reload(() {
+                    expanded = !expanded;
+                  });
+                },
+                child: Row(
+                  children: [
+                    TitleDescriptionWidget(
+                      title: section.names
+                              ?.getDescriptionLabelTranslated(context) ??
+                          '',
+                      description: section.descriptions
+                          ?.getDescriptionLabelTranslated(context),
+                    ).expandIntoColumnOrRow(),
+                    Icon(expanded
+                        ? Icons.keyboard_arrow_up_rounded
+                        : Icons.keyboard_arrow_down_rounded),
+                  ],
+                ),
+              ),
+              ref.read(templateRenderInputProvider).defaultGapColumn,
+              if (expanded)
+                ...section.children?.map((e) {
+                      return SectionStepWidget(
+                        formGroupTemplate: formGroupTemplate,
+                        section: e,
+                      );
+                    }).toList() ??
+                    [],
+            ],
+          ),
+        ).createMargin(
+            ref.read(templateRenderInputProvider).defaultMarginWidgets);
+      });
     } else {
       return const SizedBox();
     }

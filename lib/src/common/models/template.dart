@@ -6,8 +6,6 @@
 
 import 'dart:convert';
 
-import 'package:uuid/uuid.dart';
-
 Template templateFromJson(String str) => Template.fromJson(json.decode(str));
 
 String templateToJson(Template data) => json.encode(data.toJson());
@@ -169,7 +167,7 @@ class DataProvider {
 
   final String? id;
   final String? name;
-  final String? type;
+  final DataProviderTypes? type;
   final String? dataProviderName;
   final List<Put>? inputs;
   final List<Put>? outputs;
@@ -186,7 +184,7 @@ class DataProvider {
   DataProvider copyWith({
     String? id,
     String? name,
-    String? type,
+    DataProviderTypes? type,
     String? dataProviderName,
     List<Put>? inputs,
     List<Put>? outputs,
@@ -205,7 +203,7 @@ class DataProvider {
   factory DataProvider.fromJson(Map<String, dynamic> json) => DataProvider(
         id: json["id"],
         name: json["name"],
-        type: json["type"],
+        type: dataProviderTypesValues.map[json["type"]],
         dataProviderName: json["dataProviderName"],
         inputs: json["outputs"] == null
             ? []
@@ -219,7 +217,7 @@ class DataProvider {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "type": type,
+        "type": dataProviderTypesValues.reverse[type],
         "dataProviderName": dataProviderName,
         "inputs":
             inputs == null ? [] : List<dynamic>.from(inputs!.map((x) => x)),
@@ -229,6 +227,18 @@ class DataProvider {
         "sectionChildId": sectionChildId,
       };
 }
+
+enum DataProviderTypes {
+  Simple,
+  FillGroup,
+  Items,
+}
+
+final dataProviderTypesValues = EnumValues({
+  "Simple": DataProviderTypes.Simple,
+  "FillGroup": DataProviderTypes.FillGroup,
+  "Items": DataProviderTypes.Items
+});
 
 class Put {
   Put({
@@ -367,8 +377,8 @@ class Condition {
   });
 
   final String? fieldId;
-  final String? constraint;
-  final List<String>? values;
+  final EnabledIfConstraints? constraint;
+  final List<dynamic>? values;
 
   static String get pNamefieldId => "fieldId";
   static String get pNameconstraint => "constraint";
@@ -376,8 +386,8 @@ class Condition {
 
   Condition copyWith({
     String? fieldId,
-    String? constraint,
-    List<String>? values,
+    EnabledIfConstraints? constraint,
+    List<dynamic>? values,
   }) =>
       Condition(
         fieldId: fieldId ?? this.fieldId,
@@ -387,23 +397,41 @@ class Condition {
 
   factory Condition.fromJson(Map<String, dynamic> json) => Condition(
         fieldId: json["fieldId"],
-        constraint: json["constraint"],
+        constraint: enabledIfConstraintsValues.map[json["constraint"]],
         values: json["values"] == null
             ? []
-            : List<String>.from(json["values"]!.map((x) => x)),
+            : List<dynamic>.from(json["values"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "fieldId": fieldId,
-        "constraint": constraint,
+        "constraint": enabledIfConstraintsValues.reverse[constraint],
         "values":
             values == null ? [] : List<dynamic>.from(values!.map((x) => x)),
       };
 }
 
-/* enum Culture { IT, EN }
+enum EnabledIfConstraints {
+  Equal,
+  ContainsOne,
+  ContainsAll,
+  GreaterThan,
+  GreaterOrEqualThan,
+  LessThan,
+  LessOrEqualThan,
+  NotEqual,
+}
 
-final cultureValues = EnumValues({"en": Culture.EN, "it": Culture.IT}); */
+final enabledIfConstraintsValues = EnumValues<EnabledIfConstraints>({
+  "Equal": EnabledIfConstraints.Equal,
+  "ContainsOne": EnabledIfConstraints.ContainsOne,
+  "ContainsAll": EnabledIfConstraints.ContainsAll,
+  "GreaterThan": EnabledIfConstraints.GreaterThan,
+  "GreaterOrEqualThan": EnabledIfConstraints.GreaterOrEqualThan,
+  "LessThan": EnabledIfConstraints.LessThan,
+  "LessOrEqualThan": EnabledIfConstraints.LessOrEqualThan,
+  "NotEqual": EnabledIfConstraints.NotEqual,
+});
 
 class Section {
   Section({
@@ -436,7 +464,7 @@ class Section {
   final FieldTypes? fieldType;
   final bool? isArray;
   final String? defaultValue;
-  final List<SectionValidator>? validators;
+  final List<FieldValidator>? validators;
   final List<Item>? items;
   final bool? multiple;
   final List<Section>? children;
@@ -473,7 +501,7 @@ class Section {
     FieldTypes? fieldType,
     bool? isArray,
     String? defaultValue,
-    List<SectionValidator>? validators,
+    List<FieldValidator>? validators,
     List<Item>? items,
     bool? multiple,
     List<Section>? children,
@@ -520,8 +548,8 @@ class Section {
         defaultValue: json["defaultValue"],
         validators: json["validators"] == null
             ? []
-            : List<SectionValidator>.from(
-                json["validators"]!.map((x) => SectionValidator.fromJson(x))),
+            : List<FieldValidator>.from(
+                json["validators"]!.map((x) => FieldValidator.fromJson(x))),
         items: json["items"] == null
             ? []
             : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
@@ -530,7 +558,7 @@ class Section {
             ? []
             : List<Section>.from(
                 json["children"]!.map((x) => Section.fromJson(x))),
-        type: typeValues.map[json["type"]]!,
+        type: typeValues.map[json["type"]],
         workflowFieldId: json["workflowFieldId"],
         autocomplete:
             TemplateFieldAutocomplete.fromJson(json["autocomplete"] ?? {}),
@@ -705,8 +733,8 @@ enum Type { GROUP, FIELD }
 
 final typeValues = EnumValues({"Field": Type.FIELD, "Group": Type.GROUP});
 
-class SectionValidator {
-  SectionValidator({
+class FieldValidator {
+  FieldValidator({
     this.type,
     this.required,
     this.numOfDecimals,
@@ -720,7 +748,7 @@ class SectionValidator {
     this.extensions,
   });
 
-  final String? type;
+  final FieldValidatorTypes? type;
   final bool? required;
   final int? numOfDecimals;
   final int? number;
@@ -728,7 +756,7 @@ class SectionValidator {
   final bool? include;
   final int? length;
   final int? dateValue;
-  final String? dateValueType;
+  final DateValueTypes? dateValueType;
   final String? regex;
   final List<String>? extensions;
 
@@ -744,8 +772,8 @@ class SectionValidator {
   static String get pNameregex => "regex";
   static String get pNameextensions => "extensions";
 
-  SectionValidator copyWith({
-    String? type,
+  FieldValidator copyWith({
+    FieldValidatorTypes? type,
     bool? required,
     int? numOfDecimals,
     int? number,
@@ -753,11 +781,11 @@ class SectionValidator {
     bool? include,
     int? length,
     int? dateValue,
-    String? dateValueType,
+    DateValueTypes? dateValueType,
     String? regex,
     List<String>? extensions,
   }) =>
-      SectionValidator(
+      FieldValidator(
         type: type ?? this.type,
         required: required ?? this.required,
         numOfDecimals: numOfDecimals ?? this.numOfDecimals,
@@ -771,9 +799,8 @@ class SectionValidator {
         extensions: extensions ?? this.extensions,
       );
 
-  factory SectionValidator.fromJson(Map<String, dynamic> json) =>
-      SectionValidator(
-        type: json["type"],
+  factory FieldValidator.fromJson(Map<String, dynamic> json) => FieldValidator(
+        type: fieldValidatorTypesValues.map[json["type"]],
         required: json["required"],
         numOfDecimals: json["numOfDecimals"],
         number: json["number"],
@@ -781,7 +808,7 @@ class SectionValidator {
         include: json["include"],
         length: json["length"],
         dateValue: json["dateValue"],
-        dateValueType: json["dateValueType"],
+        dateValueType: dateValueTypesValues.map[json["dateValueType"]],
         regex: json["regex"],
         extensions: json["extensions"] == null
             ? []
@@ -789,7 +816,7 @@ class SectionValidator {
       );
 
   Map<String, dynamic> toJson() => {
-        "type": type,
+        "type": fieldValidatorTypesValues.reverse[type],
         "required": required,
         "numOfDecimals": numOfDecimals,
         "number": number,
@@ -797,7 +824,7 @@ class SectionValidator {
         "include": include,
         "length": length,
         "dateValue": dateValue,
-        "dateValueType": dateValueType,
+        "dateValueType": dateValueTypesValues.reverse[dateValueType],
         "regex": regex,
         "extensions": extensions == null
             ? []
@@ -805,19 +832,61 @@ class SectionValidator {
       };
 }
 
+enum DateValueTypes {
+  Year,
+  Month,
+  Day,
+}
+
+final dateValueTypesValues = EnumValues<DateValueTypes>({
+  "Year": DateValueTypes.Year,
+  "Month": DateValueTypes.Month,
+  "Day": DateValueTypes.Day,
+});
+
+enum FieldValidatorTypes {
+  MinimumLengthValidator,
+  MaximumLengthValidator,
+  MinimumNumberValidator,
+  MaximumNumberValidator,
+  MinimumConstDateValidator,
+  MaximumConstDateValidator,
+  MinimumRelativeDateValidator,
+  MaximumRelativeDateValidator,
+  MinimumItemsValidator,
+  MaximumItemsValidator,
+  DecimalNumbersValidator,
+  RequiredValidator,
+  RegexValidator,
+  ExtensionsValidator
+}
+
+final fieldValidatorTypesValues = EnumValues({
+  "MinimumLengthValidator": FieldValidatorTypes.MinimumLengthValidator,
+  "MaximumLengthValidator": FieldValidatorTypes.MaximumLengthValidator,
+  "MinimumNumberValidator": FieldValidatorTypes.MinimumNumberValidator,
+  "MaximumNumberValidator": FieldValidatorTypes.MaximumNumberValidator,
+  "MinimumConstDateValidator": FieldValidatorTypes.MinimumConstDateValidator,
+  "MaximumConstDateValidator": FieldValidatorTypes.MaximumConstDateValidator,
+  "MinimumRelativeDateValidator":
+      FieldValidatorTypes.MinimumRelativeDateValidator,
+  "MaximumRelativeDateValidator":
+      FieldValidatorTypes.MaximumRelativeDateValidator,
+  "MinimumItemsValidator": FieldValidatorTypes.MinimumItemsValidator,
+  "MaximumItemsValidator": FieldValidatorTypes.MaximumItemsValidator,
+  "DecimalNumbersValidator": FieldValidatorTypes.DecimalNumbersValidator,
+  "RequiredValidator": FieldValidatorTypes.RequiredValidator,
+  "RegexValidator": FieldValidatorTypes.RegexValidator,
+  "ExtensionsValidator": FieldValidatorTypes.ExtensionsValidator,
+});
+
 class TemplateStep {
   TemplateStep({
     this.groupIds,
-  }) {
-    _id = const Uuid().v1();
-  }
-
-  // not implemented by the server
-  late final String _id;
+  });
 
   final List<String>? groupIds;
 
-  static String get pNameid => "id";
   static String get pNamegroupIds => "groupIds";
 
   TemplateStep copyWith({
@@ -837,10 +906,6 @@ class TemplateStep {
         "groupIds":
             groupIds == null ? [] : List<dynamic>.from(groupIds!.map((x) => x)),
       };
-
-  String get id {
-    return _id;
-  }
 }
 
 enum TemplateMigrationTypes { Disabled, Permissive, Restrictive }

@@ -17,8 +17,17 @@ class BoolSwitchInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        IgnorePointer(
-          ignoring: section.readonly == true,
+        Visibility(
+          visible: (section.readonly ?? false) == false,
+          replacement: IgnorePointer(
+            ignoring: true,
+            child: Opacity(
+              opacity: 0.5,
+              child: ReactiveSwitch(
+                formControl: control,
+              ),
+            ),
+          ),
           child: ReactiveSwitch(
             formControl: control,
           ),

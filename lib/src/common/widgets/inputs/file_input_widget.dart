@@ -17,7 +17,7 @@ class FileInputWidget extends StatelessWidget {
   final Section section;
   final FormControl<MultiFile<String>> control;
 
-  bool get _disableButtons {
+  bool get _readonly {
     // readonly feature
     return section.readonly == true;
   }
@@ -25,62 +25,65 @@ class FileInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      return ReactiveFilePicker<String>(
-        formControl: control,
-        filePickerBuilder: (pickImage, files, onChange) {
-          final items = [
-            ...files.platformFiles
-                .asMap()
-                .map(
-                  (key, value) => MapEntry(
-                    key,
-                    ListTile(
-                      onTap: _disableButtons == false
-                          ? () {
-                              onChange(files.copyWith(
-                                  platformFiles: List<PlatformFile>.from(
-                                      files.platformFiles)
-                                    ..removeAt(key)));
-                            }
-                          : null,
-                      leading: const Icon(Icons.delete),
-                      title: CustomMainText(
-                        value.name,
-                        expandIntoColumnOnRow: false,
+      return Opacity(
+        opacity: _readonly ? 0.5 : 1,
+        child: ReactiveFilePicker<String>(
+          formControl: control,
+          filePickerBuilder: (pickImage, files, onChange) {
+            final items = [
+              ...files.platformFiles
+                  .asMap()
+                  .map(
+                    (key, value) => MapEntry(
+                      key,
+                      ListTile(
+                        onTap: _readonly == false
+                            ? () {
+                                onChange(files.copyWith(
+                                    platformFiles: List<PlatformFile>.from(
+                                        files.platformFiles)
+                                      ..removeAt(key)));
+                              }
+                            : null,
+                        leading: const Icon(Icons.delete),
+                        title: CustomMainText(
+                          value.name,
+                          expandIntoColumnOnRow: false,
+                        ),
                       ),
                     ),
+                  )
+                  .values,
+            ];
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (ctx, i) {
+                      return items.elementAt(i);
+                    },
                   ),
-                )
-                .values,
-          ];
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: items.length,
-                  itemBuilder: (ctx, i) {
-                    return items.elementAt(i);
-                  },
                 ),
-              ),
-              Consumer(builder: (context, ref, _) {
-                return ElevatedButton(
-                  onPressed: _disableButtons == true ? null : pickImage,
-                  child: CustomMainText(
-                    ref.read(templateRenderInputProvider).buttonPickFileText,
-                    expandIntoColumnOnRow: false,
-                  ),
-                );
-              }),
-            ],
-          ).sized(height: 200);
-        },
-        decoration: InputDecoration(
-          labelText:
-              section.names?.getDescriptionLabelTranslated(context) ?? '',
-          border: const OutlineInputBorder(),
-          helperText:
-              section.descriptions?.getDescriptionLabelTranslated(context),
+                Consumer(builder: (context, ref, _) {
+                  return ElevatedButton(
+                    onPressed: _readonly == true ? null : pickImage,
+                    child: CustomMainText(
+                      ref.read(templateRenderInputProvider).buttonPickFileText,
+                      expandIntoColumnOnRow: false,
+                    ),
+                  );
+                }),
+              ],
+            ).sized(height: 200);
+          },
+          decoration: InputDecoration(
+            labelText:
+                section.names?.getDescriptionLabelTranslated(context) ?? '',
+            border: const OutlineInputBorder(),
+            helperText:
+                section.descriptions?.getDescriptionLabelTranslated(context),
+          ),
         ),
       );
     });

@@ -92,7 +92,6 @@ extension FormGroupExt on FormGroup {
       Template.pNamesteps: FormArray(
         template.steps?.map((step) {
               return FormGroup({
-                TemplateStep.pNameid: FormControl(value: step.id),
                 TemplateStep.pNamegroupIds: FormArray(
                   step.groupIds?.map((groupId) {
                         return FormControl<String>(value: groupId);
@@ -134,24 +133,22 @@ extension FormGroupExt on FormGroup {
       Section.pNamedefaultValue: FormControl(value: section.defaultValue),
       Section.pNamevalidators: FormArray(section.validators?.map((validator) {
             return FormGroup({
-              SectionValidator.pNametype: FormControl(value: validator.type),
-              SectionValidator.pNamerequired:
+              FieldValidator.pNametype: FormControl(value: validator.type),
+              FieldValidator.pNamerequired:
                   FormControl(value: validator.required),
-              SectionValidator.pNamenumOfDecimals:
+              FieldValidator.pNamenumOfDecimals:
                   FormControl(value: validator.numOfDecimals),
-              SectionValidator.pNamenumber:
-                  FormControl(value: validator.number),
-              SectionValidator.pNamedate: FormControl(value: validator.date),
-              SectionValidator.pNameinclude:
+              FieldValidator.pNamenumber: FormControl(value: validator.number),
+              FieldValidator.pNamedate: FormControl(value: validator.date),
+              FieldValidator.pNameinclude:
                   FormControl(value: validator.include),
-              SectionValidator.pNamelength:
-                  FormControl(value: validator.length),
-              SectionValidator.pNamedateValue:
+              FieldValidator.pNamelength: FormControl(value: validator.length),
+              FieldValidator.pNamedateValue:
                   FormControl(value: validator.dateValue),
-              SectionValidator.pNamedateValueType:
+              FieldValidator.pNamedateValueType:
                   FormControl(value: validator.dateValueType),
-              SectionValidator.pNameregex: FormControl(value: validator.regex),
-              SectionValidator.pNameextensions:
+              FieldValidator.pNameregex: FormControl(value: validator.regex),
+              FieldValidator.pNameextensions:
                   FormArray(validator.extensions?.map((ext) {
                         return FormControl(value: ext);
                       }).toList() ??

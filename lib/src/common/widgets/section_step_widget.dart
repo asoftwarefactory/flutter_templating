@@ -62,9 +62,23 @@ class SectionStepWidget extends ConsumerWidget {
               ref.read(templateRenderInputProvider).defaultGapColumn,
               if (expanded)
                 ...section.children?.map((e) {
-                      return SectionStepWidget(
-                        formGroupTemplate: formGroupTemplate,
-                        section: e,
+                      // readonly feature
+                      return Visibility(
+                        visible: (section.readonly ?? false) == false,
+                        replacement: IgnorePointer(
+                          ignoring: true,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SectionStepWidget(
+                              formGroupTemplate: formGroupTemplate,
+                              section: e,
+                            ),
+                          ),
+                        ),
+                        child: SectionStepWidget(
+                          formGroupTemplate: formGroupTemplate,
+                          section: e,
+                        ),
                       );
                     }).toList() ??
                     [],

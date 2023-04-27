@@ -5,7 +5,6 @@ export 'src/common/models/template.dart';
 export 'src/common/widgets/core_template_render_widget.dart';
 export 'src/common/models/template_render_input.dart';
 
-
 // EXAMPLE : when you import different class from web
 
 /* import 'test.dart'
@@ -14,3 +13,7 @@ export 'src/common/models/template_render_input.dart';
     // ignore: uri_does_not_exist
     if (dart.library.html) 'test_web.dart';
  */
+
+// TODO : field validators.
+// TODO : field dataproviders.
+// TODO : Enabled If Rule // regole di abilitazione.

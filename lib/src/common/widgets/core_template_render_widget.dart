@@ -43,10 +43,10 @@ class TemplateContainerWidget extends StatelessWidget {
           child: Column(
             children: [
               TitleDescriptionWidget(
-                title: template.names!.getDescriptionLabelTranslated(context) ??
+                title: template.names?.getDescriptionLabelTranslated(context) ??
                     '',
-                description: template.descriptions!
-                    .getDescriptionLabelTranslated(context),
+                description: template.descriptions
+                    ?.getDescriptionLabelTranslated(context),
               ),
               TemplateStepperWidget(
                 formGroupTemplate: formGroup,

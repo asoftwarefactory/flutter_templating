@@ -8,8 +8,8 @@ import '../../models/template.dart';
 import '../core_template_render_widget.dart';
 import '../custom_main_text.dart';
 
-class FileInputWidget extends StatelessWidget {
-  const FileInputWidget({
+class FilesInputWidget extends StatelessWidget {
+  const FilesInputWidget({
     Key? key,
     required this.section,
     required this.control,

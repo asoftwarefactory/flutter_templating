@@ -35,20 +35,24 @@ class TemplateStepperWidget extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                IconButton(
-                  onPressed: details.onStepCancel,
-                  icon: const Icon(Icons.arrow_upward_rounded),
-                ),
-                ref.read(templateRenderInputProvider).defaultGapRow,
-                // if the user is performing the last step
-                if (details.stepIndex == (template.steps?.length ?? 0) - 1)
-                  const SaveTemplateButton(),
-                // if the user is not performing the last step
-                if (details.stepIndex != (template.steps?.length ?? 0) - 1)
+                if (details.stepIndex > 0)
                   IconButton(
+                    onPressed: details.onStepCancel,
+                    icon: const Icon(Icons.arrow_upward_rounded),
+                  ),
+                if (details.stepIndex > 0)
+                  ref.read(templateRenderInputProvider).defaultGapRow,
+                Visibility(
+                  visible:
+                      details.stepIndex == (template.steps?.length ?? 0) - 1,
+                  // if the user is not performing the last step
+                  replacement: IconButton(
                     icon: const Icon(Icons.arrow_downward_rounded),
                     onPressed: details.onStepContinue,
                   ),
+                  // if the user is performing the last step
+                  child: const SaveTemplateButton(),
+                ),
               ],
             ).createMargin(
                 ref.read(templateRenderInputProvider).defaultMarginWidgets);

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -65,7 +67,8 @@ class _TemplateScreenState extends State<TemplateScreen> {
         template: templateFromJson(jsonTemplate),
         templateRenderInput: TemplateRenderInput(
           onTemplateFormSend: (e) async {
-            debugPrint(e.toString());
+            final a = json.encode(e ?? {}, toEncodable: (e) => null);
+            debugPrint(a.toString());
           },
         ),
       ),

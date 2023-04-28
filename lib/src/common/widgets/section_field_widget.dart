@@ -8,6 +8,7 @@ import 'inputs/currency_input_widget.dart';
 import 'inputs/date_time_input_widget.dart';
 import 'inputs/decimal_input_widget.dart';
 import 'inputs/file_input_widget.dart';
+import 'inputs/files_input_widget.dart';
 import 'inputs/int_input_widget.dart';
 
 class SectionFieldWidget extends StatelessWidget {
@@ -32,15 +33,15 @@ class SectionFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (section.isArray == true) {
-      return buildMultipleChild();
+    if (section.isArray == true && (section.items?.isEmpty ?? true)) {
+      return buildSimpleArrayField();
     } else {
-      return buildSimpleChild();
+      return buildSimpleField();
     }
   }
 
   // es TextField
-  Widget buildSimpleChild() {
+  Widget buildSimpleField() {
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = FormControl<String>();
@@ -98,7 +99,7 @@ class SectionFieldWidget extends StatelessWidget {
       // DATES ----------------------------------------------------- END
 
       case FieldTypes.File:
-        final control = FormControl<MultiFile<String>>();
+        final control = FormControl<PlatformFile>();
         _addFormControlToFormGroup(control);
         return FileInputWidget(
           control: control,
@@ -109,8 +110,28 @@ class SectionFieldWidget extends StatelessWidget {
     }
   }
 
-  // es Array String Build dropdown String
-  Widget buildMultipleChild() {
-    return const SizedBox();
+  Widget buildSimpleArrayField() {
+    switch (section.fieldType) {
+      case FieldTypes.String:
+      case FieldTypes.Integer:
+      case FieldTypes.Decimal:
+      case FieldTypes.Currency:
+      case FieldTypes.Boolean:
+      // DATES -----------------------------------------------------
+      case FieldTypes.DateUtc:
+      case FieldTypes.DateNoUtc:
+      case FieldTypes.DateTime:
+      case FieldTypes.Time:
+      // DATES ----------------------------------------------------- END
+      case FieldTypes.File:
+        final control = FormControl<MultiFile<String>>();
+        _addFormControlToFormGroup(control);
+        return FilesInputWidget(
+          control: control,
+          section: section,
+        );
+      default:
+        return const SizedBox();
+    }
   }
 }

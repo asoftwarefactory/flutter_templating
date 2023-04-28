@@ -10,15 +10,14 @@ class SaveTemplateButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Builder(builder: (context) {
-      final form = ReactiveForm.of(context);
+    return ReactiveFormConsumer(builder: (context, form, _) {
       return ElevatedButton(
-        onPressed: (form?.valid ?? false)
+        onPressed: (form.valid)
             ? () async {
                 await ref
                     .read(templateRenderInputProvider)
                     .onTemplateFormSend
-                    ?.call(form?.value);
+                    ?.call(form.value);
               }
             : null,
         child: CustomMainText(

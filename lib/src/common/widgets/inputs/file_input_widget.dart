@@ -1,25 +1,52 @@
+import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
-import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
 import '../core_template_render_widget.dart';
 import '../custom_main_text.dart';
 
-class FileInputWidget extends StatelessWidget {
+class FileInputWidget extends StatefulWidget {
   const FileInputWidget({
     Key? key,
     required this.section,
     required this.control,
   }) : super(key: key);
   final Section section;
-  final FormControl<MultiFile<String>> control;
+  final FormControl<PlatformFile> control;
 
+  @override
+  State<FileInputWidget> createState() => _FileInputWidgetState();
+}
+
+class _FileInputWidgetState extends State<FileInputWidget> {
   bool get _readonly {
     // readonly feature
-    return section.readonly == true;
+    return widget.section.readonly == true;
+  }
+
+  final _control = FormControl<MultiFile<String>>();
+
+  late final StreamSubscription<MultiFile<String>?> _controlSubscritpion;
+
+  @override
+  void initState() {
+    _controlSubscritpion = _control.valueChanges.listen((event) {
+      final lastFile = event?.platformFiles.lastOrNull;
+      if (lastFile != null) {
+        widget.control.value = lastFile;
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controlSubscritpion.cancel();
   }
 
   @override
@@ -28,47 +55,40 @@ class FileInputWidget extends StatelessWidget {
       return Opacity(
         opacity: _readonly ? 0.5 : 1,
         child: ReactiveFilePicker<String>(
-          allowMultiple: true,
-          formControl: control,
+          allowMultiple: false,
+          formControl: _control,
           filePickerBuilder: (pickImage, files, onChange) {
-            final items = [
-              ...files.platformFiles
-                  .asMap()
-                  .map(
-                    (key, value) => MapEntry(
-                      key,
-                      ListTile(
-                        onTap: _readonly == false
-                            ? () {
-                                onChange(files.copyWith(
-                                    platformFiles: List<PlatformFile>.from(
-                                        files.platformFiles)
-                                      ..removeAt(key)));
-                              }
-                            : null,
-                        leading: const Icon(Icons.delete),
-                        title: CustomMainText(
-                          value.name,
-                          expandIntoColumnOnRow: false,
-                        ),
-                      ),
-                    ),
-                  )
-                  .values,
-            ];
+            final PlatformFile? file = files.platformFiles.lastOrNull;
             return Column(
               children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (ctx, i) {
-                      return items.elementAt(i);
-                    },
+                if (file != null)
+                  ListTile(
+                    onTap: _readonly == false
+                        ? () {
+                            onChange(
+                                const MultiFile(files: [], platformFiles: []));
+                          }
+                        : null,
+                    leading: const Icon(Icons.delete),
+                    title: CustomMainText(
+                      file.name,
+                      expandIntoColumnOnRow: false,
+                    ),
                   ),
-                ),
                 Consumer(builder: (context, ref, _) {
                   return ElevatedButton(
-                    onPressed: _readonly == true ? null : pickImage,
+                    onPressed: _readonly == true
+                        ? null
+                        : () {
+                            pickImage().then((e) {
+                              final lastFile =
+                                  _control.value?.platformFiles.lastOrNull;
+                              if (lastFile != null) {
+                                onChange(MultiFile(
+                                    files: [], platformFiles: [lastFile]));
+                              }
+                            });
+                          },
                     child: CustomMainText(
                       ref.read(templateRenderInputProvider).buttonPickFileText,
                       expandIntoColumnOnRow: false,
@@ -76,14 +96,14 @@ class FileInputWidget extends StatelessWidget {
                   );
                 }),
               ],
-            ).sized(height: 200);
+            );
           },
           decoration: InputDecoration(
             labelText:
-                section.names?.getDescriptionLabelTranslated(context) ?? '',
+                widget.section.names?.getDescriptionLabelTranslated(context),
             border: const OutlineInputBorder(),
-            helperText:
-                section.descriptions?.getDescriptionLabelTranslated(context),
+            helperText: widget.section.descriptions
+                ?.getDescriptionLabelTranslated(context),
           ),
         ),
       );

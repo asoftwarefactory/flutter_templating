@@ -26,13 +26,13 @@ class SectionStepWidget extends ConsumerWidget {
   }
 
   Widget _buildField(BuildContext context, WidgetRef ref) {
-    if (section.type == Type.FIELD) {
+    if (section.type == SectionType.FIELD) {
       return SectionFieldWidget(
         section: section,
         formGroup: formGroupTemplate,
       ).createMargin(
           ref.read(templateRenderInputProvider).defaultMarginWidgets);
-    } else if (section.type == Type.GROUP) {
+    } else if (section.type == SectionType.GROUP) {
       bool expanded = true;
       return StatefulBuilder(builder: (context, reload) {
         return Card(

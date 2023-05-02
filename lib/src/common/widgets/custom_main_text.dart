@@ -2,7 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
-import '../models/template_render_input.dart';
+import '../enums/text_size.dart';
+import '../utils/get_font_size_from_template_render_input.dart';
 import 'core_template_render_widget.dart';
 
 class CustomMainText extends ConsumerWidget {
@@ -10,6 +11,7 @@ class CustomMainText extends ConsumerWidget {
   final TextSize size;
   final int maxLines;
   final bool expandIntoColumnOnRow;
+  final WidgetRef? inputRef;
 
   const CustomMainText(
     this.text, {
@@ -18,6 +20,7 @@ class CustomMainText extends ConsumerWidget {
     this.size = TextSize.normal,
     // I don't want to have a limit on rows
     this.maxLines = 100000,
+    this.inputRef,
   }) : super(key: key);
 
   @override
@@ -27,7 +30,10 @@ class CustomMainText extends ConsumerWidget {
       text ?? '',
       maxLines: maxLines,
       style: TextStyle(
-        fontSize: getFontSize(ref.read(templateRenderInputProvider)),
+        fontSize: getFontSize(
+            size,
+            inputRef?.read(templateRenderInputProvider) ??
+                ref.read(templateRenderInputProvider)),
       ),
     );
     if (expandIntoColumnOnRow) {
@@ -36,18 +42,25 @@ class CustomMainText extends ConsumerWidget {
     return textW;
   }
 
-  double getFontSize(TemplateRenderInput input) {
-    switch (size) {
-      case TextSize.large:
-        return input.primaryFontSize;
-      case TextSize.normal:
-        return input.defaultFontSize;
-      case TextSize.small:
-        return input.secondaryFontSize;
-      default:
-        return input.defaultFontSize;
-    }
+  static Text createText(
+    String? text, {
+    Key? key,
+    TextSize size = TextSize.normal,
+    // I don't want to have a limit on rows
+    int maxLines = 100000,
+    required WidgetRef inputRef,
+  }) {
+    return Text(
+      key: key,
+      text ?? '',
+      overflow: TextOverflow.ellipsis,
+      maxLines: maxLines,
+      style: TextStyle(
+        fontSize: getFontSize(
+          size,
+          inputRef.read(templateRenderInputProvider),
+        ),
+      ),
+    );
   }
 }
-
-enum TextSize { normal, small, large }

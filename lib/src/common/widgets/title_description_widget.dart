@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:flutter_templating/src/common/widgets/core_template_render_widget.dart';
+import '../enums/text_size.dart';
 import 'custom_main_text.dart';
 
 class TitleDescriptionWidget extends StatelessWidget {

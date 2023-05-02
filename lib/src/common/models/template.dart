@@ -463,12 +463,12 @@ class Section {
   final bool? readonly;
   final FieldTypes? fieldType;
   final bool? isArray;
-  final String? defaultValue;
+  final dynamic defaultValue;
   final List<FieldValidator>? validators;
   final List<Item>? items;
   final bool? multiple;
   final List<Section>? children;
-  final Type? type;
+  final SectionType? type;
   final String? workflowFieldId;
   final TemplateFieldAutocomplete? autocomplete;
 
@@ -500,12 +500,12 @@ class Section {
     bool? readonly,
     FieldTypes? fieldType,
     bool? isArray,
-    String? defaultValue,
+    dynamic defaultValue,
     List<FieldValidator>? validators,
     List<Item>? items,
     bool? multiple,
     List<Section>? children,
-    Type? type,
+    SectionType? type,
     String? workflowFieldId,
     TemplateFieldAutocomplete? autocomplete,
   }) =>
@@ -558,7 +558,7 @@ class Section {
             ? []
             : List<Section>.from(
                 json["children"]!.map((x) => Section.fromJson(x))),
-        type: typeValues.map[json["type"]],
+        type: sectionTypeValues.map[json["type"]],
         workflowFieldId: json["workflowFieldId"],
         autocomplete:
             TemplateFieldAutocomplete.fromJson(json["autocomplete"] ?? {}),
@@ -589,7 +589,7 @@ class Section {
         "children": children == null
             ? []
             : List<dynamic>.from(children!.map((x) => x.toJson())),
-        "type": typeValues.reverse[type],
+        "type": sectionTypeValues.reverse[type],
         "workflowFieldId": workflowFieldId,
         "autocomplete": autocomplete?.toJson(),
       };
@@ -729,9 +729,10 @@ class Item {
       };
 }
 
-enum Type { GROUP, FIELD }
+enum SectionType { GROUP, FIELD }
 
-final typeValues = EnumValues({"Field": Type.FIELD, "Group": Type.GROUP});
+final sectionTypeValues =
+    EnumValues({"Field": SectionType.FIELD, "Group": SectionType.GROUP});
 
 class FieldValidator {
   FieldValidator({

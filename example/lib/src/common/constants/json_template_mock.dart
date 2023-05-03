@@ -1,8 +1,8 @@
 const jsonTemplate = """
 {
-    "id": "50",
+    "id": "55",
     "groupId": "17",
-    "createdAt": "2023-04-25T15:04:47.4084174Z",
+    "createdAt": "2023-05-03T00:08:45.9631625Z",
     "isValid": true,
     "scopes": [
         "Works"
@@ -28,243 +28,6 @@ const jsonTemplate = """
         }
     ],
     "sections": [
-        {
-            "id": "17884d9d-e980-4f86-a06d-fc77c7006fcc",
-            "name": "Informazioni Amministrative",
-            "searchable": false,
-            "names": [
-                {
-                    "culture": "it",
-                    "label": "Informazioni Amministrative"
-                },
-                {
-                    "culture": "en",
-                    "label": "Information"
-                }
-            ],
-            "descriptions": [
-                {
-                    "culture": "it",
-                    "label": null
-                },
-                {
-                    "culture": "en",
-                    "label": null
-                }
-            ],
-            "hidden": false,
-            "readonly": false,
-            "fieldType": null,
-            "isArray": false,
-            "defaultValue": null,
-            "validators": [],
-            "items": [],
-            "multiple": false,
-            "children": [
-                {
-                    "id": "eda13842-a5f3-4775-9300-840eb00c233b",
-                    "name": "Protocollo Generale",
-                    "searchable": false,
-                    "names": [
-                        {
-                            "culture": "it",
-                            "label": "Protocollo Generale"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "Registration Number"
-                        }
-                    ],
-                    "descriptions": [
-                        {
-                            "culture": "it",
-                            "label": null
-                        },
-                        {
-                            "culture": "en",
-                            "label": null
-                        }
-                    ],
-                    "hidden": false,
-                    "readonly": false,
-                    "fieldType": "Integer",
-                    "isArray": false,
-                    "defaultValue": null,
-                    "validators": [],
-                    "items": [],
-                    "multiple": false,
-                    "children": [],
-                    "autocomplete": null,
-                    "type": "Field",
-                    "workflowFieldId": null
-                },
-                {
-                    "id": "b380bbb0-cb98-48b5-bd9b-231f49a840a3",
-                    "name": "Link Provvedimenti",
-                    "searchable": false,
-                    "names": [
-                        {
-                            "culture": "it",
-                            "label": "Link Provvedimenti"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "Link"
-                        }
-                    ],
-                    "descriptions": [
-                        {
-                            "culture": "it",
-                            "label": null
-                        },
-                        {
-                            "culture": "en",
-                            "label": null
-                        }
-                    ],
-                    "hidden": false,
-                    "readonly": false,
-                    "fieldType": "String",
-                    "isArray": true,
-                    "defaultValue": null,
-                    "validators": [],
-                    "items": [],
-                    "multiple": false,
-                    "children": [],
-                    "autocomplete": null,
-                    "type": "Field",
-                    "workflowFieldId": null
-                },
-                {
-                    "id": "cf954f61-c9f1-43fc-a366-59ce9c93b8de",
-                    "name": "test currency",
-                    "searchable": false,
-                    "names": [
-                        {
-                            "culture": "it",
-                            "label": "test currency"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "test currency"
-                        }
-                    ],
-                    "descriptions": [
-                        {
-                            "culture": "it",
-                            "label": "test currency"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "test currency"
-                        }
-                    ],
-                    "hidden": false,
-                    "readonly": false,
-                    "fieldType": "Currency",
-                    "isArray": false,
-                    "defaultValue": null,
-                    "validators": [
-                        {
-                            "type": "DecimalNumbersValidator",
-                            "required": null,
-                            "numOfDecimals": 2,
-                            "number": null,
-                            "date": null,
-                            "include": null,
-                            "length": null,
-                            "dateValue": null,
-                            "dateValueType": null,
-                            "regex": null,
-                            "extensions": []
-                        }
-                    ],
-                    "items": [],
-                    "multiple": false,
-                    "children": [],
-                    "autocomplete": null,
-                    "type": "Field",
-                    "workflowFieldId": null
-                },
-                {
-                    "id": "fbe2c855-93f3-4801-92da-c5e9aa286351",
-                    "name": "test file",
-                    "searchable": false,
-                    "names": [
-                        {
-                            "culture": "it",
-                            "label": "test file"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "test file"
-                        }
-                    ],
-                    "descriptions": [
-                        {
-                            "culture": "it",
-                            "label": "test file"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "test file"
-                        }
-                    ],
-                    "hidden": false,
-                    "readonly": false,
-                    "fieldType": "File",
-                    "isArray": false,
-                    "defaultValue": null,
-                    "validators": [],
-                    "items": [],
-                    "multiple": false,
-                    "children": [],
-                    "autocomplete": null,
-                    "type": "Field",
-                    "workflowFieldId": null
-                },
-                {
-                    "id": "09e4cb53-cd48-4540-9d91-06d532facfba",
-                    "name": "test boolean",
-                    "searchable": false,
-                    "names": [
-                        {
-                            "culture": "it",
-                            "label": "test bool"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "test bool"
-                        }
-                    ],
-                    "descriptions": [
-                        {
-                            "culture": "it",
-                            "label": "test bool"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "test bool"
-                        }
-                    ],
-                    "hidden": false,
-                    "readonly": false,
-                    "fieldType": "Boolean",
-                    "isArray": false,
-                    "defaultValue": null,
-                    "validators": [],
-                    "items": [],
-                    "multiple": false,
-                    "children": [],
-                    "autocomplete": null,
-                    "type": "Field",
-                    "workflowFieldId": null
-                }
-            ],
-            "autocomplete": null,
-            "type": "Group",
-            "workflowFieldId": null
-        },
         {
             "id": "953531c9-bb88-44bd-9190-e699d7b3dcd5",
             "name": "Informazioni sul cantiere",
@@ -486,7 +249,7 @@ const jsonTemplate = """
                         }
                     ],
                     "hidden": false,
-                    "readonly": true,
+                    "readonly": false,
                     "fieldType": "String",
                     "isArray": false,
                     "defaultValue": null,
@@ -735,6 +498,193 @@ const jsonTemplate = """
                     "children": [],
                     "autocomplete": null,
                     "type": "Field",
+                    "workflowFieldId": null
+                }
+            ],
+            "autocomplete": null,
+            "type": "Group",
+            "workflowFieldId": null
+        },
+        {
+            "id": "23251256-5af7-4a6e-89e2-1e9496b845d6",
+            "name": "Informazioni Gruppo di Lavoro",
+            "searchable": false,
+            "names": [
+                {
+                    "culture": "it",
+                    "label": "Informazioni Gruppo di Lavoro"
+                },
+                {
+                    "culture": "en",
+                    "label": "Team"
+                }
+            ],
+            "descriptions": [
+                {
+                    "culture": "it",
+                    "label": null
+                },
+                {
+                    "culture": "en",
+                    "label": null
+                }
+            ],
+            "hidden": false,
+            "readonly": false,
+            "fieldType": null,
+            "isArray": false,
+            "defaultValue": null,
+            "validators": [],
+            "items": [],
+            "multiple": false,
+            "children": [
+                {
+                    "id": "842cd418-4ed0-478d-a3cf-8a0d50b968c8",
+                    "name": "Gdl",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "Gdl"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "Gdl"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": null
+                        },
+                        {
+                            "culture": "en",
+                            "label": null
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": null,
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [],
+                    "multiple": true,
+                    "children": [
+                        {
+                            "id": "f9eeda90-7f50-43c2-ad7c-ae9e66ce0cc6",
+                            "name": "SmartPAUserId",
+                            "searchable": false,
+                            "names": [
+                                {
+                                    "culture": "it",
+                                    "label": "SmartPAUserId"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "SmartPAUserId"
+                                }
+                            ],
+                            "descriptions": [
+                                {
+                                    "culture": "it",
+                                    "label": null
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": null
+                                }
+                            ],
+                            "hidden": false,
+                            "readonly": false,
+                            "fieldType": "String",
+                            "isArray": false,
+                            "defaultValue": null,
+                            "validators": [],
+                            "items": [],
+                            "multiple": false,
+                            "children": [],
+                            "autocomplete": null,
+                            "type": "Field",
+                            "workflowFieldId": null
+                        },
+                        {
+                            "id": "ebeaf39a-1791-45b5-bd8d-d138be187048",
+                            "name": "QualificationName",
+                            "searchable": false,
+                            "names": [
+                                {
+                                    "culture": "it",
+                                    "label": "QualificationName"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "QualificationName"
+                                }
+                            ],
+                            "descriptions": [
+                                {
+                                    "culture": "it",
+                                    "label": null
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": null
+                                }
+                            ],
+                            "hidden": false,
+                            "readonly": false,
+                            "fieldType": "String",
+                            "isArray": false,
+                            "defaultValue": null,
+                            "validators": [],
+                            "items": [],
+                            "multiple": false,
+                            "children": [],
+                            "autocomplete": null,
+                            "type": "Field",
+                            "workflowFieldId": null
+                        },
+                        {
+                            "id": "ada18d01-8d99-4e2a-92c5-44a7b750e657",
+                            "name": "DisplayName",
+                            "searchable": false,
+                            "names": [
+                                {
+                                    "culture": "it",
+                                    "label": "DisplayName"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "DisplayName"
+                                }
+                            ],
+                            "descriptions": [
+                                {
+                                    "culture": "it",
+                                    "label": null
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": null
+                                }
+                            ],
+                            "hidden": false,
+                            "readonly": false,
+                            "fieldType": "String",
+                            "isArray": false,
+                            "defaultValue": null,
+                            "validators": [],
+                            "items": [],
+                            "multiple": false,
+                            "children": [],
+                            "autocomplete": null,
+                            "type": "Field",
+                            "workflowFieldId": null
+                        }
+                    ],
+                    "autocomplete": null,
+                    "type": "Group",
                     "workflowFieldId": null
                 }
             ],
@@ -993,17 +943,17 @@ const jsonTemplate = """
             "workflowFieldId": null
         },
         {
-            "id": "23251256-5af7-4a6e-89e2-1e9496b845d6",
-            "name": "Informazioni Gruppo di Lavoro",
+            "id": "17884d9d-e980-4f86-a06d-fc77c7006fcc",
+            "name": "Informazioni Amministrative",
             "searchable": false,
             "names": [
                 {
                     "culture": "it",
-                    "label": "Informazioni Gruppo di Lavoro"
+                    "label": "Informazioni Amministrative"
                 },
                 {
                     "culture": "en",
-                    "label": "Team"
+                    "label": "Information"
                 }
             ],
             "descriptions": [
@@ -1026,17 +976,17 @@ const jsonTemplate = """
             "multiple": false,
             "children": [
                 {
-                    "id": "842cd418-4ed0-478d-a3cf-8a0d50b968c8",
-                    "name": "Gdl",
+                    "id": "eda13842-a5f3-4775-9300-840eb00c233b",
+                    "name": "Protocollo Generale",
                     "searchable": false,
                     "names": [
                         {
                             "culture": "it",
-                            "label": "Gdl"
+                            "label": "Protocollo Generale"
                         },
                         {
                             "culture": "en",
-                            "label": "Gdl"
+                            "label": "Registration Number"
                         }
                     ],
                     "descriptions": [
@@ -1051,41 +1001,410 @@ const jsonTemplate = """
                     ],
                     "hidden": false,
                     "readonly": false,
+                    "fieldType": "Integer",
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "b380bbb0-cb98-48b5-bd9b-231f49a840a3",
+                    "name": "Link Provvedimenti",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "Link Provvedimenti"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "Link"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": null
+                        },
+                        {
+                            "culture": "en",
+                            "label": null
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "String",
+                    "isArray": true,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "cf954f61-c9f1-43fc-a366-59ce9c93b8de",
+                    "name": "test currency",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test currency"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test currency"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test currency"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test currency"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "Currency",
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [
+                        {
+                            "type": "DecimalNumbersValidator",
+                            "required": null,
+                            "numOfDecimals": 2,
+                            "number": null,
+                            "date": null,
+                            "include": null,
+                            "length": null,
+                            "dateValue": null,
+                            "dateValueType": null,
+                            "regex": null,
+                            "extensions": []
+                        }
+                    ],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "fbe2c855-93f3-4801-92da-c5e9aa286351",
+                    "name": "test file",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test file"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test file"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test file"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test file"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "File",
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "09e4cb53-cd48-4540-9d91-06d532facfba",
+                    "name": "test boolean",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test bool"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test bool"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test bool"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test bool"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "Boolean",
+                    "isArray": true,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [
+                        {
+                            "key": true,
+                            "label": "brtrh"
+                        },
+                        {
+                            "key": true,
+                            "label": "hrhrt"
+                        },
+                        {
+                            "key": true,
+                            "label": "hrthrthr"
+                        }
+                    ],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "eda1c41f-7169-4dd7-8e10-c561d8937145",
+                    "name": "test dropdown",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test dropdown"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test dropdown"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test dropdown"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test dropdown"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "String",
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [
+                        {
+                            "key": "frrr",
+                            "label": "frfrfr"
+                        },
+                        {
+                            "key": "ffrfrf",
+                            "label": "frfrfrfr"
+                        }
+                    ],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                },
+                {
+                    "id": "03d007af-f9bb-41dd-b319-fabd4a3daa39",
+                    "name": "test array string",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "test array string"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test array string"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "test array string"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "test array string"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "String",
+                    "isArray": true,
+                    "defaultValue": null,
+                    "validators": [
+                        {
+                            "type": "MinimumItemsValidator",
+                            "required": null,
+                            "numOfDecimals": null,
+                            "number": null,
+                            "date": null,
+                            "include": null,
+                            "length": 1,
+                            "dateValue": null,
+                            "dateValueType": null,
+                            "regex": null,
+                            "extensions": []
+                        },
+                        {
+                            "type": "MaximumItemsValidator",
+                            "required": null,
+                            "numOfDecimals": null,
+                            "number": null,
+                            "date": null,
+                            "include": null,
+                            "length": 3,
+                            "dateValue": null,
+                            "dateValueType": null,
+                            "regex": null,
+                            "extensions": []
+                        }
+                    ],
+                    "items": [
+                        {
+                            "key": "drop1",
+                            "label": "test array string"
+                        },
+                        {
+                            "key": "drop2",
+                            "label": "test array string"
+                        }
+                    ],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
+                }
+            ],
+            "autocomplete": null,
+            "type": "Group",
+            "workflowFieldId": null
+        },
+        {
+            "id": "c6e0a38f-a155-42d2-834c-0720f4834b26",
+            "name": "Sezione Prova Fields",
+            "searchable": false,
+            "names": [
+                {
+                    "culture": "it",
+                    "label": "Sezione Prova Fields"
+                },
+                {
+                    "culture": "en",
+                    "label": "Sezione Prova Fields"
+                }
+            ],
+            "descriptions": [
+                {
+                    "culture": "it",
+                    "label": "Sezione Prova Fields"
+                },
+                {
+                    "culture": "en",
+                    "label": "Sezione Prova Fields"
+                }
+            ],
+            "hidden": false,
+            "readonly": false,
+            "fieldType": null,
+            "isArray": false,
+            "defaultValue": null,
+            "validators": [],
+            "items": [],
+            "multiple": false,
+            "children": [
+                {
+                    "id": "00a862ec-7cff-4dfb-9bf4-b07d9c4e301a",
+                    "name": "fields",
+                    "searchable": false,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "fields"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "fields"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": "fields"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "fields"
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
                     "fieldType": null,
                     "isArray": false,
                     "defaultValue": null,
                     "validators": [],
                     "items": [],
-                    "multiple": true,
+                    "multiple": false,
                     "children": [
                         {
-                            "id": "f9eeda90-7f50-43c2-ad7c-ae9e66ce0cc6",
-                            "name": "SmartPAUserId",
+                            "id": "32b5c131-989c-4a8d-859c-5720f2e45c17",
+                            "name": "String",
                             "searchable": false,
                             "names": [
                                 {
                                     "culture": "it",
-                                    "label": "SmartPAUserId"
+                                    "label": "String"
                                 },
                                 {
                                     "culture": "en",
-                                    "label": "SmartPAUserId"
+                                    "label": "String"
                                 }
                             ],
                             "descriptions": [
                                 {
                                     "culture": "it",
-                                    "label": null
+                                    "label": "String"
                                 },
                                 {
                                     "culture": "en",
-                                    "label": null
+                                    "label": "String"
                                 }
                             ],
                             "hidden": false,
                             "readonly": false,
                             "fieldType": "String",
-                            "isArray": false,
+                            "isArray": true,
                             "defaultValue": null,
                             "validators": [],
                             "items": [],
@@ -1096,33 +1415,33 @@ const jsonTemplate = """
                             "workflowFieldId": null
                         },
                         {
-                            "id": "ebeaf39a-1791-45b5-bd8d-d138be187048",
-                            "name": "QualificationName",
+                            "id": "70888464-8cc2-4ce7-8ec2-bba7b1b63777",
+                            "name": "Boolean",
                             "searchable": false,
                             "names": [
                                 {
                                     "culture": "it",
-                                    "label": "QualificationName"
+                                    "label": "Boolean"
                                 },
                                 {
                                     "culture": "en",
-                                    "label": "QualificationName"
+                                    "label": "Boolean"
                                 }
                             ],
                             "descriptions": [
                                 {
                                     "culture": "it",
-                                    "label": null
+                                    "label": "Boolean"
                                 },
                                 {
                                     "culture": "en",
-                                    "label": null
+                                    "label": "Boolean"
                                 }
                             ],
                             "hidden": false,
                             "readonly": false,
-                            "fieldType": "String",
-                            "isArray": false,
+                            "fieldType": "Boolean",
+                            "isArray": true,
                             "defaultValue": null,
                             "validators": [],
                             "items": [],
@@ -1133,33 +1452,161 @@ const jsonTemplate = """
                             "workflowFieldId": null
                         },
                         {
-                            "id": "ada18d01-8d99-4e2a-92c5-44a7b750e657",
-                            "name": "DisplayName",
+                            "id": "f88d3052-02d9-4e13-9388-9859c7c400b9",
+                            "name": "file",
                             "searchable": false,
                             "names": [
                                 {
                                     "culture": "it",
-                                    "label": "DisplayName"
+                                    "label": "file"
                                 },
                                 {
                                     "culture": "en",
-                                    "label": "DisplayName"
+                                    "label": "file"
                                 }
                             ],
                             "descriptions": [
                                 {
                                     "culture": "it",
-                                    "label": null
+                                    "label": "file"
                                 },
                                 {
                                     "culture": "en",
-                                    "label": null
+                                    "label": "file"
                                 }
                             ],
                             "hidden": false,
                             "readonly": false,
-                            "fieldType": "String",
-                            "isArray": false,
+                            "fieldType": "File",
+                            "isArray": true,
+                            "defaultValue": null,
+                            "validators": [
+                                {
+                                    "type": "MinimumItemsValidator",
+                                    "required": null,
+                                    "numOfDecimals": null,
+                                    "number": null,
+                                    "date": null,
+                                    "include": null,
+                                    "length": 2,
+                                    "dateValue": null,
+                                    "dateValueType": null,
+                                    "regex": null,
+                                    "extensions": []
+                                },
+                                {
+                                    "type": "MaximumItemsValidator",
+                                    "required": null,
+                                    "numOfDecimals": null,
+                                    "number": null,
+                                    "date": null,
+                                    "include": null,
+                                    "length": 5,
+                                    "dateValue": null,
+                                    "dateValueType": null,
+                                    "regex": null,
+                                    "extensions": []
+                                }
+                            ],
+                            "items": [],
+                            "multiple": false,
+                            "children": [],
+                            "autocomplete": null,
+                            "type": "Field",
+                            "workflowFieldId": null
+                        },
+                        {
+                            "id": "0f267258-39ed-4194-a12e-945f49cd5fb0",
+                            "name": "datetime",
+                            "searchable": false,
+                            "names": [
+                                {
+                                    "culture": "it",
+                                    "label": "datetime"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "datetime"
+                                }
+                            ],
+                            "descriptions": [
+                                {
+                                    "culture": "it",
+                                    "label": "datetime"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "datetime"
+                                }
+                            ],
+                            "hidden": false,
+                            "readonly": false,
+                            "fieldType": "DateTime",
+                            "isArray": true,
+                            "defaultValue": null,
+                            "validators": [
+                                {
+                                    "type": "MinimumItemsValidator",
+                                    "required": null,
+                                    "numOfDecimals": null,
+                                    "number": null,
+                                    "date": null,
+                                    "include": null,
+                                    "length": 2,
+                                    "dateValue": null,
+                                    "dateValueType": null,
+                                    "regex": null,
+                                    "extensions": []
+                                },
+                                {
+                                    "type": "MaximumItemsValidator",
+                                    "required": null,
+                                    "numOfDecimals": null,
+                                    "number": null,
+                                    "date": null,
+                                    "include": null,
+                                    "length": 5,
+                                    "dateValue": null,
+                                    "dateValueType": null,
+                                    "regex": null,
+                                    "extensions": []
+                                }
+                            ],
+                            "items": [],
+                            "multiple": false,
+                            "children": [],
+                            "autocomplete": null,
+                            "type": "Field",
+                            "workflowFieldId": null
+                        },
+                        {
+                            "id": "b9e03c90-9993-468d-be70-f4ab0ec5f4bd",
+                            "name": "dateTime",
+                            "searchable": false,
+                            "names": [
+                                {
+                                    "culture": "it",
+                                    "label": "dateTime"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "dateTime"
+                                }
+                            ],
+                            "descriptions": [
+                                {
+                                    "culture": "it",
+                                    "label": "dateTime"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "dateTime"
+                                }
+                            ],
+                            "hidden": false,
+                            "readonly": false,
+                            "fieldType": "DateTime",
+                            "isArray": true,
                             "defaultValue": null,
                             "validators": [],
                             "items": [],
@@ -1208,7 +1655,6 @@ const jsonTemplate = """
     "steps": [
         {
             "groupIds": [
-                "17884d9d-e980-4f86-a06d-fc77c7006fcc",
                 "953531c9-bb88-44bd-9190-e699d7b3dcd5",
                 "0ed02707-5094-4ad5-8353-f2c0e3bbde59"
             ]
@@ -1216,12 +1662,14 @@ const jsonTemplate = """
         {
             "groupIds": [
                 "611e8b01-4189-46ef-b19b-486f04b9383c",
+                "23251256-5af7-4a6e-89e2-1e9496b845d6",
                 "9aa22aa4-527a-4c37-8bed-c7253fdaa330"
             ]
         },
         {
             "groupIds": [
-                "23251256-5af7-4a6e-89e2-1e9496b845d6"
+                "17884d9d-e980-4f86-a06d-fc77c7006fcc",
+                "c6e0a38f-a155-42d2-834c-0720f4834b26"
             ]
         }
     ],

@@ -4,8 +4,9 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_date_time_picker/reactive_date_time_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
+import 'input_field.dart';
 
-class DateTimeInputWidget extends StatefulWidget {
+class DateTimeInputWidget extends StatefulWidget implements InputField {
   const DateTimeInputWidget({
     Key? key,
     required this.control,

@@ -4,8 +4,9 @@ import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../custom_main_text.dart';
+import 'input_field.dart';
 
-class BoolSwitchInputWidget extends StatelessWidget {
+class BoolSwitchInputWidget extends StatelessWidget implements InputField {
   const BoolSwitchInputWidget({
     Key? key,
     required this.section,
@@ -17,6 +18,10 @@ class BoolSwitchInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        CustomMainText(section.names?.getDescriptionLabelTranslated(context),expandIntoColumnOnRow: false,),
+        Consumer(builder: (ctx, ref, _) {
+          return ref.read(templateRenderInputProvider).defaultGapRow;
+        }),
         Visibility(
           visible: (section.readonly ?? false) == false,
           replacement: IgnorePointer(
@@ -32,10 +37,6 @@ class BoolSwitchInputWidget extends StatelessWidget {
             formControl: control,
           ),
         ),
-        Consumer(builder: (ctx, ref, _) {
-          return ref.read(templateRenderInputProvider).defaultGapRow;
-        }),
-        CustomMainText(section.names?.getDescriptionLabelTranslated(context)),
       ],
     );
   }

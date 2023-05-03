@@ -26,7 +26,7 @@ class CoreTemplateRenderWidget extends StatelessWidget {
   }
 }
 
-class TemplateContainerWidget extends StatelessWidget {
+class TemplateContainerWidget extends ConsumerWidget {
   final Template template;
   const TemplateContainerWidget({
     Key? key,
@@ -34,10 +34,9 @@ class TemplateContainerWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    late final formGroup = FormGroup({});
+  Widget build(context, ref) {
     return ReactiveForm(
-      formGroup: formGroup,
+      formGroup: ref.read(mainFormGroupProvider),
       child: Consumer(builder: (context, ref, _) {
         return Card(
           child: Column(
@@ -49,7 +48,6 @@ class TemplateContainerWidget extends StatelessWidget {
                     ?.getDescriptionLabelTranslated(context),
               ),
               TemplateStepperWidget(
-                formGroupTemplate: formGroup,
                 template: template,
               ).expandIntoColumnOrRow(),
             ],
@@ -63,4 +61,12 @@ class TemplateContainerWidget extends StatelessWidget {
 
 final templateRenderInputProvider = StateProvider((ref) {
   return const TemplateRenderInput();
+});
+
+final mainFormGroupProvider = Provider((ref) {
+  final formGroup = FormGroup({});
+  ref.onDispose(() {
+    formGroup.dispose();
+  });
+  return formGroup;
 });

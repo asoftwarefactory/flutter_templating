@@ -4,8 +4,9 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
 import '../custom_main_text.dart';
+import 'input_field.dart';
 
-class DecimalInputWidget extends StatelessWidget {
+class DecimalInputWidget extends StatelessWidget implements InputField {
   const DecimalInputWidget({
     Key? key,
     required this.section,

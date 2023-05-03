@@ -7,8 +7,9 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
 import '../core_template_render_widget.dart';
 import '../custom_main_text.dart';
+import 'input_field.dart';
 
-class FilesInputWidget extends StatelessWidget {
+class FilesInputWidget extends StatelessWidget implements InputField {
   const FilesInputWidget({
     Key? key,
     required this.section,

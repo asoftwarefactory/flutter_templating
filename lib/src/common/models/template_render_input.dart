@@ -6,6 +6,7 @@ class TemplateRenderInput {
   final EdgeInsets defaultMarginWidgets;
   final String buttonPickFileText;
   final String buttonSaveTemplateText;
+  final String buttonAddFieldToSection;
   final Future<void> Function(Object? data)? onTemplateFormSend;
   final SizedBox defaultGapRow;
   final SizedBox defaultGapColumn;
@@ -23,6 +24,7 @@ class TemplateRenderInput {
     this.defaultMarginWidgets = const EdgeInsets.all(Sizes.p8),
     this.buttonPickFileText = "Pick File",
     this.buttonSaveTemplateText = "Save Template",
+    this.buttonAddFieldToSection = "Add Field",
     this.onTemplateFormSend,
   });
 }

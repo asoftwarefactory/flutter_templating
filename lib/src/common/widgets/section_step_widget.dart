@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'section_field_widget.dart';
 import 'title_description_widget.dart';
@@ -11,10 +10,9 @@ class SectionStepWidget extends ConsumerWidget {
   const SectionStepWidget({
     super.key,
     required this.section,
-    required this.formGroupTemplate,
   });
   final Section section;
-  final FormGroup formGroupTemplate;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // hidden Feature
@@ -29,7 +27,6 @@ class SectionStepWidget extends ConsumerWidget {
     if (section.type == SectionType.FIELD) {
       return SectionFieldWidget(
         section: section,
-        formGroup: formGroupTemplate,
       ).createMargin(
           ref.read(templateRenderInputProvider).defaultMarginWidgets);
     } else if (section.type == SectionType.GROUP) {
@@ -70,13 +67,11 @@ class SectionStepWidget extends ConsumerWidget {
                           child: Opacity(
                             opacity: 0.5,
                             child: SectionStepWidget(
-                              formGroupTemplate: formGroupTemplate,
                               section: e,
                             ),
                           ),
                         ),
                         child: SectionStepWidget(
-                          formGroupTemplate: formGroupTemplate,
                           section: e,
                         ),
                       );

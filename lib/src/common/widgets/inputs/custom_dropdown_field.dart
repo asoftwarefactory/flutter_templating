@@ -4,8 +4,9 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import '../../models/template.dart';
 import '../custom_main_text.dart';
+import 'input_field.dart';
 
-class CustomDropdownField<T> extends ConsumerWidget {
+class CustomDropdownField<T> extends ConsumerWidget implements InputField {
   final FormControl<T> control;
   final Section section;
 

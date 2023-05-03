@@ -5,8 +5,9 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_multi_select_flutter/reactive_multi_select_flutter.dart';
 import '../../models/template.dart';
 import '../custom_main_text.dart';
+import 'input_field.dart';
 
-class MultiSelectChipItemField<T> extends ConsumerWidget {
+class MultiSelectChipItemField<T> extends ConsumerWidget implements InputField {
   final FormControl<List<T>> control;
   final Section section;
 

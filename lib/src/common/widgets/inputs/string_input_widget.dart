@@ -3,8 +3,9 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
 import '../custom_main_text.dart';
+import 'input_field.dart';
 
-class StringInputWidget extends StatelessWidget {
+class StringInputWidget extends StatelessWidget implements InputField {
   const StringInputWidget({
     Key? key,
     required this.section,

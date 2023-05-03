@@ -6,9 +6,10 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../locale/locale.dart';
 import '../../models/template.dart';
 import '../custom_main_text.dart';
+import 'input_field.dart';
 import 'formatters/currency.dart';
 
-class CurrencyInputWidget extends StatelessWidget {
+class CurrencyInputWidget extends StatelessWidget implements InputField {
   const CurrencyInputWidget({
     Key? key,
     required this.section,

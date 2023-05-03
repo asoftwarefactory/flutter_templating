@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../models/template.dart';
 import '../widgets/inputs/validators/manager.dart';
@@ -31,7 +30,7 @@ extension FormGroupExt on FormGroup {
     }
   }
 
-  FormGroup? getFormGroupFromSection(Section section) {
+  /* FormGroup? getFormGroupFromSection(Section section) {
     final sectionLabel = Template.pNamesections;
     final sectionControls = control(sectionLabel);
 
@@ -43,7 +42,7 @@ extension FormGroupExt on FormGroup {
     } else {
       throw Exception("sectionControls as not FormArray");
     }
-  }
+  } */
   /* static FormGroup createFormGroupFromTemplateJSON(Template template) {
     return FormGroup({
       Template.pNameid: FormControl<String>(value: template.id),

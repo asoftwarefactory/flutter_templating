@@ -1,8 +1,8 @@
 const jsonTemplate = """
 {
-    "id": "55",
+    "id": "56",
     "groupId": "17",
-    "createdAt": "2023-05-03T00:08:45.9631625Z",
+    "createdAt": "2023-05-03T15:51:36.6542803Z",
     "isValid": true,
     "scopes": [
         "Works"
@@ -199,7 +199,7 @@ const jsonTemplate = """
                     ],
                     "hidden": false,
                     "readonly": false,
-                    "fieldType": "Currency",
+                    "fieldType": "Integer",
                     "isArray": false,
                     "defaultValue": null,
                     "validators": [
@@ -929,6 +929,61 @@ const jsonTemplate = """
                         {
                             "key": 3,
                             "label": "c"
+                        }, {
+                            "key": 4,
+                            "label": "A"
+                        },
+                        {
+                            "key": 5,
+                            "label": "b"
+                        },
+                        {
+                            "key": 6,
+                            "label": "c"
+                        }, {
+                            "key": 7,
+                            "label": "A"
+                        },
+                        {
+                            "key": 8,
+                            "label": "b"
+                        },
+                        {
+                            "key": 9,
+                            "label": "c"
+                        }, {
+                            "key": 10,
+                            "label": "A"
+                        },
+                        {
+                            "key": 11,
+                            "label": "b"
+                        },
+                        {
+                            "key": 12,
+                            "label": "c"
+                        }, {
+                            "key": 13,
+                            "label": "A"
+                        },
+                        {
+                            "key": 14,
+                            "label": "b"
+                        },
+                        {
+                            "key": 15,
+                            "label": "c"
+                        }, {
+                            "key": 16,
+                            "label": "A"
+                        },
+                        {
+                            "key": 17,
+                            "label": "b"
+                        },
+                        {
+                            "key": 18,
+                            "label": "c"
                         }
                     ],
                     "multiple": false,
@@ -1609,6 +1664,83 @@ const jsonTemplate = """
                             "isArray": true,
                             "defaultValue": null,
                             "validators": [],
+                            "items": [],
+                            "multiple": false,
+                            "children": [],
+                            "autocomplete": null,
+                            "type": "Field",
+                            "workflowFieldId": null
+                        },
+                        {
+                            "id": "11d55b16-b7f7-4edc-94e5-003d61027ff5",
+                            "name": "test validatori",
+                            "searchable": false,
+                            "names": [
+                                {
+                                    "culture": "it",
+                                    "label": "test validatori"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "test validatori"
+                                }
+                            ],
+                            "descriptions": [
+                                {
+                                    "culture": "it",
+                                    "label": "test validatori"
+                                },
+                                {
+                                    "culture": "en",
+                                    "label": "test validatori"
+                                }
+                            ],
+                            "hidden": false,
+                            "readonly": false,
+                            "fieldType": "String",
+                            "isArray": false,
+                            "defaultValue": null,
+                            "validators": [
+                                {
+                                    "type": "RequiredValidator",
+                                    "required": true,
+                                    "numOfDecimals": null,
+                                    "number": null,
+                                    "date": null,
+                                    "include": null,
+                                    "length": null,
+                                    "dateValue": null,
+                                    "dateValueType": null,
+                                    "regex": null,
+                                    "extensions": []
+                                },
+                                {
+                                    "type": "MinimumLengthValidator",
+                                    "required": null,
+                                    "numOfDecimals": null,
+                                    "number": null,
+                                    "date": null,
+                                    "include": null,
+                                    "length": 3,
+                                    "dateValue": null,
+                                    "dateValueType": null,
+                                    "regex": null,
+                                    "extensions": []
+                                },
+                                {
+                                    "type": "MaximumLengthValidator",
+                                    "required": null,
+                                    "numOfDecimals": null,
+                                    "number": null,
+                                    "date": null,
+                                    "include": null,
+                                    "length": 5,
+                                    "dateValue": null,
+                                    "dateValueType": null,
+                                    "regex": null,
+                                    "extensions": []
+                                }
+                            ],
                             "items": [],
                             "multiple": false,
                             "children": [],

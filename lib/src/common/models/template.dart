@@ -750,6 +750,7 @@ class FieldValidator {
   });
 
   final FieldValidatorTypes? type;
+  // Fatto
   final bool? required;
   final int? numOfDecimals;
   final int? number;
@@ -758,6 +759,7 @@ class FieldValidator {
   final int? length;
   final int? dateValue;
   final DateValueTypes? dateValueType;
+  // Fatto
   final String? regex;
   final List<String>? extensions;
 
@@ -846,19 +848,48 @@ final dateValueTypesValues = EnumValues<DateValueTypes>({
 });
 
 enum FieldValidatorTypes {
+  // Validatore di lunghezza minima
   MinimumLengthValidator,
+
+  // Validatore di lunghezza massima
   MaximumLengthValidator,
+
+  // Validatore Numero Minimo
   MinimumNumberValidator,
+
+  // Validatore di numero massimo
   MaximumNumberValidator,
+
+  // Convalida data minima Const
   MinimumConstDateValidator,
+
+  // Convalida data massima cost
   MaximumConstDateValidator,
+
+  // Validatore di data relativa minima
   MinimumRelativeDateValidator,
+
+  // Validatore di data relativa massima
   MaximumRelativeDateValidator,
+
+  // Validatore di elementi minimi
   MinimumItemsValidator,
+
+  // Validatore di elementi massimi
   MaximumItemsValidator,
+
+  // Validatore di numeri decimali
   DecimalNumbersValidator,
+
+  // Fatto
+  // Obbligatorio
   RequiredValidator,
+
+  // Fatto
+  // Validatore Regex
   RegexValidator,
+
+  // Validatore di estensioni
   ExtensionsValidator
 }
 

@@ -1265,7 +1265,7 @@ const jsonTemplate = """
                     "validators": [
                         {
                             "type": "MinimumItemsValidator",
-                            "required": null,
+                            "required": true,
                             "numOfDecimals": null,
                             "number": null,
                             "date": null,

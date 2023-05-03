@@ -1,9 +1,50 @@
 import 'package:collection/collection.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../models/template.dart';
+import '../widgets/inputs/validators/manager.dart';
 
 extension FormGroupExt on FormGroup {
-  static FormGroup createFormGroupFromTemplateJSON(Template template) {
+  AbstractControl<T> getOrSetAbstractControl<T>(
+      String controlId, AbstractControl<T> Function() ifNotExistControl) {
+    final form = this;
+    if (form.controls.containsKey(controlId)) {
+      return form.control(controlId) as AbstractControl<T>;
+    } else {
+      final control = ifNotExistControl();
+      form.addAll({controlId: control});
+
+      return control;
+    }
+  }
+
+  AbstractControl<T> getOrSetAbstractControlAndSetValidators<T>(
+      String controlId, AbstractControl<T> Function() ifNotExistControl,
+      {List<FieldValidator>? validators}) {
+    final form = this;
+    if (form.controls.containsKey(controlId)) {
+      return form.control(controlId) as AbstractControl<T>;
+    } else {
+      final control = ifNotExistControl();
+      ValidatorsManager.initializeValidators(control, validators ?? []);
+      form.addAll({controlId: control});
+      return control;
+    }
+  }
+
+  FormGroup? getFormGroupFromSection(Section section) {
+    final sectionLabel = Template.pNamesections;
+    final sectionControls = control(sectionLabel);
+
+    if (sectionControls is FormArray) {
+      return sectionControls.controls.firstWhereOrNull((element) {
+        final id = element.value[Section.pNameid];
+        return id == section.id;
+      }) as FormGroup?;
+    } else {
+      throw Exception("sectionControls as not FormArray");
+    }
+  }
+  /* static FormGroup createFormGroupFromTemplateJSON(Template template) {
     return FormGroup({
       Template.pNameid: FormControl<String>(value: template.id),
       Template.pNamegroupId: FormControl(value: template.groupId),
@@ -186,19 +227,5 @@ extension FormGroupExt on FormGroup {
                 []),
       }),
     });
-  }
-
-  FormGroup? getFormGroupFromSection(Section section) {
-    final sectionLabel = Template.pNamesections;
-    final sectionControls = control(sectionLabel);
-
-    if (sectionControls is FormArray) {
-      return sectionControls.controls.firstWhereOrNull((element) {
-        final id = element.value[Section.pNameid];
-        return id == section.id;
-      }) as FormGroup?;
-    } else {
-      throw Exception("sectionControls as not FormArray");
-    }
-  }
+  } */
 }

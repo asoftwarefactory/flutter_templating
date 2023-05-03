@@ -199,13 +199,13 @@ const jsonTemplate = """
                     ],
                     "hidden": false,
                     "readonly": false,
-                    "fieldType": "Integer",
+                    "fieldType": "Decimal",
                     "isArray": false,
                     "defaultValue": null,
                     "validators": [
                         {
                             "type": "DecimalNumbersValidator",
-                            "required": null,
+                            "required": true,
                             "numOfDecimals": 2,
                             "number": null,
                             "date": null,

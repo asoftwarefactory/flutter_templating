@@ -20,18 +20,6 @@ class DecimalInputWidget extends StatelessWidget implements InputField {
       readOnly: section.readonly ?? false,
       keyboardType:
           const TextInputType.numberWithOptions(decimal: true, signed: false),
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-        TextInputFormatter.withFunction((oldValue, newValue) {
-          try {
-            final text = newValue.text;
-            if (text.isNotEmpty) double.parse(text);
-            return newValue;
-            // ignore: empty_catches
-          } catch (e) {}
-          return oldValue;
-        }),
-      ],
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         label: CustomMainText(

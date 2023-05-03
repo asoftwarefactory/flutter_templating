@@ -223,6 +223,7 @@ class _SectionFieldWidgetState extends ConsumerState<SectionFieldWidget> {
               .getDescriptionLabelTranslated(context),
           formArray: formArray,
           fieldBuilder: (control, index) => DateTimeInputWidget(
+              showClearIcon: false,
               control: control as FormControl<DateTime>,
               section: widget.section),
         );
@@ -239,6 +240,7 @@ class _SectionFieldWidgetState extends ConsumerState<SectionFieldWidget> {
               .getDescriptionLabelTranslated(context),
           formArray: formArray,
           fieldBuilder: (control, index) => DateTimeInputWidget(
+              showClearIcon: false,
               control: control as FormControl<DateTime>,
               section: widget.section),
         );
@@ -255,6 +257,7 @@ class _SectionFieldWidgetState extends ConsumerState<SectionFieldWidget> {
               .getDescriptionLabelTranslated(context),
           formArray: formArray,
           fieldBuilder: (control, index) => DateTimeInputWidget(
+              showClearIcon: false,
               control: control as FormControl<DateTime>,
               section: widget.section),
         );
@@ -271,6 +274,7 @@ class _SectionFieldWidgetState extends ConsumerState<SectionFieldWidget> {
               .getDescriptionLabelTranslated(context),
           formArray: formArray,
           fieldBuilder: (control, index) => DateTimeInputWidget(
+              showClearIcon: false,
               control: control as FormControl<DateTime>,
               section: widget.section),
         );

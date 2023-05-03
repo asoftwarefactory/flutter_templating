@@ -11,9 +11,11 @@ class DateTimeInputWidget extends StatefulWidget implements InputField {
     Key? key,
     required this.control,
     required this.section,
+    this.showClearIcon = true,
   }) : super(key: key);
   final FormControl<DateTime> control;
   final Section section;
+  final bool showClearIcon;
 
   @override
   State<DateTimeInputWidget> createState() => _DateTimeInputWidgetState();
@@ -60,6 +62,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   @override
   Widget build(BuildContext context) {
     return ReactiveDateTimePicker(
+      showClearIcon: widget.showClearIcon,
       formControl: widget.control,
       type: _getDatePickerType,
       decoration: InputDecoration(

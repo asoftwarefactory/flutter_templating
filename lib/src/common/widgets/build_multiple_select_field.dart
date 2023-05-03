@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import 'inputs/custom_dropdown_multiple_field.dart';
 import 'inputs/multiselect_chip_item_field.dart';
 
 class BuildMultipleSelectField extends ConsumerWidget {
@@ -55,7 +56,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
           () => FormControl<List<bool>>(value: defaultValue, touched: true),
           validators: section.validators,
         ) as FormControl<List<bool>>;
-        return MultiSelectChipItemField(control: control, section: section);
+        return ReactiveDropdownMultipleField(control: control, section: section);
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(

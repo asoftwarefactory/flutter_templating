@@ -6,11 +6,11 @@ import '../../models/template.dart';
 import '../custom_main_text.dart';
 import 'input_field.dart';
 
-class CustomDropdownField<T> extends ConsumerWidget implements InputField {
+class DropdownField<T> extends ConsumerWidget implements InputField {
   final FormControl<T> control;
   final Section section;
 
-  const CustomDropdownField({
+  const DropdownField({
     super.key,
     required this.control,
     required this.section,

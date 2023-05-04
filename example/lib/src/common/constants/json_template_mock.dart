@@ -920,70 +920,15 @@ const jsonTemplate = """
                     "items": [
                         {
                             "key": 1,
-                            "label": "A"
+                            "label": "FELPA"
                         },
                         {
                             "key": 2,
-                            "label": "b"
+                            "label": "PANTALONE"
                         },
                         {
                             "key": 3,
-                            "label": "c"
-                        }, {
-                            "key": 4,
-                            "label": "A"
-                        },
-                        {
-                            "key": 5,
-                            "label": "b"
-                        },
-                        {
-                            "key": 6,
-                            "label": "c"
-                        }, {
-                            "key": 7,
-                            "label": "A"
-                        },
-                        {
-                            "key": 8,
-                            "label": "b"
-                        },
-                        {
-                            "key": 9,
-                            "label": "c"
-                        }, {
-                            "key": 10,
-                            "label": "A"
-                        },
-                        {
-                            "key": 11,
-                            "label": "b"
-                        },
-                        {
-                            "key": 12,
-                            "label": "c"
-                        }, {
-                            "key": 13,
-                            "label": "A"
-                        },
-                        {
-                            "key": 14,
-                            "label": "b"
-                        },
-                        {
-                            "key": 15,
-                            "label": "c"
-                        }, {
-                            "key": 16,
-                            "label": "A"
-                        },
-                        {
-                            "key": 17,
-                            "label": "b"
-                        },
-                        {
-                            "key": 18,
-                            "label": "c"
+                            "label": "SCARPE"
                         }
                     ],
                     "multiple": false,

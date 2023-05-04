@@ -9,11 +9,13 @@ import 'input_field.dart';
 class DropdownField<T> extends ConsumerWidget implements InputField {
   final FormControl<T> control;
   final Section section;
+  final T Function(Item)? valueFromSectionItem;
 
   const DropdownField({
     super.key,
     required this.control,
     required this.section,
+    this.valueFromSectionItem,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,7 +31,7 @@ class DropdownField<T> extends ConsumerWidget implements InputField {
         formControl: control,
         items: (section.items ?? <Item>[]).map((e) {
           return DropdownMenuItem<T>(
-            value: e.key,
+            value: valueFromSectionItem?.call(e) ?? e.key,
             child: CustomMainText(
               e.label,
               expandIntoColumnOnRow: false,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../utils/unique_value.dart';
 import 'inputs/dropdown_field.dart';
 
 class BuildSelectField extends ConsumerWidget {
@@ -52,10 +53,14 @@ class BuildSelectField extends ConsumerWidget {
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
-          () => FormControl<bool>(value: defaultValue, touched: true),
+          () => FormControl<Unique<bool>>(value: defaultValue, touched: true),
           validators: section.validators,
-        ) as FormControl<bool>;
-        return DropdownField(control: control, section: section);
+        ) as FormControl<Unique<bool>>;
+        return DropdownField(
+          control: control,
+          section: section,
+          valueFromSectionItem: (item) => Unique(value: item.key as bool),
+        );
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(

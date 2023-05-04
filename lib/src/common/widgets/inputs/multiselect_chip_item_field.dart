@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_multi_select_flutter/reactive_multi_select_flutter.dart';
+import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import '../../models/template.dart';
 import '../custom_main_text.dart';
 import 'input_field.dart';
@@ -10,11 +10,13 @@ import 'input_field.dart';
 class MultiSelectChipItemField<T> extends ConsumerWidget implements InputField {
   final FormControl<List<T>> control;
   final Section section;
+  final T Function(Item)? valueFromSectionItem;
 
   const MultiSelectChipItemField({
     super.key,
     required this.control,
     required this.section,
+    this.valueFromSectionItem,
   });
 
   @override
@@ -32,7 +34,10 @@ class MultiSelectChipItemField<T> extends ConsumerWidget implements InputField {
           formControl: control,
           items: (section.items ?? [])
               .map(
-                (e) => MultiSelectItem<T>(e.key, e.label ?? ''),
+                (e) => MultiSelectItem<T>(
+                  valueFromSectionItem?.call(e) ?? e.key,
+                  e.label ?? '',
+                ),
               )
               .toList(),
         ),

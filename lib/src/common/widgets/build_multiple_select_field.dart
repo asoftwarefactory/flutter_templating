@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../utils/unique_value.dart';
 import 'inputs/multiselect_chip_item_field.dart';
 
 class BuildMultipleSelectField extends ConsumerWidget {
@@ -52,10 +53,14 @@ class BuildMultipleSelectField extends ConsumerWidget {
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
-          () => FormControl<List<bool>>(value: defaultValue, touched: true),
+          () => FormControl<List<Unique<bool>>>(
+              value: defaultValue, touched: true),
           validators: section.validators,
-        ) as FormControl<List<bool>>;
-        return MultiSelectChipItemField(control: control, section: section);
+        ) as FormControl<List<Unique<bool>>>;
+        return MultiSelectChipItemField(
+            control: control,
+            section: section,
+            valueFromSectionItem: (item) => Unique(value: item.key as bool));
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(

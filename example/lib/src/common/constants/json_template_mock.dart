@@ -1164,7 +1164,7 @@ const jsonTemplate = """
                     "hidden": false,
                     "readonly": false,
                     "fieldType": "Boolean",
-                    "isArray": true,
+                    "isArray": false,
                     "defaultValue": null,
                     "validators": [],
                     "items": [

@@ -4,7 +4,7 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
-import 'array_field.dart';
+import 'inputs/array_field.dart';
 import 'inputs/bool_switch_input_widget.dart';
 import 'inputs/date_time_input_widget.dart';
 import 'inputs/decimal_input_widget.dart';

@@ -25,7 +25,7 @@ class MultiSelectDropdownField<T> extends ConsumerWidget implements InputField {
   @override
   Widget build(context, ref) {
     return IgnorePointer(
-      ignoring: _readOnly == true,
+      ignoring: _readOnly,
       child: Opacity(
         opacity: _readOnly ? 0.5 : 1,
         child: ReactiveDropdownMultipleField<T, T>(
@@ -36,7 +36,7 @@ class MultiSelectDropdownField<T> extends ConsumerWidget implements InputField {
             final item =
                 (section.items ?? []).firstWhereOrNull((e) => e.key == value);
             return item?.label ?? '';
-          },
+          }, 
           options: (section.items ?? [])
               .map((e) => valueFromSectionItem?.call(e) ?? e.key as T)
               .toList(),

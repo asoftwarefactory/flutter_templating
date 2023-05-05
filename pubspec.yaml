@@ -1,6 +1,7 @@
 name: flutter_templating
 description: A new Flutter package project.
 version: 0.0.1
+publish_to: none
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -27,13 +28,15 @@ dependencies:
   reactive_file_picker: ^0.12.0
   reactive_date_time_picker: ^0.6.1 
   reactive_multi_select_flutter: ^0.0.1
+  reactive_dropdown_multiple_field:
+    git: 
+      url: https://github.com/asoftwarefactory/reactive_dropdown_multiple_field.git
 
   uuid: ^3.0.7
   collection: ^1.17.0
   auto_size_text: ^3.0.0
   intl: ^0.18.1
   universal_platform: ^1.0.0+1
-  multiselect: ^0.1.0
   
   
   

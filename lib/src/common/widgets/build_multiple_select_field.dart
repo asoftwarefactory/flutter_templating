@@ -58,9 +58,11 @@ class BuildMultipleSelectField extends ConsumerWidget {
           validators: section.validators,
         ) as FormControl<List<Unique<bool>>>;
         return MultiSelectDropdownField(
-            control: control,
-            section: section,
-            valueFromSectionItem: (item) => Unique(value: item.key as bool));
+          control: control,
+          section: section,
+          valueFromSectionItem: (item) => Unique(value: item.key as bool),
+        );
+
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(

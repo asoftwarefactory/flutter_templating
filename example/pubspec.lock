@@ -117,10 +117,10 @@ packages:
     dependency: transitive
     description:
       name: file_picker
-      sha256: e6c7ad8e572379df86ea64ef0a5395889fba3954411d47ca021b888d79f8e798
+      sha256: c7a8e25ca60e7f331b153b0cb3d405828f18d3e72a6fa1d9440c86556fffc877
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.11"
+    version: "5.3.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -353,7 +353,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9b681791e753ba288ea38a7f339a33b753a5b3a2"
+      resolved-ref: "2aaa4ab4c36f57a548522103b48894b6ae73a79c"
       url: "https://github.com/asoftwarefactory/reactive_dropdown_multiple_field.git"
     source: git
     version: "0.0.1"
@@ -361,10 +361,10 @@ packages:
     dependency: transitive
     description:
       name: reactive_file_picker
-      sha256: "70b6f3d4cb392e0542cda0dd52c0d71386b94bf344c1de6a1646804af2e4880f"
+      sha256: "4962b92dfc5b5c70693451d53f036db48fbec3199d69f7e496bb014fff30d245"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.0"
+    version: "0.12.1"
   reactive_forms:
     dependency: "direct main"
     description:
@@ -409,10 +409,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: "858aaa72d8f61637d64e776aca82e1c67e6d9ee07979123c5d17115031c1b13b"
+      sha256: "16d3fb6b3692ad244a695c0183fca18cf81fd4b821664394a781de42386bf022"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -425,10 +425,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: "0c1c16c56c9708aa9c361541a6f0e5cc6fc12a3232d866a687a7b7db30032b07"
+      sha256: e014107bb79d6d3297196f4f2d0db54b5d1f85b8ea8ff63b8e8b391a02700feb
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   shared_preferences_linux:
     dependency: transitive
     description:

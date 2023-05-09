@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_dropdown_multiple_field/reactive_dropdown_multiple_field.dart';
@@ -10,16 +9,25 @@ import 'input_field.dart';
 class MultiSelectDropdownField<T> extends ConsumerWidget implements InputField {
   final FormControl<List<T>> control;
   final Section section;
-  final T Function(Item)? valueFromSectionItem;
+  final String Function(T data, List<Item> allItems)? label;
 
   const MultiSelectDropdownField({
     super.key,
     required this.control,
     required this.section,
-    this.valueFromSectionItem,
+    this.label,
   });
+
   bool get _readOnly {
     return section.readonly == true;
+  }
+
+  List<Item> get _sectionItems {
+    return section.items ?? [];
+  }
+
+  List<T> get _typedSectionItems {
+    return (section.items ?? []).map((e) => e.key as T).toList();
   }
 
   @override
@@ -28,18 +36,18 @@ class MultiSelectDropdownField<T> extends ConsumerWidget implements InputField {
       ignoring: _readOnly,
       child: Opacity(
         opacity: _readOnly ? 0.5 : 1,
-        child: ReactiveDropdownMultipleField<T, T>(
+        child: ReactiveDropdownMultipleField<T>(
           readOnly: _readOnly,
           control: control,
           whenEmpty: section.names?.getDescriptionLabelTranslated(context),
-          labelBuilder: (options, value) {
-            final item =
-                (section.items ?? []).firstWhereOrNull((e) => e.key == value);
-            return item?.label ?? '';
-          }, 
-          options: (section.items ?? [])
-              .map((e) => valueFromSectionItem?.call(e) ?? e.key as T)
-              .toList(),
+          options: _typedSectionItems,
+          labelBuilder: (v) {
+            return LabelBuilderData(
+              enableIntoSelectedOptions: true,
+              enableIntoOptions: true,
+              label: label?.call(v, _sectionItems) ?? v.toString(),
+            );
+          },
         ),
       ),
     );

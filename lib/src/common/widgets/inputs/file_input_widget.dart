@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
+import 'package:flutter_templating/src/common/widgets/readonly.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/template.dart';
@@ -35,6 +36,11 @@ class _FileInputWidgetState extends State<FileInputWidget> {
 
   @override
   void initState() {
+    final value = widget.control.value;
+    if (value != null) {
+      _control.value = MultiFile(platformFiles: [value]);
+    }
+
     _controlSubscritpion = _control.valueChanges.listen((event) {
       final lastFile = event?.platformFiles.lastOrNull;
       if (lastFile != null) {
@@ -53,8 +59,8 @@ class _FileInputWidgetState extends State<FileInputWidget> {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      return Opacity(
-        opacity: _readonly ? 0.5 : 1,
+      return Readonly(
+        readonly: _readonly,
         child: ReactiveFilePicker<String>(
           allowMultiple: false,
           formControl: _control,

@@ -1,9 +1,13 @@
 import 'package:reactive_forms/reactive_forms.dart';
 
+import 'validation_message.dart';
+
 class RequiredValidator extends Validator<dynamic> {
   @override
   Map<String, dynamic>? validate(AbstractControl<dynamic> control) {
-    final error = <String, dynamic>{ValidationMessage.required: true};
+    final error = <String, dynamic>{
+      ExtValidationMessage.requiredValidator: true
+    };
 
     if (control.value == null) {
       return error;

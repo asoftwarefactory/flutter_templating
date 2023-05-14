@@ -9,8 +9,8 @@ final ThemeData lightTheme = ThemeData(
   primaryColorBrightness: Brightness.light,
   primaryColorLight: const Color(0xfffff9c4),
   primaryColorDark: const Color(0xfffbc02d),
-  accentColor: const Color(0xffffeb3b),
-  accentColorBrightness: Brightness.light,
+  hintColor: const Color(0xffffeb3b),
+  // accentColorBrightness: Brightness.light,
   canvasColor: const Color(0xfffafafa),
   scaffoldBackgroundColor: const Color(0xfffafafa),
   bottomAppBarColor: const Color(0xffffffff),
@@ -21,7 +21,7 @@ final ThemeData lightTheme = ThemeData(
   selectedRowColor: const Color(0xfff5f5f5),
   unselectedWidgetColor: const Color(0x8a000000),
   disabledColor: const Color(0x61000000),
-  buttonColor: const Color(0xffe0e0e0),
+  // buttonColor: const Color(0xffe0e0e0),
   secondaryHeaderColor: const Color(0xfffffde7),
   /* textSelectionColor: Color(0xfffff59d),
   cursorColor: Color(0xff4285f4),
@@ -29,7 +29,7 @@ final ThemeData lightTheme = ThemeData(
   backgroundColor: const Color(0xfffff59d),
   dialogBackgroundColor: const Color(0xffffffff),
   indicatorColor: const Color(0xffffeb3b),
-  hintColor: const Color(0x8a000000),
+  // hintColor: const Color(0x8a000000),
   errorColor: const Color(0xffd32f2f),
   buttonTheme: const ButtonThemeData(
     textTheme: ButtonTextTheme.normal,
@@ -227,7 +227,7 @@ final ThemeData lightTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
   ),
-  accentTextTheme: const TextTheme(
+  /* accentTextTheme: const TextTheme(
     /*  display4: TextStyle(
       color: Color(0x8a000000),
       fontSize: null,
@@ -306,7 +306,7 @@ final ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-  ),
+  ), */
   inputDecorationTheme: const InputDecorationTheme(
     labelStyle: TextStyle(
       color: Color(0xdd000000),
@@ -416,11 +416,11 @@ final ThemeData lightTheme = ThemeData(
     opacity: 1,
     size: 24,
   ),
-  accentIconTheme: const IconThemeData(
+  /* accentIconTheme: const IconThemeData(
     color: Color(0xff000000),
     opacity: 1,
     size: 24,
-  ),
+  ), */
   sliderTheme: const SliderThemeData(
     activeTrackColor: null,
     inactiveTrackColor: null,

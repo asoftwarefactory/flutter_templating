@@ -41,29 +41,3 @@ class DecimalNumbersValidator extends Validator<dynamic> {
     return true;
   }
 }
-
-
-
-/* class DecimalNumbersValidator extends Validator<dynamic> {
-  final int decimalDigits;
-
-  DecimalNumbersValidator(this.decimalDigits);
-
-  @override
-  Map<String, dynamic>? validate(AbstractControl<dynamic> control) {
-    final value = control.value;
-
-    if (value != null && value is num) {
-      final stringValue = value.toString();
-      final decimalIndex = stringValue.indexOf('.');
-      if (decimalIndex != -1) {
-        final decimalPart = stringValue.substring(decimalIndex + 1);
-        if (decimalPart.length > decimalDigits) {
-          return {ExtValidationMessage.decimalNumbersValidator: true};
-        }
-      }
-    }
-
-    return null;
-  }
-} */

@@ -153,7 +153,23 @@ class ValidatorsManager {
           );
         }
         break;
+
       default:
+    }
+
+    if (validator.regex != null &&
+        validator.type != FieldValidatorTypes.RegexValidator) {
+      t.pushValidator(
+        RegexValidator(RegExp(validator.regex!), isArray: isArray).validate,
+        autoValidate: true,
+      );
+    }
+    if (validator.required == true &&
+        validator.type != FieldValidatorTypes.RequiredValidator) {
+      t.pushValidator(
+        RequiredValidator(isArray: isArray).validate,
+        autoValidate: true,
+      );
     }
   }
 

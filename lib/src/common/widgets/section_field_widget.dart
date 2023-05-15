@@ -6,60 +6,62 @@ import 'build_array_field.dart';
 import 'build_field.dart';
 import 'build_multiple_select_field.dart';
 import 'build_select_field.dart';
+import 'inputs/autocomplete_input_widget.dart';
 import 'inputs/validators/manager.dart';
 
-class SectionFieldWidget extends ConsumerStatefulWidget {
+class SectionFieldWidget extends ConsumerWidget {
   final Section section;
-
-  const SectionFieldWidget({
-    super.key,
-    required this.section,
-  });
-
-  @override
-  createState() => _SectionFieldWidgetState();
-}
-
-class _SectionFieldWidgetState extends ConsumerState<SectionFieldWidget> {
+  const SectionFieldWidget({super.key, required this.section});
   dynamic get _defaultValue {
-    dynamic value = widget.section.defaultValue;
+    dynamic value = section.defaultValue;
     return value;
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (widget.section.id == null) {
+  Widget build(context, ref) {
+    if (section.id == null) {
       return const SizedBox();
     }
     return ReactiveFormConfig(
       validationMessages: ValidatorsManager.defaultValidationMessages,
-      child: _initializeField(context),
+      child: Column(
+        children: [
+          if (section.autocomplete != null)
+            AutocompleteInputWidget(
+              control: FormControl(),
+              section: section,
+            ),
+          if (section.autocomplete != null)
+            ref.read(templateRenderInputProvider).defaultGapColumn,
+          Expanded(child: _initializeField(context)),
+        ],
+      ),
     );
   }
 
   Widget _initializeField(BuildContext context) {
-    final items = widget.section.items ?? [];
-    final isArray = widget.section.isArray ?? false;
+    final items = section.items ?? [];
+    final isArray = section.isArray ?? false;
 
     if (items.isEmpty && !isArray) {
       return BuildField(
         defaultValue: _defaultValue,
-        section: widget.section,
+        section: section,
       );
     } else if (items.isEmpty && isArray) {
       return BuildArrayField(
         defaultValue: _defaultValue,
-        section: widget.section,
+        section: section,
       );
     } else if (items.isNotEmpty && !isArray) {
       return BuildSelectField(
         defaultValue: _defaultValue,
-        section: widget.section,
+        section: section,
       );
     } else if (items.isNotEmpty && isArray) {
       return BuildMultipleSelectField(
         defaultValue: _defaultValue,
-        section: widget.section,
+        section: section,
       );
     } else {
       return const SizedBox();

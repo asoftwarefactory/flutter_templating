@@ -59,7 +59,7 @@ class TemplateContainerWidget extends ConsumerWidget {
   }
 }
 
-final templateRenderInputProvider = StateProvider((ref) {
+final templateRenderInputProvider = StateProvider<TemplateRenderInput>((ref) {
   return const TemplateRenderInput();
 });
 

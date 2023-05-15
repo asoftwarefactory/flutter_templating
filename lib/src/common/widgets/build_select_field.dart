@@ -21,41 +21,42 @@ class BuildSelectField extends ConsumerWidget {
   }
 
   Widget _buildSelectField(FormGroup form) {
+    final isArray = section.isArray ?? false;
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<String>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<String>;
+            section.id!,
+            () => FormControl<String>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Integer:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<int>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<int>;
+            section.id!,
+            () => FormControl<int>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<int>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Decimal:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<double>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<double>;
+            section.id!,
+            () => FormControl<double>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<double>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Currency:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<double>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<double>;
+            section.id!,
+            () => FormControl<double>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<double>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<Unique<bool>>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<Unique<bool>>;
+            section.id!,
+            () => FormControl<Unique<bool>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<Unique<bool>>;
         return DropdownField(
           control: control,
           section: section,
@@ -64,39 +65,39 @@ class BuildSelectField extends ConsumerWidget {
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<String>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<String>;
+            section.id!,
+            () => FormControl<String>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       case FieldTypes.DateNoUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<String>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<String>;
+            section.id!,
+            () => FormControl<String>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       case FieldTypes.DateTime:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<String>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<String>;
+            section.id!,
+            () => FormControl<String>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Time:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<String>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<String>;
+            section.id!,
+            () => FormControl<String>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<String>(value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<String>;
+            section.id!,
+            () => FormControl<String>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       default:
         return const SizedBox();

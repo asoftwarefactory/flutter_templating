@@ -21,12 +21,13 @@ class BuildMultipleSelectField extends ConsumerWidget {
   }
 
   Widget _buildMultipleSelectField(BuildContext ctx, FormGroup form) {
+     final isArray = section.isArray ?? false;
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
@@ -38,7 +39,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<int>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<int>>;
         return MultiSelectDropdownField(
           control: control,
@@ -50,7 +51,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<double>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<double>>;
         return MultiSelectDropdownField(
           control: control,
@@ -62,7 +63,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<double>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<double>>;
         return MultiSelectDropdownField<double>(
           control: control,
@@ -74,7 +75,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<String>>;
         final mappedItems = (section.items ?? [])
             .asMap()
@@ -94,7 +95,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
@@ -106,7 +107,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
@@ -118,7 +119,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
@@ -130,7 +131,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
@@ -143,7 +144,7 @@ class BuildMultipleSelectField extends ConsumerWidget {
         final control = form.getOrSetAbstractControlAndSetValidators(
           section.id!,
           () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators,
+          validators: section.validators, isArray: isArray
         ) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,

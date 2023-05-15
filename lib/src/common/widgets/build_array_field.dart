@@ -28,14 +28,15 @@ class BuildArrayField extends ConsumerWidget {
   }
 
   Widget buildArrayField(BuildContext context, FormGroup form) {
+    final isArray = section.isArray ?? false;
     switch (section.fieldType) {
       case FieldTypes.String:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<String>(
-              [FormControl<String>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<String>;
+            section.id!,
+            () => FormArray<String>(
+                [FormControl<String>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<String>;
         return ArrayField<String>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -47,12 +48,12 @@ class BuildArrayField extends ConsumerWidget {
         );
       case FieldTypes.Integer:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<int>(
-            [FormControl<int>(value: defaultValue, touched: true)],
-          ),
-          validators: section.validators,
-        ) as FormArray<int>;
+            section.id!,
+            () => FormArray<int>(
+                  [FormControl<int>(value: defaultValue, touched: true)],
+                ),
+            validators: section.validators,
+            isArray: isArray) as FormArray<int>;
         return ArrayField<int>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -64,11 +65,11 @@ class BuildArrayField extends ConsumerWidget {
         );
       case FieldTypes.Decimal:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<double>(
-              [FormControl<double>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<double>;
+            section.id!,
+            () => FormArray<double>(
+                [FormControl<double>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<double>;
         return ArrayField<double>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -80,11 +81,11 @@ class BuildArrayField extends ConsumerWidget {
         );
       case FieldTypes.Currency:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<double>(
-              [FormControl<double>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<double>;
+            section.id!,
+            () => FormArray<double>(
+                [FormControl<double>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<double>;
         return ArrayField<double>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -96,11 +97,11 @@ class BuildArrayField extends ConsumerWidget {
         );
       case FieldTypes.Boolean:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<bool>(
-              [FormControl<bool>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<bool>;
+            section.id!,
+            () => FormArray<bool>(
+                [FormControl<bool>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<bool>;
         return ArrayField<bool>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -113,11 +114,11 @@ class BuildArrayField extends ConsumerWidget {
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<DateTime>(
-              [FormControl<DateTime>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<DateTime>;
+            section.id!,
+            () => FormArray<DateTime>(
+                [FormControl<DateTime>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<DateTime>;
         return ArrayField<DateTime>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -131,11 +132,11 @@ class BuildArrayField extends ConsumerWidget {
         );
       case FieldTypes.DateNoUtc:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<DateTime>(
-              [FormControl<DateTime>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<DateTime>;
+            section.id!,
+            () => FormArray<DateTime>(
+                [FormControl<DateTime>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<DateTime>;
         return ArrayField<DateTime>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -149,11 +150,11 @@ class BuildArrayField extends ConsumerWidget {
         );
       case FieldTypes.DateTime:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<DateTime>(
-              [FormControl<DateTime>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<DateTime>;
+            section.id!,
+            () => FormArray<DateTime>(
+                [FormControl<DateTime>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<DateTime>;
         return ArrayField<DateTime>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -167,11 +168,11 @@ class BuildArrayField extends ConsumerWidget {
         );
       case FieldTypes.Time:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormArray<DateTime>(
-              [FormControl<DateTime>(value: defaultValue, touched: true)]),
-          validators: section.validators,
-        ) as FormArray<DateTime>;
+            section.id!,
+            () => FormArray<DateTime>(
+                [FormControl<DateTime>(value: defaultValue, touched: true)]),
+            validators: section.validators,
+            isArray: isArray) as FormArray<DateTime>;
         return ArrayField<DateTime>(
           title:
               "Array - ${section.names?.getDescriptionLabelTranslated(context)}",
@@ -186,11 +187,11 @@ class BuildArrayField extends ConsumerWidget {
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<MultiFile<String>>(
-              value: defaultValue, touched: true),
-          validators: section.validators,
-        ) as FormControl<MultiFile<String>>;
+            section.id!,
+            () => FormControl<MultiFile<String>>(
+                value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<MultiFile<String>>;
         return FilesInputWidget(control: control, section: section);
       default:
         return const SizedBox();

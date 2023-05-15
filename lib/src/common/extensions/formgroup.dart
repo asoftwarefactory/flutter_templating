@@ -18,13 +18,17 @@ extension FormGroupExt on FormGroup {
 
   AbstractControl<T> getOrSetAbstractControlAndSetValidators<T>(
       String controlId, AbstractControl<T> Function() ifNotExistControl,
-      {List<FieldValidator>? validators}) {
+      {bool isArray = false, List<FieldValidator>? validators}) {
     final form = this;
     if (form.controls.containsKey(controlId)) {
       return form.control(controlId) as AbstractControl<T>;
     } else {
       final control = ifNotExistControl();
-      ValidatorsManager.initializeValidators(control, validators ?? []);
+      ValidatorsManager.initializeValidators(
+        control,
+        validators ?? [],
+        isArray,
+      );
       form.addAll({controlId: control});
       return control;
     }

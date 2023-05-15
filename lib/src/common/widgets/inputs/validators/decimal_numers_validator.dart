@@ -13,11 +13,11 @@ class DecimalNumbersValidator extends Validator<dynamic> {
 
     if (isArray && value is List<num>) {
       for (final num element in value) {
-        if (!_isValidDecimal(element)) {
+        if (value is! num || _isValidDecimal(element) == false) {
           return {ExtValidationMessage.decimalNumbersValidator: true};
         }
       }
-    } else if (!_isValidDecimal(value)) {
+    } else if (value is! num || _isValidDecimal(value) == false) {
       return {ExtValidationMessage.decimalNumbersValidator: true};
     }
 

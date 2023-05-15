@@ -750,7 +750,6 @@ class FieldValidator {
   });
 
   final FieldValidatorTypes? type;
-  // Fatto
   final bool? required;
   final int? numOfDecimals;
   final int? number;
@@ -759,7 +758,6 @@ class FieldValidator {
   final int? length;
   final int? dateValue;
   final DateValueTypes? dateValueType;
-  // Fatto
   final String? regex;
   final List<String>? extensions;
 

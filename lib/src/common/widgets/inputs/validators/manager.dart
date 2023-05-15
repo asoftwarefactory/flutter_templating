@@ -1,3 +1,4 @@
+import 'package:flutter_templating/src/common/extensions/abstract_control.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../models/template.dart';
 import 'decimal_numers_validator.dart';
@@ -7,6 +8,7 @@ import 'maximum_items_validator.dart';
 import 'maximum_length_validator.dart';
 import 'maximum_numer_validator.dart';
 import 'maximum_relative_date_validator.dart';
+import 'minimum_const_date_validator.dart';
 import 'minimum_items_validator.dart';
 import 'minimum_length_validator.dart';
 import 'minimum_number_validator.dart';
@@ -31,115 +33,142 @@ class ValidatorsManager {
 
     switch (validator.type) {
       case FieldValidatorTypes.RequiredValidator:
-        t.setValidators(
-          [RequiredValidator().validate],
+        t.pushValidator(
+          RequiredValidator().validate,
           autoValidate: true,
         );
         break;
       case FieldValidatorTypes.DecimalNumbersValidator:
-        t.setValidators(
-          [DecimalNumbersValidator().validate],
-          autoValidate: true,
-        );
+        if (validator.numOfDecimals != null) {
+          t.pushValidator(
+            DecimalNumbersValidator(decimalPlaces: validator.numOfDecimals!)
+                .validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.ExtensionsValidator:
-        t.setValidators(
-          // TODO
-          [ExtensionsValidator.validate([])],
-          autoValidate: true,
-        );
+        if (validator.extensions != null) {
+          t.pushValidator(
+            ExtensionsValidator.validate(validator.extensions!),
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MaximumConstDateValidator:
-        t.setValidators(
-          // TODO
-          [MaximumConstDateValidator('', "").validate],
-          autoValidate: true,
-        );
+        if (validator.date != null) {
+          t.pushValidator(
+            MaximumConstDateValidator(validator.date!.toString(), "").validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MaximumItemsValidator:
-        t.setValidators(
-          // TODO
-          [MaximumItemsValidator(0, "").validate],
-          autoValidate: true,
-        );
+        if (validator.length != null) {
+          t.pushValidator(
+            MaximumItemsValidator(validator.length!, "").validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MaximumLengthValidator:
-        t.setValidators(
-          // TODO
-          [MaximumLengthValidator(0, message: "").validate],
-          autoValidate: true,
-        );
+        if (validator.length != null) {
+          t.pushValidator(
+            MaximumLengthValidator(validator.length!, message: "").validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MaximumNumberValidator:
-        t.setValidators(
-          // TODO
-          [MaximumNumberValidator(0).validate],
-          autoValidate: true,
-        );
+        if (validator.number != null) {
+          t.pushValidator(
+            MaximumNumberValidator(validator.number!).validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MaximumRelativeDateValidator:
-        t.setValidators(
-          // TODO
-          [MaximumRelativeDateValidator(0).validate],
-          autoValidate: true,
-        );
+        if (validator.date != null) {
+          t.pushValidator(
+            MaximumRelativeDateValidator(validator.date!.day).validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MinimumConstDateValidator:
-        t.setValidators(
-          // TODO
-          [MaximumRelativeDateValidator(0).validate],
-          autoValidate: true,
-        );
+        if (validator.date != null) {
+          t.pushValidator(
+            MinimumConstDateValidator(validator.date!).validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MinimumItemsValidator:
-        t.setValidators(
-          // TODO
-          [MinimumItemsValidator(0).validate],
-          autoValidate: true,
-        );
+        if (validator.length != null) {
+          t.pushValidator(
+            MinimumItemsValidator(validator.length!).validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MinimumLengthValidator:
-        t.setValidators(
-          // TODO
-          [MinimumLengthValidator(0).validate],
-          autoValidate: true,
-        );
+        if (validator.length != null) {
+          t.pushValidator(
+            MinimumLengthValidator(validator.length!).validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.MinimumNumberValidator:
-        t.setValidators(
-          // TODO
-          [MinimumNumberValidator(0).validate],
-          autoValidate: true,
-        );
+        if (validator.number != null) {
+          t.pushValidator(
+            MinimumNumberValidator(validator.number!).validate,
+            autoValidate: true,
+          );
+        }
         break;
       case FieldValidatorTypes.MinimumRelativeDateValidator:
-        t.setValidators(
-          // TODO
-          [MinimumRelativeDateValidator(DateTime.now(), "").validate],
-          autoValidate: true,
-        );
+        if (validator.date != null) {
+          t.pushValidator(
+            MinimumRelativeDateValidator(validator.date!, "").validate,
+            autoValidate: true,
+          );
+        }
+
         break;
       case FieldValidatorTypes.RegexValidator:
-        t.setValidators(
-          // TODO
-          [Validators.pattern("")],
-          autoValidate: true,
-        );
+        if (validator.regex != null) {
+          t.pushValidator(
+            Validators.pattern(validator.regex!),
+            autoValidate: true,
+          );
+        }
+
         break;
 
       default:
     }
 
     if (validator.required == true) {
-      t.setValidators(
-        [...t.validators, RequiredValidator().validate],
+      t.pushValidator(
+        RequiredValidator().validate,
         autoValidate: true,
       );
     }
 
     if (validator.regex != null) {
-      t.setValidators(
-        [...t.validators, Validators.pattern(validator.regex ?? '')],
+      t.pushValidator(
+        Validators.pattern(validator.regex!),
         autoValidate: true,
       );
     }

@@ -12,9 +12,12 @@ class DecimalNumbersValidator extends Validator<dynamic> {
     final value = control.value?.toString() ?? '';
 
     // regex to validate decimal numbers with the given decimal places
-    // TODO :
-    final pattern = RegExp(r'^-?[0-9]+(\.[0-9]{1,$decimalPlaces})?$');
-
+    // ignore: unnecessary_string_escapes
+    String a = '^-?[0-9]+(\.[0-9]{1,';
+    a += decimalPlaces.toString();
+    a += '})?\$';
+    // final pattern = RegExp(r'^-?[0-9]+(\.[0-9]{1,$decimalPlaces})?$');
+    final pattern = RegExp(a);
     if (!pattern.hasMatch(value)) {
       return {ExtValidationMessage.decimalNumbersValidator: true};
     }

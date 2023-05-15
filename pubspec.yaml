@@ -25,7 +25,7 @@ dependencies:
   # forms
   reactive_forms: ^14.3.0
   reactive_raw_autocomplete: ^0.6.0
-  reactive_file_picker: ^0.12.0
+  reactive_file_picker: ^0.12.1
   reactive_date_time_picker: ^0.6.1 
   reactive_multi_select_flutter: ^0.0.1
   reactive_dropdown_multiple_field:

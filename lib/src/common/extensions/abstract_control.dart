@@ -4,6 +4,35 @@ import '../models/abstract_control_result.dart';
 import '../models/form_control_typed.dart';
 
 extension ExtAbstractControl on AbstractControl {
+  void pushValidators(
+    List<Map<String, dynamic>? Function(AbstractControl<dynamic>)>
+        otherValidators, {
+    bool autoValidate = false,
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    return setValidators(
+      [...validators, ...otherValidators],
+      autoValidate: autoValidate,
+      updateParent: updateParent,
+      emitEvent: emitEvent,
+    );
+  }
+
+  void pushValidator(
+    Map<String, dynamic>? Function(AbstractControl<dynamic>) otherValidator, {
+    bool autoValidate = false,
+    bool updateParent = true,
+    bool emitEvent = true,
+  }) {
+    return pushValidators(
+      [otherValidator],
+      autoValidate: autoValidate,
+      updateParent: updateParent,
+      emitEvent: emitEvent,
+    );
+  }
+
   /// iterate all elements presents into AbstractControl, also grafted elements
   void forEachChildAll(void Function(AbstractControlResult result) fn) {
     // ignore: invalid_use_of_protected_member

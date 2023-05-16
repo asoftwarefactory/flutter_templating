@@ -6,6 +6,7 @@ import 'build_array_field.dart';
 import 'build_field.dart';
 import 'build_multiple_select_field.dart';
 import 'build_select_field.dart';
+import 'inputs/autocomplete_input_widget.dart';
 import 'inputs/validators/manager.dart';
 
 class SectionFieldWidget extends ConsumerWidget {
@@ -23,22 +24,18 @@ class SectionFieldWidget extends ConsumerWidget {
     }
     return ReactiveFormConfig(
       validationMessages: ValidatorsManager.defaultValidationMessages,
-      child: _initializeField(context),
-      // TODO : 
-      /*  child: SizedBox.expand(
-        child: Column(
-          children: [
-            if (section.autocomplete != null)
-              AutocompleteInputWidget(
-                control: FormControl(),
-                section: section,
-              ),
-            if (section.autocomplete != null)
-              ref.read(templateRenderInputProvider).defaultGapColumn,
-            Expanded(child: _initializeField(context)),
-          ],
-        ),
-      ), */
+      child: Column(
+        children: [
+          if (section.autocomplete != null)
+            AutocompleteInputWidget(
+              control: FormControl(),
+              section: section,
+            ),
+          if (section.autocomplete != null)
+            ref.read(templateRenderInputProvider).defaultGapColumn,
+          _initializeField(context),
+        ],
+      ),
     );
   }
 

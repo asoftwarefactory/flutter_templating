@@ -560,8 +560,9 @@ class Section {
                 json["children"]!.map((x) => Section.fromJson(x))),
         type: sectionTypeValues.map[json["type"]],
         workflowFieldId: json["workflowFieldId"],
-        autocomplete:
-            TemplateFieldAutocomplete.fromJson(json["autocomplete"] ?? {}),
+        autocomplete: json["autocomplete"] != null
+            ? TemplateFieldAutocomplete.fromJson(json["autocomplete"]!)
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

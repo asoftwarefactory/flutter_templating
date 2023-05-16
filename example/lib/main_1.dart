@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:url_strategy/url_strategy.dart';
-import 'src/common/constants/json_template_mock.dart';
+import 'src/common/constants/json_template_portico.dart';
 import 'src/common/errors/register_error_handlers.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -62,7 +62,7 @@ class _TemplateScreenState extends State<TemplateScreen> {
         title: const Text("Prova Template"),
       ),
       body: CoreTemplateRenderWidget(
-        template: templateFromJson(jsonTemplate),
+        template: templateFromJson(jsonTemplatePortico),
         templateRenderInput: TemplateRenderInput(
           onTemplateFormSend: (e) async {
             //final a = json.encode(e ?? {}, toEncodable: (e) => null);

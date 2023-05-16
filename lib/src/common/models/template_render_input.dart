@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/app_sizes.dart';
+import 'base_autocomplete.dart';
 
 class TemplateRenderInput {
   final EdgeInsets defaultPaddingWidgets;
@@ -13,6 +14,7 @@ class TemplateRenderInput {
   final double defaultFontSize;
   final double primaryFontSize;
   final double secondaryFontSize;
+  final Future<List<BaseAutocomplete>> Function()? autocompletesLoader;
 
   const TemplateRenderInput({
     this.primaryFontSize = Sizes.p20,
@@ -26,5 +28,6 @@ class TemplateRenderInput {
     this.buttonSaveTemplateText = "Save Template",
     this.buttonAddFieldToSection = "Add Field",
     this.onTemplateFormSend,
+     this.autocompletesLoader,
   });
 }

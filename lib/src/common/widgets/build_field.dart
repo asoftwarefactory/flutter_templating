@@ -27,79 +27,79 @@ class BuildField extends ConsumerWidget {
   }
 
   Widget _buildField(FormGroup form) {
-     final isArray = section.isArray ?? false;
+    final isArray = section.isArray ?? false;
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<String>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<String>;
+            section.id!,
+            () => FormControl<String>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<String>;
         return StringInputWidget(control: control, section: section);
       case FieldTypes.Integer:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<int>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<int>;
+            section.id!,
+            () => FormControl<int>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<int>;
         return IntInputWidget(control: control, section: section);
       case FieldTypes.Decimal:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<double>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<double>;
+            section.id!,
+            () => FormControl<double>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<double>;
         return DecimalInputWidget(control: control, section: section);
       case FieldTypes.Currency:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<double>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<double>;
+            section.id!,
+            () => FormControl<double>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<double>;
         return CurrencyInputWidget(control: control, section: section);
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<bool>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<bool>;
+            section.id!,
+            () => FormControl<bool>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<bool>;
         return BoolSwitchInputWidget(control: control, section: section);
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<DateTime>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<DateTime>;
+            section.id!,
+            () => FormControl<DateTime>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<DateTime>;
         return DateTimeInputWidget(control: control, section: section);
       case FieldTypes.DateNoUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<DateTime>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<DateTime>;
+            section.id!,
+            () => FormControl<DateTime>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<DateTime>;
         return DateTimeInputWidget(control: control, section: section);
       case FieldTypes.DateTime:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<DateTime>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<DateTime>;
+            section.id!,
+            () => FormControl<DateTime>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<DateTime>;
         return DateTimeInputWidget(control: control, section: section);
       case FieldTypes.Time:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<DateTime>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<DateTime>;
+            section.id!,
+            () => FormControl<DateTime>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<DateTime>;
         return DateTimeInputWidget(control: control, section: section);
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<PlatformFile>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<PlatformFile>;
+            section.id!,
+            () => FormControl<PlatformFile>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<PlatformFile>;
         return FileInputWidget(control: control, section: section);
       default:
         return const SizedBox();

@@ -26,7 +26,7 @@ class MultiSelectChipItemField<T> extends ConsumerWidget implements InputField {
       child: Opacity(
         opacity: section.readonly == true ? 0.5 : 1,
         child: ReactiveMultiSelectChipField<T, T>(
-          searchable: section.searchable ?? false,
+          searchable: true,
           title: CustomMainText.createText(
               section.descriptions?.getDescriptionLabelTranslated(context) ??
                   section.names?.getDescriptionLabelTranslated(context),

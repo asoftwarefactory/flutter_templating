@@ -18,10 +18,6 @@ class BoolSwitchInputWidget extends StatelessWidget implements InputField {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CustomMainText(section.names?.getDescriptionLabelTranslated(context),expandIntoColumnOnRow: false,),
-        Consumer(builder: (ctx, ref, _) {
-          return ref.read(templateRenderInputProvider).defaultGapRow;
-        }),
         Visibility(
           visible: (section.readonly ?? false) == false,
           replacement: IgnorePointer(
@@ -37,6 +33,13 @@ class BoolSwitchInputWidget extends StatelessWidget implements InputField {
             formControl: control,
           ),
         ),
+        CustomMainText(
+          section.names?.getDescriptionLabelTranslated(context),
+          expandIntoColumnOnRow: false,
+        ),
+        Consumer(builder: (ctx, ref, _) {
+          return ref.read(templateRenderInputProvider).defaultGapRow;
+        }),
       ],
     );
   }

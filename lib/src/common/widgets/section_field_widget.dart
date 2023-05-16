@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'build_array_field.dart';
+import 'build_autocomplete.dart';
 import 'build_field.dart';
 import 'build_multiple_select_field.dart';
 import 'build_select_field.dart';
-import 'inputs/autocomplete_input_widget.dart';
 import 'inputs/validators/manager.dart';
 
 class SectionFieldWidget extends ConsumerWidget {
@@ -22,28 +22,26 @@ class SectionFieldWidget extends ConsumerWidget {
     if (section.id == null) {
       return const SizedBox();
     }
+
     return ReactiveFormConfig(
       validationMessages: ValidatorsManager.defaultValidationMessages,
-      child: Column(
-        children: [
-          if (section.autocomplete != null)
-            AutocompleteInputWidget(
-              control: FormControl(),
-              section: section,
-            ),
-          if (section.autocomplete != null)
-            ref.read(templateRenderInputProvider).defaultGapColumn,
-          _initializeField(context),
-        ],
-      ),
+      child: _initializeField(context),
     );
   }
 
   Widget _initializeField(BuildContext context) {
     final items = section.items ?? [];
     final isArray = section.isArray ?? false;
+    final isAutocomplete = section.autocomplete != null &&
+        (section.autocomplete?.name != null ||
+            (section.autocomplete!.inputs ?? []).isNotEmpty);
 
-    if (items.isEmpty && !isArray) {
+    if (isAutocomplete) {
+      return BuildAutocomplete(
+        defaultValue: _defaultValue,
+        section: section,
+      );
+    } else if (items.isEmpty && !isArray) {
       return BuildField(
         defaultValue: _defaultValue,
         section: section,

@@ -4,6 +4,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
+import '../models/base_autocomplete.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 
@@ -19,6 +20,9 @@ class CoreTemplateRenderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       overrides: [
+        if (templateRenderInput.autocompletesLoader != null)
+          autocompletesProvider.overrideWith(
+              (ref) async => await templateRenderInput.autocompletesLoader!()),
         templateRenderInputProvider.overrideWith((ref) => templateRenderInput)
       ],
       child: TemplateContainerWidget(template: template),
@@ -59,7 +63,8 @@ class TemplateContainerWidget extends ConsumerWidget {
   }
 }
 
-final templateRenderInputProvider = StateProvider<TemplateRenderInput>((ref) {
+final templateRenderInputProvider =
+    StateProvider.autoDispose<TemplateRenderInput>((ref) {
   return const TemplateRenderInput();
 });
 
@@ -70,3 +75,7 @@ final mainFormGroupProvider = Provider((ref) {
   });
   return formGroup;
 });
+
+final autocompletesProvider =
+    FutureProvider.autoDispose<List<BaseAutocomplete>>(
+        (ref) async => await Future.value([]));

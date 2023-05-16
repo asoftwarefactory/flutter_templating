@@ -164,7 +164,7 @@ const jsonTemplate = """
                             "items": [],
                             "multiple": false,
                             "children": [],
-                            "autocomplete": null,
+                            "autocomplete": {},
                             "type": "Field",
                             "workflowFieldId": null
                         }

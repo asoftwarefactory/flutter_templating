@@ -728,6 +728,10 @@ class Item {
         "key": key,
         "label": label,
       };
+  /* @override
+  String toString() {
+    return toJson().toString();
+  } */
 }
 
 enum SectionType { GROUP, FIELD }

@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+import '../models/autocomplete_model.dart';
 import '../models/template.dart';
 
 extension ExtSection on Section {
@@ -40,5 +42,21 @@ extension ExtSection on Section {
       default:
         return String;
     }
+  }
+
+  AutocompleteModel? getAutocomplete(List<AutocompleteModel> autocompletes) {
+    return autocompletes.firstWhereOrNull(
+      (a) {
+        if (autocomplete?.name != null &&
+            a.name != null &&
+            autocomplete!.name!.isNotEmpty &&
+            a.name!.isNotEmpty &&
+            autocomplete!.name!.toLowerCase() == a.name!.toLowerCase()) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    );
   }
 }

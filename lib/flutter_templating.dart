@@ -4,6 +4,7 @@ export 'src/common/extensions/formgroup.dart';
 export 'src/common/models/template.dart';
 export 'src/common/widgets/core_template_render_widget.dart';
 export 'src/common/models/template_render_input.dart';
+export 'src/common/models/autocomplete_model.dart';
 
 // EXAMPLE : when you import different class from web
 

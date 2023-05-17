@@ -1,25 +1,27 @@
 import 'dart:convert';
 
-List<BaseAutocomplete> baseAutocompletesFromList(List list) =>
-    List<BaseAutocomplete>.from(
-        (list).map((x) => BaseAutocomplete.fromJson(x)));
+import 'template.dart';
 
-List<BaseAutocomplete> baseAutocompleteFromJson(String str) =>
-    List<BaseAutocomplete>.from(
-        json.decode(str).map((x) => BaseAutocomplete.fromJson(x)));
+List<AutocompleteModel> autocompletesModelFromList(List list) =>
+    List<AutocompleteModel>.from(
+        (list).map((x) => AutocompleteModel.fromJson(x)));
 
-String baseAutocompleteToJson(List<BaseAutocomplete> data) =>
+List<AutocompleteModel> autocompletesModelFromJson(String str) =>
+    List<AutocompleteModel>.from(
+        json.decode(str).map((x) => AutocompleteModel.fromJson(x)));
+
+String autocompletesModelToJson(List<AutocompleteModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class BaseAutocomplete {
-  final List<Input>? inputs;
-  final String? outputFieldType;
+class AutocompleteModel {
+  final List<AutocompleteModelInput>? inputs;
+  final FieldTypes? outputFieldType;
   final String? name;
   final String? label;
   final String? backofficeUrl;
   final String? publicUrl;
 
-  BaseAutocomplete({
+  AutocompleteModel({
     this.inputs,
     this.outputFieldType,
     this.name,
@@ -28,15 +30,15 @@ class BaseAutocomplete {
     this.publicUrl,
   });
 
-  BaseAutocomplete copyWith({
-    List<Input>? inputs,
-    String? outputFieldType,
+  AutocompleteModel copyWith({
+    List<AutocompleteModelInput>? inputs,
+    FieldTypes? outputFieldType,
     String? name,
     String? label,
     String? backofficeUrl,
     String? publicUrl,
   }) =>
-      BaseAutocomplete(
+      AutocompleteModel(
         inputs: inputs ?? this.inputs,
         outputFieldType: outputFieldType ?? this.outputFieldType,
         name: name ?? this.name,
@@ -45,12 +47,13 @@ class BaseAutocomplete {
         publicUrl: publicUrl ?? this.publicUrl,
       );
 
-  factory BaseAutocomplete.fromJson(Map<String, dynamic> json) =>
-      BaseAutocomplete(
+  factory AutocompleteModel.fromJson(Map<String, dynamic> json) =>
+      AutocompleteModel(
         inputs: json["inputs"] == null
             ? []
-            : List<Input>.from(json["inputs"]!.map((x) => Input.fromJson(x))),
-        outputFieldType: json["outputFieldType"],
+            : List<AutocompleteModelInput>.from(
+                json["inputs"]!.map((x) => AutocompleteModelInput.fromJson(x))),
+        outputFieldType: fieldTypesValues.map[json["outputFieldType"]],
         name: json["name"],
         label: json["label"],
         backofficeUrl: json["backofficeUrl"],
@@ -61,7 +64,7 @@ class BaseAutocomplete {
         "inputs": inputs == null
             ? []
             : List<dynamic>.from(inputs!.map((x) => x.toJson())),
-        "outputFieldType": outputFieldType,
+        "outputFieldType": fieldTypesValues.reverse[outputFieldType],
         "name": name,
         "label": label,
         "backofficeUrl": backofficeUrl,
@@ -69,14 +72,14 @@ class BaseAutocomplete {
       };
 }
 
-class Input {
+class AutocompleteModelInput {
   final String? name;
   final String? label;
-  final String? type;
+  final FieldTypes? type;
   final bool? isArray;
   final bool? required;
 
-  Input({
+  AutocompleteModelInput({
     this.name,
     this.label,
     this.type,
@@ -84,14 +87,14 @@ class Input {
     this.required,
   });
 
-  Input copyWith({
+  AutocompleteModelInput copyWith({
     String? name,
     String? label,
-    String? type,
+    FieldTypes? type,
     bool? isArray,
     bool? required,
   }) =>
-      Input(
+      AutocompleteModelInput(
         name: name ?? this.name,
         label: label ?? this.label,
         type: type ?? this.type,
@@ -99,10 +102,11 @@ class Input {
         required: required ?? this.required,
       );
 
-  factory Input.fromJson(Map<String, dynamic> json) => Input(
+  factory AutocompleteModelInput.fromJson(Map<String, dynamic> json) =>
+      AutocompleteModelInput(
         name: json["name"],
         label: json["label"],
-        type: json["type"],
+        type: fieldTypesValues.map[json["type"]],
         isArray: json["isArray"],
         required: json["required"],
       );
@@ -110,7 +114,7 @@ class Input {
   Map<String, dynamic> toJson() => {
         "name": name,
         "label": label,
-        "type": type,
+        "type": fieldTypesValues.reverse[type],
         "isArray": isArray,
         "required": required,
       };

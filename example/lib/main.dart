@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,11 +104,27 @@ class _TemplateScreenState extends State<TemplateScreen> {
                 Expanded(
                   child: CoreTemplateRenderWidget(
                     template: _template!,
-                    /* templateRenderInput: TemplateRenderInput(
+                    templateRenderInput: TemplateRenderInput(
                       onTemplateFormSend: (e) async {
-                        debugPrint("hello world");
+                        final a = json.encode(e ?? {}, toEncodable: (e) {
+                          if (e is Item) {
+                            return e.toJson()["key"];
+                          } else {
+                            return null;
+                          }
+                        });
+                        debugPrint(a);
                       },
-                    ), */
+                      bearerAccessToken:
+                          "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkU3MzFFOTU2M0VBODEwMTQ0NTg1Q0QzRDgwOTBENzA3Q0M5OTVFODZSUzI1NiIsIng1dCI6IjV6SHBWajZvRUJSRmhjMDlnSkRYQjh5WlhvWSIsInR5cCI6ImF0K2p3dCJ9.eyJpc3MiOiJodHRwczovL2xvZ2luLWRldi5hc2Z3ZWIuaXQiLCJuYmYiOjE2ODQzNTYyNzQsImlhdCI6MTY4NDM1NjI3NCwiZXhwIjoxNjg0MzU2NTc0LCJhdWQiOiJhcGkiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwiYXBpIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdLCJjbGllbnRfaWQiOiJ3ZWJjbGllbnRzIiwic3ViIjoiNzI5OTgxYTctOTNmYi00ZjdlLTk4NzUtZjU5YjhkZGM0MWRlIiwiYXV0aF90aW1lIjoxNjg0MzU2MjY4LCJpZHAiOiJsb2NhbCIsImVtYWlsIjoibWFyaW84NTc5ODc5NDhAZ21haWwuY29tIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibWFyaW84NTc5ODc5NDhAZ21haWwuY29tIiwiUHJvZmlsZUlkIjoiNDI5IiwiTG9naW5Qcm92aWRlciI6IiIsIlVzZXJJZCI6IjcyOTk4MWE3LTkzZmItNGY3ZS05ODc1LWY1OWI4ZGRjNDFkZSIsInNpZCI6IjE4ODJCRDZDMUM3RTM3QUYzRkU0NDY1NDYwN0E1OUFCIn0.Hx0f47Cq8dLRq1dt6DvluqqkSKze6MP2A4UKGXuItpEeSYoQ0XG7W_oleWuyo7tK1vfalwBgA_QC6DQANKyYZ77PH9RxlEF_EW-lJ4SkvxeTL4BX1irOZh0628M5RwHddhlKLoruO5FJPC6e9q8oDsQ6SumlsVVdCiN1I_snlvjVIEPeeAaE3XgRel5T4AvRu7L9ZEAYNUKTj-mX2_Vlfrjiwh63dZRf-PNuKPXFXsNIzcVkqKX7MlHbkj8cTtPR49B7nIkAp14sQA3EXHRs7xe8cm7_NQlyV3uXnnO2V5HJJU5FteXzNRvg3qQnqumjnwzTgEh4PMVI5QKep0bm6w",
+                      authorityId: "6",
+                      apiBaseUrl: "https://api-dev.smartpa.cloud/portico/v1/",
+                      urlOutputAutocomplete: (baseUrl, partOfOutputUrl) {
+                        return (baseUrl + partOfOutputUrl)
+                            .replaceAll("/v1//v1/", "/v1/")
+                            .replaceAll("/v1/v1/", "/v1/");
+                      },
+                    ),
                   ),
                 ),
             ],

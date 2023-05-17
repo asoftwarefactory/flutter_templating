@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../utils/app_sizes.dart';
-import 'base_autocomplete.dart';
 
 class TemplateRenderInput {
   final EdgeInsets defaultPaddingWidgets;
@@ -14,20 +13,42 @@ class TemplateRenderInput {
   final double defaultFontSize;
   final double primaryFontSize;
   final double secondaryFontSize;
-  final Future<List<BaseAutocomplete>> Function()? autocompletesLoader;
 
-  const TemplateRenderInput({
-    this.primaryFontSize = Sizes.p20,
-    this.secondaryFontSize = Sizes.p12,
-    this.defaultFontSize = Sizes.p16,
-    this.defaultGapRow = gapW4,
-    this.defaultGapColumn = gapH4,
+  /// Authentication API service;
+  late final String _bearerAccessToken;
+  final String authorityId;
+
+  /// example : https://api-dev.smartpa.cloud/portico/v1/;
+  final String apiBaseUrl;
+
+  /// calculate the url of the output autocomplete
+  final String Function(String baseUrl, String partOfTheUrlOutput)?
+      urlOutputAutocomplete;
+
+  TemplateRenderInput({
     this.defaultPaddingWidgets = const EdgeInsets.all(Sizes.p4),
     this.defaultMarginWidgets = const EdgeInsets.all(Sizes.p8),
     this.buttonPickFileText = "Pick File",
     this.buttonSaveTemplateText = "Save Template",
     this.buttonAddFieldToSection = "Add Field",
     this.onTemplateFormSend,
-     this.autocompletesLoader,
-  });
+    this.defaultGapRow = gapW4,
+    this.defaultGapColumn = gapH4,
+    this.defaultFontSize = Sizes.p16,
+    this.primaryFontSize = Sizes.p20,
+    this.secondaryFontSize = Sizes.p12,
+    required String bearerAccessToken,
+    required this.authorityId,
+    required this.apiBaseUrl,
+    this.urlOutputAutocomplete,
+  }) {
+    String bearer = bearerAccessToken;
+    bearer = bearer.trim();
+    if (bearer.startsWith("Bearer ") == false) {
+      bearer = "Bearer $bearer";
+    }
+    _bearerAccessToken = bearer;
+  }
+
+  String get bearerAccessToken => _bearerAccessToken;
 }

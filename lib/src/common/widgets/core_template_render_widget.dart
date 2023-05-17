@@ -4,7 +4,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
-import '../models/base_autocomplete.dart';
+import '../../core/base_http_client.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 
@@ -12,7 +12,7 @@ class CoreTemplateRenderWidget extends StatelessWidget {
   const CoreTemplateRenderWidget({
     Key? key,
     required this.template,
-    this.templateRenderInput = const TemplateRenderInput(),
+    required this.templateRenderInput,
   }) : super(key: key);
   final Template template;
   final TemplateRenderInput templateRenderInput;
@@ -20,9 +20,6 @@ class CoreTemplateRenderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       overrides: [
-        if (templateRenderInput.autocompletesLoader != null)
-          autocompletesProvider.overrideWith(
-              (ref) async => await templateRenderInput.autocompletesLoader!()),
         templateRenderInputProvider.overrideWith((ref) => templateRenderInput)
       ],
       child: TemplateContainerWidget(template: template),
@@ -65,7 +62,8 @@ class TemplateContainerWidget extends ConsumerWidget {
 
 final templateRenderInputProvider =
     StateProvider.autoDispose<TemplateRenderInput>((ref) {
-  return const TemplateRenderInput();
+  return TemplateRenderInput(
+      authorityId: '', apiBaseUrl: '', bearerAccessToken: '');
 });
 
 final mainFormGroupProvider = Provider((ref) {
@@ -77,5 +75,10 @@ final mainFormGroupProvider = Provider((ref) {
 });
 
 final autocompletesProvider =
-    FutureProvider.autoDispose<List<BaseAutocomplete>>(
-        (ref) async => await Future.value([]));
+    FutureProvider.autoDispose<List<AutocompleteModel>>((ref) async {
+  final client = ref.read(httpClient);
+  return await client.get("autocompletes").then((e) {
+    return autocompletesModelFromList(e.data);
+    // return [];
+  });
+});

@@ -23,6 +23,7 @@ class AutocompleteInputWidget<T, D extends Object> extends StatelessWidget
   Widget build(BuildContext context) {
     return ReactiveRawAutocomplete<T, D>(
       readOnly: section.readonly == true,
+      enableInteractiveSelection: true,
       formControl: control,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -34,6 +35,7 @@ class AutocompleteInputWidget<T, D extends Object> extends StatelessWidget
           displayStringForOption ?? RawAutocomplete.defaultStringForOption,
       optionsViewBuilder: (ctx, onSelected, options) {
         return Align(
+          key: UniqueKey(),
           alignment: Alignment.topLeft,
           child: Material(
             elevation: 4.0,
@@ -64,71 +66,3 @@ class AutocompleteInputWidget<T, D extends Object> extends StatelessWidget
     );
   }
 }
-
-/* Future<List<Comment>> _fetchComments(
-    {Map<String, dynamic>? queryParameters}) async {
-  final client = Dio();
-
-  return await client
-      .get(
-        "https://jsonplaceholder.typicode.com/comments",
-        queryParameters: queryParameters,
-      )
-      .then((e) => commentsFromList(e.data));
-}
-
-List<Comment> commentsFromList(List data) =>
-    List<Comment>.from((data).map((x) => Comment.fromJson(x)));
-
-List<Comment> commentsFromJson(String str) =>
-    List<Comment>.from(json.decode(str).map((x) => Comment.fromJson(x)));
-
-String commentsToJson(List<Comment> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-class Comment {
-  final int postId;
-  final int id;
-  final String name;
-  final String email;
-  final String body;
-
-  Comment({
-    required this.postId,
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.body,
-  });
-
-  Comment copyWith({
-    int? postId,
-    int? id,
-    String? name,
-    String? email,
-    String? body,
-  }) =>
-      Comment(
-        postId: postId ?? this.postId,
-        id: id ?? this.id,
-        name: name ?? this.name,
-        email: email ?? this.email,
-        body: body ?? this.body,
-      );
-
-  factory Comment.fromJson(Map<String, dynamic> json) => Comment(
-        postId: json["postId"],
-        id: json["id"],
-        name: json["name"],
-        email: json["email"],
-        body: json["body"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "postId": postId,
-        "id": id,
-        "name": name,
-        "email": email,
-        "body": body,
-      };
-} */

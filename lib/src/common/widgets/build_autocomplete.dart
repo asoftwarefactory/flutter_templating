@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/section.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import '../../core/base_http_client.dart';
+import '../../core/http_client.dart';
 import 'inputs/autocomplete_input_widget.dart';
 
 class BuildAutocomplete extends ConsumerWidget {

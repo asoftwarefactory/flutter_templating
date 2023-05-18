@@ -4,7 +4,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
-import '../../core/base_http_client.dart';
+import '../../core/http_client.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 

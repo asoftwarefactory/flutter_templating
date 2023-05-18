@@ -10,7 +10,7 @@ import 'inputs/autocomplete_input_widget.dart';
 class BuildAutocomplete extends ConsumerWidget {
   final dynamic defaultValue;
   final Section section;
-  const BuildAutocomplete({
+  const  BuildAutocomplete({
     super.key,
     this.defaultValue,
     required this.section,
@@ -23,7 +23,8 @@ class BuildAutocomplete extends ConsumerWidget {
     final form = ref.read(mainFormGroupProvider);
     return asyncAutocompletes.when(
       data: (autocompletes) {
-        final currentAutocomplete = section.getAutocomplete(autocompletes);
+        final currentAutocomplete =
+            section.filterAutocompleteBySectionField(autocompletes);
         if (currentAutocomplete != null) {
           if (section.id == null || section.autocomplete == null) {
             return const SizedBox();

@@ -316,7 +316,7 @@ class EnabledIfRule {
 
   final String? id;
   final String? name;
-  final List<Condition>? conditions;
+  final List<EnabledIfCondition>? conditions;
   final List<String>? groupIds;
   final List<String>? fieldIds;
 
@@ -329,7 +329,7 @@ class EnabledIfRule {
   EnabledIfRule copyWith({
     String? id,
     String? name,
-    List<Condition>? conditions,
+    List<EnabledIfCondition>? conditions,
     List<String>? groupIds,
     List<String>? fieldIds,
   }) =>
@@ -346,8 +346,8 @@ class EnabledIfRule {
         name: json["name"],
         conditions: json["conditions"] == null
             ? []
-            : List<Condition>.from(
-                json["conditions"]!.map((x) => Condition.fromJson(x))),
+            : List<EnabledIfCondition>.from(
+                json["conditions"]!.map((x) => EnabledIfCondition.fromJson(x))),
         groupIds: json["groupIds"] == null
             ? []
             : List<String>.from(json["groupIds"]!.map((x) => x)),
@@ -369,8 +369,8 @@ class EnabledIfRule {
       };
 }
 
-class Condition {
-  Condition({
+class EnabledIfCondition {
+  EnabledIfCondition({
     this.fieldId,
     this.constraint,
     this.values,
@@ -384,18 +384,18 @@ class Condition {
   static String get pNameconstraint => "constraint";
   static String get pNamevalues => "values";
 
-  Condition copyWith({
+  EnabledIfCondition copyWith({
     String? fieldId,
     EnabledIfConstraints? constraint,
     List<dynamic>? values,
   }) =>
-      Condition(
+      EnabledIfCondition(
         fieldId: fieldId ?? this.fieldId,
         constraint: constraint ?? this.constraint,
         values: values ?? this.values,
       );
 
-  factory Condition.fromJson(Map<String, dynamic> json) => Condition(
+  factory EnabledIfCondition.fromJson(Map<String, dynamic> json) => EnabledIfCondition(
         fieldId: json["fieldId"],
         constraint: enabledIfConstraintsValues.map[json["constraint"]],
         values: json["values"] == null
@@ -412,13 +412,21 @@ class Condition {
 }
 
 enum EnabledIfConstraints {
+  // uguale
   Equal,
+  // contiene uno
   ContainsOne,
+  // contiene tutti
   ContainsAll,
+  // più grande di
   GreaterThan,
+  // Maggiore o uguale a
   GreaterOrEqualThan,
+  // Meno di
   LessThan,
+  // Minore o uguale a
   LessOrEqualThan,
+  // non uguale
   NotEqual,
 }
 

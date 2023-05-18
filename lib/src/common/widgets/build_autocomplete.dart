@@ -5,12 +5,13 @@ import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/section.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../core/http_client.dart';
+import '../utils/field_is_searchable.dart';
 import 'inputs/autocomplete_input_widget.dart';
 
 class BuildAutocomplete extends ConsumerWidget {
   final dynamic defaultValue;
   final Section section;
-  const  BuildAutocomplete({
+  const BuildAutocomplete({
     super.key,
     this.defaultValue,
     required this.section,
@@ -79,8 +80,11 @@ class BuildAutocomplete extends ConsumerWidget {
     for (final input in section.autocomplete?.inputs ??
         <TemplateAutocompleteFieldMapping>[]) {
       if (input.autocompleteFieldName != null && input.fieldId != null) {
+        debugPrint(section.searchable?.toString() ?? "null");
         final key = input.autocompleteFieldName!;
-        if (form.contains(input.fieldId!)) {
+        final template = ref.read(templateRenderInputProvider).template;
+        if (form.contains(input.fieldId!) &&
+            fieldIsSearchable(template, input.fieldId!) == true) {
           final data = form.control(input.fieldId!).value;
           if (data != null) {
             queryParameters.addAll({key: data.toString()});

@@ -103,8 +103,8 @@ class _TemplateScreenState extends State<TemplateScreen> {
               if (_template != null)
                 Expanded(
                   child: CoreTemplateRenderWidget(
-                    template: _template!,
                     templateRenderInput: TemplateRenderInput(
+                      template: _template!,
                       onTemplateFormSend: (e) async {
                         final a = json.encode(e ?? {}, toEncodable: (e) {
                           if (e is Item) {

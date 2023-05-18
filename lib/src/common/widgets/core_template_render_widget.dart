@@ -11,10 +11,9 @@ import 'title_description_widget.dart';
 class CoreTemplateRenderWidget extends StatelessWidget {
   const CoreTemplateRenderWidget({
     Key? key,
-    required this.template,
     required this.templateRenderInput,
   }) : super(key: key);
-  final Template template;
+
   final TemplateRenderInput templateRenderInput;
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class CoreTemplateRenderWidget extends StatelessWidget {
       overrides: [
         templateRenderInputProvider.overrideWith((ref) => templateRenderInput)
       ],
-      child: TemplateContainerWidget(template: template),
+      child: TemplateContainerWidget(template: templateRenderInput.template),
     );
   }
 }
@@ -63,7 +62,11 @@ class TemplateContainerWidget extends ConsumerWidget {
 final templateRenderInputProvider =
     StateProvider.autoDispose<TemplateRenderInput>((ref) {
   return TemplateRenderInput(
-      authorityId: '', apiBaseUrl: '', bearerAccessToken: '');
+    authorityId: '',
+    apiBaseUrl: '',
+    bearerAccessToken: '',
+    template: Template(),
+  );
 });
 
 final mainFormGroupProvider = Provider((ref) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../utils/app_sizes.dart';
+import 'template.dart';
 
 class TemplateRenderInput {
+  final Template template;
   final EdgeInsets defaultPaddingWidgets;
   final EdgeInsets defaultMarginWidgets;
   final String buttonPickFileText;
@@ -26,6 +28,7 @@ class TemplateRenderInput {
       urlOutputAutocomplete;
 
   TemplateRenderInput({
+    required this.template,
     this.defaultPaddingWidgets = const EdgeInsets.all(Sizes.p4),
     this.defaultMarginWidgets = const EdgeInsets.all(Sizes.p8),
     this.buttonPickFileText = "Pick File",

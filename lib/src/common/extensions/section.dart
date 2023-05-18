@@ -44,15 +44,15 @@ extension ExtSection on Section {
     }
   }
 
-  AutocompleteModel? filterAutocompleteBySectionField(List<AutocompleteModel> autocompletes) {
+  AutocompleteModel? filterAutocompleteBySectionField(
+      List<AutocompleteModel> autocompletes) {
     return autocompletes.firstWhereOrNull(
       (a) {
         if (autocomplete?.name != null &&
             a.name != null &&
             autocomplete!.name!.isNotEmpty &&
             a.name!.isNotEmpty &&
-            autocomplete!.name!.toLowerCase() == a.name!.toLowerCase() &&
-            searchable == true) {
+            autocomplete!.name!.toLowerCase() == a.name!.toLowerCase()) {
           return true;
         } else {
           return false;

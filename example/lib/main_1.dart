@@ -63,8 +63,8 @@ class _TemplateScreenState extends State<TemplateScreen> {
         title: const Text("Prova Template"),
       ),
       body: CoreTemplateRenderWidget(
-        template: templateFromJson(jsonTemplatePortico),
         templateRenderInput: TemplateRenderInput(
+          template: templateFromJson(jsonTemplatePortico),
           onTemplateFormSend: (e) async {
             final a = json.encode(e ?? {}, toEncodable: (e) {
               /* if(e is PlatformFile){

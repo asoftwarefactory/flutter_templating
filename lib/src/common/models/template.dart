@@ -412,21 +412,21 @@ class EnabledIfCondition {
 }
 
 enum EnabledIfConstraints {
-  // uguale
+  /// uguale
   Equal,
-  // contiene uno
+  /// contiene uno
   ContainsOne,
-  // contiene tutti
+  /// contiene tutti
   ContainsAll,
-  // più grande di
+  /// più grande di
   GreaterThan,
-  // Maggiore o uguale a
+  /// Maggiore o uguale a
   GreaterOrEqualThan,
-  // Meno di
+  /// Meno di
   LessThan,
-  // Minore o uguale a
+  /// Minore o uguale a
   LessOrEqualThan,
-  // non uguale
+  /// non uguale
   NotEqual,
 }
 

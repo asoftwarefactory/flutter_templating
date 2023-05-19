@@ -82,7 +82,6 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
     for (final input in section.autocomplete?.inputs ??
         <TemplateAutocompleteFieldMapping>[]) {
       if (input.autocompleteFieldName != null && input.fieldId != null) {
-        debugPrint(section.searchable?.toString() ?? "null");
         final key = input.autocompleteFieldName!;
         final template = ref.read(templateRenderInputProvider).template;
         if (form.contains(input.fieldId!) &&

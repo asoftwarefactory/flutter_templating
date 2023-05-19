@@ -27,7 +27,7 @@ class CoreTemplateRenderWidget extends StatelessWidget {
   }
 }
 
-class TemplateContainerWidget extends ConsumerWidget {
+class TemplateContainerWidget extends ConsumerStatefulWidget {
   final Template template;
   const TemplateContainerWidget({
     Key? key,
@@ -35,15 +35,31 @@ class TemplateContainerWidget extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(context, ref) {
+  createState() => _TemplateContainerWidgetState();
+}
+
+class _TemplateContainerWidgetState
+    extends ConsumerState<TemplateContainerWidget> {
+  final _manager = EnableIfRuleManager();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _manager.dispose();
+  }
+
+  @override
+  Widget build(context) {
     return ReactiveFormBuilder(
       form: () {
         final form = ref.read(mainFormGroupProvider);
-        EnableIfRuleManager.initializeEnableIfRule(
-          context,
-          template.enabledIfRules,
-          ref.read(mainFormGroupProvider),
-        );
+        _manager.initializeEnableIfRule(context, widget.template.enabledIfRules,
+            ref.read(mainFormGroupProvider));
         return form;
       },
       builder: (context, outputForm, _) => Consumer(builder: (context, ref, _) {
@@ -51,13 +67,14 @@ class TemplateContainerWidget extends ConsumerWidget {
           child: Column(
             children: [
               TitleDescriptionWidget(
-                title: template.names?.getDescriptionLabelTranslated(context) ??
+                title: widget.template.names
+                        ?.getDescriptionLabelTranslated(context) ??
                     '',
-                description: template.descriptions
+                description: widget.template.descriptions
                     ?.getDescriptionLabelTranslated(context),
               ),
               TemplateStepperWidget(
-                template: template,
+                template: widget.template,
               ).expandIntoColumnOrRow(),
             ],
           ),

@@ -1,24 +1,27 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../models/template.dart';
 
 class EnableIfRuleManager {
-  static void _reactiveFormListener(
+  StreamSubscription<Map<String, Object?>?>? _sub;
+  void _reactiveFormListener(
     BuildContext ctx,
     List<EnabledIfRule>? enableIfRules,
     FormGroup form,
     void Function(EnabledIfRule enableIfRule, FormGroup form) fn,
   ) async {
-    // dispose sub ??
-    // ignore: unused_local_variable
-    final sub = form.valueChanges.listen((v) async {
+    _sub = form.valueChanges
+        .distinct((a, b) => (a ?? <String, dynamic>{}) == b)
+        .listen((event) {
+      debugPrint("form build 🔥");
       for (var rule in enableIfRules ?? <EnabledIfRule>[]) {
         fn.call(rule, form);
       }
     });
   }
 
-  static void initializeEnableIfRule(
+  void initializeEnableIfRule(
     BuildContext context,
     List<EnabledIfRule>? enableIfRules,
     FormGroup form,
@@ -28,7 +31,6 @@ class EnableIfRuleManager {
         for (var fieldId in rule.fieldIds ?? <String>[]) {
           if (form.contains(fieldId)) {
             final mainControl = form.control(fieldId);
-
             for (var condition in rule.conditions ?? <EnabledIfCondition>[]) {
               if (condition.fieldId != null &&
                   form.contains(condition.fieldId!)) {
@@ -128,4 +130,6 @@ class EnableIfRuleManager {
       });
     });
   }
+
+  void dispose() => _sub?.cancel();
 }

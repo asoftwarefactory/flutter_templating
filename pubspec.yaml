@@ -4,7 +4,7 @@ version: 0.0.1
 publish_to: none
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: '>=2.19.6 <4.0.0'
   flutter: ">=1.17.0"
 
 
@@ -38,6 +38,7 @@ dependencies:
   intl: ^0.18.1
   universal_platform: ^1.0.0+1
   dio: ^5.1.2
+  rxdart: ^0.27.7
   
   
   

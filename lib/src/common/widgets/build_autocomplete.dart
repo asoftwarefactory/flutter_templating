@@ -5,10 +5,11 @@ import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/section.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../core/http_client.dart';
+import '../mixins/enable_if_rule_mixin.dart';
 import '../utils/field_is_searchable.dart';
 import 'inputs/autocomplete_input_widget.dart';
 
-class BuildAutocomplete extends ConsumerWidget {
+class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
   const BuildAutocomplete({
@@ -20,9 +21,8 @@ class BuildAutocomplete extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final asyncAutocompletes = ref.watch(autocompletesProvider);
-
     final form = ref.read(mainFormGroupProvider);
-    return asyncAutocompletes.when(
+    final field = asyncAutocompletes.when(
       data: (autocompletes) {
         final currentAutocomplete =
             section.filterAutocompleteBySectionField(autocompletes);
@@ -38,6 +38,8 @@ class BuildAutocomplete extends ConsumerWidget {
       error: (Object error, StackTrace stackTrace) => const SizedBox(),
       loading: () => const CircularProgressIndicator(),
     );
+    super.initialize(ref, fieldId: section.id);
+    return field;
   }
 
   Widget _buildAutocompleteWidget(

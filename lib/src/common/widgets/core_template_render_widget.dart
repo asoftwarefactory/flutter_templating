@@ -5,6 +5,7 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
 import '../../core/http_client.dart';
+import '../managers/enable_if_rule.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 
@@ -35,9 +36,17 @@ class TemplateContainerWidget extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return ReactiveForm(
-      formGroup: ref.read(mainFormGroupProvider),
-      child: Consumer(builder: (context, ref, _) {
+    return ReactiveFormBuilder(
+      form: () {
+        final form = ref.read(mainFormGroupProvider);
+        EnableIfRuleManager.initializeEnableIfRule(
+          context,
+          template.enabledIfRules,
+          ref.read(mainFormGroupProvider),
+        );
+        return form;
+      },
+      builder: (context, outputForm, _) => Consumer(builder: (context, ref, _) {
         return Card(
           child: Column(
             children: [

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../mixins/enable_if_rule_mixin.dart';
 import 'inputs/bool_switch_input_widget.dart';
 import 'inputs/currency_input_widget.dart';
 import 'inputs/date_time_input_widget.dart';
@@ -11,7 +12,7 @@ import 'inputs/file_input_widget.dart';
 import 'inputs/int_input_widget.dart';
 import 'inputs/string_input_widget.dart';
 
-class BuildField extends ConsumerWidget {
+class BuildField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
   const BuildField({
@@ -23,7 +24,9 @@ class BuildField extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final form = ref.read(mainFormGroupProvider);
-    return _buildField(form);
+    final field = _buildField(form);
+    super.initialize(ref, fieldId: section.id);
+    return field;
   }
 
   Widget _buildField(FormGroup form) {

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../mixins/enable_if_rule_mixin.dart';
 import 'inputs/multiselect_dropdown_field.dart';
 
-class BuildMultipleSelectField extends ConsumerWidget {
+class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
   const BuildMultipleSelectField({
@@ -17,18 +18,20 @@ class BuildMultipleSelectField extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final form = ref.read(mainFormGroupProvider);
-    return _buildMultipleSelectField(context, form);
+    final field = _buildMultipleSelectField(context, form);
+    super.initialize(ref, fieldId: section.id);
+    return field;
   }
 
   Widget _buildMultipleSelectField(BuildContext ctx, FormGroup form) {
-     final isArray = section.isArray ?? false;
+    final isArray = section.isArray ?? false;
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<String>>;
+            section.id!,
+            () => FormControl<List<String>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
@@ -37,10 +40,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
         );
       case FieldTypes.Integer:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<int>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<int>>;
+            section.id!,
+            () => FormControl<List<int>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<int>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
@@ -49,10 +52,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
         );
       case FieldTypes.Decimal:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<double>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<double>>;
+            section.id!,
+            () => FormControl<List<double>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<double>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
@@ -61,10 +64,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
         );
       case FieldTypes.Currency:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<double>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<double>>;
+            section.id!,
+            () => FormControl<List<double>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<double>>;
         return MultiSelectDropdownField<double>(
           control: control,
           section: section,
@@ -73,10 +76,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
         );
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<String>>;
+            section.id!,
+            () => FormControl<List<String>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<String>>;
         final mappedItems = (section.items ?? [])
             .asMap()
             .map(
@@ -93,10 +96,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<String>>;
+            section.id!,
+            () => FormControl<List<String>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
@@ -105,10 +108,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
         );
       case FieldTypes.DateNoUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<String>>;
+            section.id!,
+            () => FormControl<List<String>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
@@ -117,10 +120,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
         );
       case FieldTypes.DateTime:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<String>>;
+            section.id!,
+            () => FormControl<List<String>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
@@ -129,10 +132,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
         );
       case FieldTypes.Time:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<String>>;
+            section.id!,
+            () => FormControl<List<String>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
@@ -142,10 +145,10 @@ class BuildMultipleSelectField extends ConsumerWidget {
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-          section.id!,
-          () => FormControl<List<String>>(value: defaultValue, touched: true),
-          validators: section.validators, isArray: isArray
-        ) as FormControl<List<String>>;
+            section.id!,
+            () => FormControl<List<String>>(value: defaultValue, touched: true),
+            validators: section.validators,
+            isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,

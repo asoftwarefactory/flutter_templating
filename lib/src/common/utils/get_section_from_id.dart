@@ -6,6 +6,7 @@ Section? getSectionFromId(String? sectionFieldId,
     if (section.id == sectionFieldId) {
       return section;
     } else {
+      // recursivity 🔥
       return getSectionFromId(sectionFieldId, sections: section.children ?? []);
     }
   }

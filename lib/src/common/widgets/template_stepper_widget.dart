@@ -7,7 +7,6 @@ import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/template_step.dart';
 import 'package:flutter_templating/src/common/widgets/section_step_widget.dart';
-import '../managers/enable_if_rule.dart';
 import '../notifiers/indexed_notifier.dart';
 import 'custom_main_text.dart';
 import 'save_template_button.dart';
@@ -28,8 +27,6 @@ class TemplateStepperWidget extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final index = ref.watch(templateStepperBuilderProvider);
-        EnableIfRuleManager.initializeEnableIfRule(
-            context, template.enabledIfRules, ref.read(mainFormGroupProvider));
         return Stepper(
           controlsBuilder: (ctx, details) {
             return Row(

@@ -15,6 +15,4 @@ export 'src/common/models/autocomplete_model.dart';
     if (dart.library.html) 'test_web.dart';
  */
 
-// TODO : field validators.
 // TODO : field dataproviders.
-// TODO : Enabled If Rule // regole di abilitazione.

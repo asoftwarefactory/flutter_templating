@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../mixins/enable_if_rule_mixin.dart';
 import '../utils/unique_value.dart';
 import 'inputs/dropdown_field.dart';
 
-class BuildSelectField extends ConsumerWidget {
+class BuildSelectField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
   const BuildSelectField({
@@ -17,7 +18,9 @@ class BuildSelectField extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final form = ref.read(mainFormGroupProvider);
-    return _buildSelectField(form);
+    final field = _buildSelectField(form);
+    super.initialize(ref, fieldId: section.id);
+    return field;
   }
 
   Widget _buildSelectField(FormGroup form) {

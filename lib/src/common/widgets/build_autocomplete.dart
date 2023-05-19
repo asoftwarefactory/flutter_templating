@@ -87,7 +87,7 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
         if (form.contains(input.fieldId!) &&
             fieldIsSearchable(template, input.fieldId!) == true) {
           final data = form.control(input.fieldId!).value;
-          if (data != null) {
+          if (data != null && data.toString().isNotEmpty) {
             queryParameters.addAll({key: data.toString()});
           }
         }

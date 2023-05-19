@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: '>=3.0.1 <4.0.0'
 
 # to add because flutter_localizations uses intl ^0.17.0 and flutter_templating uses intl ^0.18.0
 dependency_overrides:

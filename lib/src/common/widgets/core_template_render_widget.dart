@@ -6,6 +6,7 @@ import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
 import '../../core/http_client.dart';
 import '../managers/enable_if_rule.dart';
+import '../models/dataprovider_model.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 
@@ -108,6 +109,13 @@ final autocompletesProvider =
   final client = ref.read(httpClient);
   return await client.get("autocompletes").then((e) {
     return autocompletesModelFromList(e.data);
-    // return [];
+  });
+});
+
+final dataprovidersProvider =
+    FutureProvider.autoDispose<List<DataproviderModel>>((ref) async {
+  final client = ref.read(httpClient);
+  return await client.get("dataproviders").then((e) {
+    return dataprovidersModelFromList(e.data);
   });
 });

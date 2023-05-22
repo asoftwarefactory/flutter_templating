@@ -1,8 +1,8 @@
 const jsonTemplatePortico = """
 {
-    "id": "243",
+    "id": "244",
     "groupId": "23",
-    "createdAt": "2023-05-16T13:59:40.9266043Z",
+    "createdAt": "2023-05-18T20:19:07.1850161Z",
     "isValid": true,
     "scopes": [
         "Portico"
@@ -61,43 +61,6 @@ const jsonTemplatePortico = """
             "items": [],
             "multiple": false,
             "children": [
-              {
-                    "id": "0a313e8d-2627-46be-ba00-862fadb55597",
-                    "name": "Nome proprietario",
-                    "searchable": true,
-                    "names": [
-                        {
-                            "culture": "it",
-                            "label": "Nome proprietario"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "Nome proprietario"
-                        }
-                    ],
-                    "descriptions": [
-                        {
-                            "culture": "it",
-                            "label": null
-                        },
-                        {
-                            "culture": "en",
-                            "label": null
-                        }
-                    ],
-                    "hidden": false,
-                    "readonly": false,
-                    "fieldType": "String",
-                    "isArray": false,
-                    "defaultValue": null,
-                    "validators": [],
-                    "items": [],
-                    "multiple": false,
-                    "children": [],
-                    "autocomplete": null,
-                    "type": "Field",
-                    "workflowFieldId": null
-                },
                 {
                     "id": "bba2e3a8-67cd-4186-bfe1-672430463d56",
                     "name": "Altezza (cm)",
@@ -1163,6 +1126,43 @@ const jsonTemplatePortico = """
                     "autocomplete": null,
                     "type": "Field",
                     "workflowFieldId": null
+                },
+                {
+                    "id": "0a313e8d-2627-46be-ba00-862fadb55597",
+                    "name": "Nome proprietario",
+                    "searchable": true,
+                    "names": [
+                        {
+                            "culture": "it",
+                            "label": "Nome proprietario"
+                        },
+                        {
+                            "culture": "en",
+                            "label": "Nome proprietario"
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "culture": "it",
+                            "label": null
+                        },
+                        {
+                            "culture": "en",
+                            "label": null
+                        }
+                    ],
+                    "hidden": false,
+                    "readonly": false,
+                    "fieldType": "String",
+                    "isArray": false,
+                    "defaultValue": null,
+                    "validators": [],
+                    "items": [],
+                    "multiple": false,
+                    "children": [],
+                    "autocomplete": null,
+                    "type": "Field",
+                    "workflowFieldId": null
                 }
             ],
             "autocomplete": null,
@@ -1279,6 +1279,7 @@ const jsonTemplatePortico = """
             "sectionChildId": "bd90e4b7-2fca-426f-8778-e970be1d97c5"
         }
     ],
+    "scoringRules": [],
     "steps": [
         {
             "groupIds": [

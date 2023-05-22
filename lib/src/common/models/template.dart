@@ -229,8 +229,11 @@ class DataProvider {
 }
 
 enum DataProviderTypes {
+  /// semplice
   Simple,
+  /// gruppo di riempimento
   FillGroup,
+  /// elementi
   Items,
 }
 

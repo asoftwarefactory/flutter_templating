@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../common/widgets/core_template_render_widget.dart';
+import '../providers/providers.dart';
 
 final httpClient = Provider.autoDispose<Dio>((ref) {
   final bearer = ref.read(templateRenderInputProvider).bearerAccessToken.trim();

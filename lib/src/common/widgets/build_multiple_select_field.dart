@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../../core/providers/providers.dart';
 import '../mixins/enable_if_rule_mixin.dart';
 import 'inputs/multiselect_dropdown_field.dart';
 
 class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
+  final FormGroup form;
   const BuildMultipleSelectField({
     Key? key,
     required this.defaultValue,
     required this.section,
+    required this.form,
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final form = ref.read(mainFormGroupProvider);
     final field = _buildMultipleSelectField(context, form);
-    super.initialize(ref, fieldId: section.id);
+   super.initializeField(form, ref.read(templateRenderInputProvider).template,
+        fieldId: section.id);
     return field;
   }
 

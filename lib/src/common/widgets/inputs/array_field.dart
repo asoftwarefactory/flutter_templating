@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import '../core_template_render_widget.dart';
+import '../../../core/providers/providers.dart';
 import '../custom_main_text.dart';
 import '../title_description_widget.dart';
 import 'input_field.dart';

@@ -4,6 +4,7 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../../core/providers/providers.dart';
 import '../mixins/enable_if_rule_mixin.dart';
 import 'inputs/array_field.dart';
 import 'inputs/bool_switch_input_widget.dart';
@@ -16,17 +17,19 @@ import 'inputs/string_input_widget.dart';
 class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
+  final FormGroup form;
   const BuildArrayField({
     Key? key,
     required this.defaultValue,
     required this.section,
+    required this.form,
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final form = ref.read(mainFormGroupProvider);
     final field = buildArrayField(context, form);
-    super.initialize(ref, fieldId: section.id);
+    super.initializeField(form, ref.read(templateRenderInputProvider).template,
+        fieldId: section.id);
     return field;
   }
 

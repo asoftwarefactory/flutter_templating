@@ -6,8 +6,8 @@ import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/widgets/readonly.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import '../../../core/providers/providers.dart';
 import '../../models/template.dart';
-import '../core_template_render_widget.dart';
 import '../custom_main_text.dart';
 import 'input_field.dart';
 

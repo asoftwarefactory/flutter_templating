@@ -1,13 +1,26 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_templating/flutter_templating.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import '../utils/field_contains_enable_rule.dart';
-import '../widgets/core_template_render_widget.dart';
 
 mixin EnableIfRuleMixin {
-  void initialize(WidgetRef ref, {String? fieldId}) {
-    final template = ref.read(templateRenderInputProvider).template;
-    final form = ref.read(mainFormGroupProvider);
+  // initially sets the field in disabled mode if the dataProvider is enabled for the current field, to avoid inconsistencies.
+  void initializeField(FormGroup form, Template template, {String? fieldId}) {
     if (fieldId != null && fieldId.isNotEmpty) {
-      if (fieldContainsEnableRule(template.enabledIfRules ?? [], fieldId)) {
+      if (sectionFieldContainsEnableRule(
+          template.enabledIfRules ?? [], fieldId)) {
+        if (form.contains(fieldId)) {
+          form.control(fieldId).markAsDisabled();
+        }
+      }
+    }
+  }
+
+  // Initially sets the fieldgroup to disabled mode if the dataProvider for the current fieldgroup is enabled, to avoid inconsistencies.
+  void initializeGroupField(FormGroup form, Template template,
+      {String? fieldId}) {
+    if (fieldId != null && fieldId.isNotEmpty) {
+      if (sectionGroupContainsEnableRule(
+          template.enabledIfRules ?? [], fieldId)) {
         if (form.contains(fieldId)) {
           form.control(fieldId).markAsDisabled();
         }

@@ -1,5 +1,10 @@
 import '../models/template.dart';
 
-bool fieldContainsEnableRule(List<EnabledIfRule> rules, String fieldId) {
+bool sectionFieldContainsEnableRule(List<EnabledIfRule> rules, String fieldId) {
   return rules.any((rule) => (rule.fieldIds ?? []).contains(fieldId));
+}
+
+bool sectionGroupContainsEnableRule(
+    List<EnabledIfRule> rules, String groupFieldId) {
+  return rules.any((rule) => (rule.groupIds ?? []).contains(groupFieldId));
 }

@@ -7,16 +7,19 @@ import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/template_step.dart';
 import 'package:flutter_templating/src/common/widgets/section_step_widget.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import '../notifiers/indexed_notifier.dart';
 import 'custom_main_text.dart';
 import 'save_template_button.dart';
 
 class TemplateStepperWidget extends StatelessWidget {
   final Template template;
+  final FormGroup mainForm;
 
   const TemplateStepperWidget({
     Key? key,
     required this.template,
+    required this.mainForm,
   }) : super(key: key);
 
   // definitions Sections with steps.
@@ -80,6 +83,7 @@ class TemplateStepperWidget extends StatelessWidget {
                   content: Column(
                     children: sectionsFromStep.map((section) {
                       return SectionStepWidget(
+                        mainForm: mainForm,
                         section: section.getAndOrderChildrenByTypeField(),
                       );
                     }).toList(),

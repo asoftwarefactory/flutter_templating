@@ -12,16 +12,17 @@ import 'inputs/autocomplete_input_widget.dart';
 class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
+  final FormGroup form;
   const BuildAutocomplete({
     super.key,
     this.defaultValue,
     required this.section,
+    required this.form,
   });
 
   @override
   Widget build(context, ref) {
     final asyncAutocompletes = ref.watch(autocompletesProvider);
-    final form = ref.read(mainFormGroupProvider);
     final field = asyncAutocompletes.when(
       data: (autocompletes) {
         final currentAutocomplete =
@@ -38,7 +39,8 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
       error: (Object error, StackTrace stackTrace) => const SizedBox(),
       loading: () => const CircularProgressIndicator(),
     );
-    super.initialize(ref, fieldId: section.id);
+    super.initializeField(form, ref.read(templateRenderInputProvider).template,
+        fieldId: section.id);
     return field;
   }
 

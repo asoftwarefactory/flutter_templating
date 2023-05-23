@@ -16,17 +16,19 @@ import 'inputs/string_input_widget.dart';
 class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
+  final FormGroup form;
   const BuildArrayField({
     Key? key,
     required this.defaultValue,
     required this.section,
+    required this.form,
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final form = ref.read(mainFormGroupProvider);
     final field = buildArrayField(context, form);
-    super.initialize(ref, fieldId: section.id);
+    super.initializeField(form, ref.read(templateRenderInputProvider).template,
+        fieldId: section.id);
     return field;
   }
 

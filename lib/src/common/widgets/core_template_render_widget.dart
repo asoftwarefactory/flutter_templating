@@ -58,9 +58,9 @@ class _TemplateContainerWidgetState
   Widget build(context) {
     return ReactiveFormBuilder(
       form: () {
-        final form = ref.read(mainFormGroupProvider);
-        _manager.initializeEnableIfRule(context, widget.template.enabledIfRules,
-            ref.read(mainFormGroupProvider));
+        final form = ref.read(mainFormProvider);
+       /*  _manager.initializeEnableIfRule(context, widget.template.enabledIfRules,
+            ref.read(mainFormProvider)); */
         return form;
       },
       builder: (context, outputForm, _) => Consumer(builder: (context, ref, _) {
@@ -76,6 +76,7 @@ class _TemplateContainerWidgetState
               ),
               TemplateStepperWidget(
                 template: widget.template,
+                mainForm: ref.read(mainFormProvider),
               ).expandIntoColumnOrRow(),
             ],
           ),
@@ -96,7 +97,7 @@ final templateRenderInputProvider =
   );
 });
 
-final mainFormGroupProvider = Provider((ref) {
+final mainFormProvider = Provider((ref) {
   final formGroup = FormGroup({});
   ref.onDispose(() {
     formGroup.dispose();

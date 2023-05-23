@@ -11,7 +11,12 @@ import 'inputs/validators/manager.dart';
 
 class SectionFieldWidget extends ConsumerWidget {
   final Section section;
-  const SectionFieldWidget({super.key, required this.section});
+  final FormGroup form;
+  const SectionFieldWidget({
+    super.key,
+    required this.section,
+    required this.form,
+  });
   dynamic get _defaultValue {
     dynamic value = section.defaultValue;
     return value;
@@ -40,26 +45,31 @@ class SectionFieldWidget extends ConsumerWidget {
       return BuildAutocomplete(
         defaultValue: _defaultValue,
         section: section,
+        form: form,
       );
     } else if (items.isEmpty && !isArray) {
       return BuildField(
         defaultValue: _defaultValue,
         section: section,
+        form: form,
       );
     } else if (items.isEmpty && isArray) {
       return BuildArrayField(
         defaultValue: _defaultValue,
         section: section,
+        form: form,
       );
     } else if (items.isNotEmpty && !isArray) {
       return BuildSelectField(
         defaultValue: _defaultValue,
         section: section,
+        form: form,
       );
     } else if (items.isNotEmpty && isArray) {
       return BuildMultipleSelectField(
         defaultValue: _defaultValue,
         section: section,
+        form: form,
       );
     } else {
       return const SizedBox();

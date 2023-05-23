@@ -28,22 +28,14 @@ class SectionStepWidget extends ConsumerWidget {
 
   Widget _buildField(BuildContext context, WidgetRef ref) {
     if (section.type == SectionType.GROUP) {
-      final form = mainForm.getOrSetAbstractControlAndSetValidators(
-        section.id!,
-        () => FormGroup({}),
-        isArray: section.isArray ?? false,
-        validators: section.validators,
-      ) as FormGroup;
-      return SectionGroupWidget(section: section, form: form).createMargin(
-        ref.read(templateRenderInputProvider).defaultMarginWidgets,
-      );
+      return SectionGroupWidget(section: section, form: mainForm).createMargin(
+          ref.read(templateRenderInputProvider).defaultMarginWidgets);
     } else if (section.type == SectionType.FIELD) {
       return SectionFieldWidget(
         section: section,
         form: mainForm,
       ).createMargin(
-        ref.read(templateRenderInputProvider).defaultMarginWidgets,
-      );
+          ref.read(templateRenderInputProvider).defaultMarginWidgets);
     } else {
       return const SizedBox();
     }

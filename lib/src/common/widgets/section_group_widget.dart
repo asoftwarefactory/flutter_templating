@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import '../../core/providers/providers.dart';
 import '../models/template.dart';
-import 'core_template_render_widget.dart';
 import 'section_step_widget.dart';
 import 'title_description_widget.dart';
 

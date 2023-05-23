@@ -4,9 +4,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
-import '../../core/http_client.dart';
+import '../../core/providers/providers.dart';
 import '../managers/enable_if_rule.dart';
-import '../models/dataprovider_model.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 
@@ -87,36 +86,4 @@ class _TemplateContainerWidgetState
   }
 }
 
-final templateRenderInputProvider =
-    StateProvider.autoDispose<TemplateRenderInput>((ref) {
-  return TemplateRenderInput(
-    authorityId: '',
-    apiBaseUrl: '',
-    bearerAccessToken: '',
-    template: Template(),
-  );
-});
 
-final mainFormProvider = Provider((ref) {
-  final formGroup = FormGroup({});
-  ref.onDispose(() {
-    formGroup.dispose();
-  });
-  return formGroup;
-});
-
-final autocompletesProvider =
-    FutureProvider.autoDispose<List<AutocompleteModel>>((ref) async {
-  final client = ref.read(httpClient);
-  return await client.get("autocompletes").then((e) {
-    return autocompletesModelFromList(e.data);
-  });
-});
-
-final dataprovidersProvider =
-    FutureProvider.autoDispose<List<DataproviderModel>>((ref) async {
-  final client = ref.read(httpClient);
-  return await client.get("dataproviders").then((e) {
-    return dataprovidersModelFromList(e.data);
-  });
-});

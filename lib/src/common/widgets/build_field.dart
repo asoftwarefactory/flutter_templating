@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import '../../core/providers/providers.dart';
 import '../mixins/enable_if_rule_mixin.dart';
 import 'inputs/bool_switch_input_widget.dart';
 import 'inputs/currency_input_widget.dart';

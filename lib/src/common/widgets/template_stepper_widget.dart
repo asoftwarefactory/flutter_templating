@@ -8,6 +8,7 @@ import 'package:flutter_templating/flutter_templating.dart';
 import 'package:flutter_templating/src/common/extensions/template_step.dart';
 import 'package:flutter_templating/src/common/widgets/section_step_widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import '../../core/providers/providers.dart';
 import '../notifiers/indexed_notifier.dart';
 import 'custom_main_text.dart';
 import 'save_template_button.dart';

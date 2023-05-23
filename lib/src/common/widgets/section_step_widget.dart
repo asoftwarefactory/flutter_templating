@@ -27,23 +27,16 @@ class SectionStepWidget extends ConsumerWidget {
 
   Widget _buildField(BuildContext context, WidgetRef ref) {
     if (section.type == SectionType.GROUP) {
-      final formGroup = FormGroup({});
-      mainForm.addAll({section.id!: formGroup});
-      return SectionGroupWidget(section: section, form: formGroup).createMargin(
+      final form = mainForm.getOrSetAbstractControlAndSetValidators(
+        section.id!,
+        () => FormGroup({}),
+        isArray: section.isArray ?? false,
+        validators: section.validators,
+      ) as FormGroup;
+      return SectionGroupWidget(section: section, form: form).createMargin(
         ref.read(templateRenderInputProvider).defaultMarginWidgets,
       );
     } else if (section.type == SectionType.FIELD) {
-      /* return ReactiveValueListenableBuilder<double>(
-        formControlName: 'lightIntensity',
-        builder: (context, value, child) {
-          return SectionFieldWidget(
-            section: section,
-            form: mainForm,
-          ).createMargin(
-            ref.read(templateRenderInputProvider).defaultMarginWidgets,
-          );
-        },
-      ); */
       return SectionFieldWidget(
         section: section,
         form: mainForm,

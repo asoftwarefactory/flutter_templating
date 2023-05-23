@@ -1,40 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_templating/src/common/extensions/abstract_control.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import '../enums/abstract_control_type.dart';
+import '../extensions/abstract_control.dart';
 import '../models/template.dart';
 
 class EnableIfRuleManager {
   StreamSubscription<Map<String, Object?>?>? _sub;
-  AbstractControl<dynamic>? getControl(String name, FormGroup mainForm) {
-    if (mainForm.contains(name)) {
-      return mainForm.control(name);
-    } else {
-      for (var cr in mainForm.getAllControls()) {
-        switch (cr.type) {
-          case AbstractControlType.array:
-            return null;
-          case AbstractControlType.dynamic:
-            return null;
-          case AbstractControlType.group:
-            final formGroup = cr.control as FormGroup;
-            if (formGroup.contains(name)) {
-              return formGroup.control(name);
-            } else {
-              return null;
-            }
-          case AbstractControlType.standardControl:
-            return null;
-          case AbstractControlType.standardControlTyped:
-            return null;
-          default:
-            return null;
-        }
-      }
-      return null;
-    }
-  }
 
   void initializeEnableIfRule(
     BuildContext context,
@@ -44,11 +15,31 @@ class EnableIfRuleManager {
     void initialize() {
       for (var rule in enableIfRules ?? <EnabledIfRule>[]) {
         for (var fieldId in rule.fieldIds ?? <String>[]) {
-          final mainControl = getControl(fieldId, form);
+          final mainControl = ExtAbstractControl.controlNested(fieldId, form);
           if (mainControl != null) {
             for (var condition in rule.conditions ?? <EnabledIfCondition>[]) {
               if (condition.fieldId != null) {
-                final conditionControl = getControl(condition.fieldId!, form);
+                final conditionControl =
+                    ExtAbstractControl.controlNested(condition.fieldId!, form);
+                if (conditionControl != null) {
+                  _manipulateStateFormControl(
+                    mainControl,
+                    conditionControl,
+                    condition,
+                  );
+                }
+              }
+            }
+          }
+        }
+
+        for (var groupId in rule.groupIds ?? <String>[]) {
+          final mainControl = ExtAbstractControl.controlNested(groupId, form);
+          if (mainControl != null) {
+            for (var condition in rule.conditions ?? <EnabledIfCondition>[]) {
+              if (condition.fieldId != null) {
+                final conditionControl =
+                    ExtAbstractControl.controlNested(condition.fieldId!, form);
                 if (conditionControl != null) {
                   _manipulateStateFormControl(
                     mainControl,
@@ -157,7 +148,6 @@ class EnableIfRuleManager {
         break;
 
       default:
-        debugPrint("def def");
     }
   }
 

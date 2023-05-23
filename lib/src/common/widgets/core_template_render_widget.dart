@@ -59,8 +59,8 @@ class _TemplateContainerWidgetState
     return ReactiveFormBuilder(
       form: () {
         final form = ref.read(mainFormProvider);
-       /*  _manager.initializeEnableIfRule(context, widget.template.enabledIfRules,
-            ref.read(mainFormProvider)); */
+        _manager.initializeEnableIfRule(context, widget.template.enabledIfRules,
+            ref.read(mainFormProvider));
         return form;
       },
       builder: (context, outputForm, _) => Consumer(builder: (context, ref, _) {

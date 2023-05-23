@@ -98,4 +98,25 @@ extension ExtAbstractControl on AbstractControl {
     });
     return data;
   }
+
+  static AbstractControl<dynamic>? controlNested(
+      String controlId, AbstractControl<dynamic> control) {
+    if (control is FormGroup) {
+      // Check if the current control has the desired ID
+      if (control.contains(controlId)) {
+        return control.control(controlId);
+      } else {
+        // Iterate recursively over the nested controls
+        for (final key in control.controls.keys) {
+          final nestedControl = controlNested(controlId, control.control(key));
+          if (nestedControl != null) {
+            return nestedControl;
+          }
+        }
+      }
+    }
+
+    // If no matching control is found, I return null
+    return null;
+  }
 }

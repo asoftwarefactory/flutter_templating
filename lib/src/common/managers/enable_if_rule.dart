@@ -22,7 +22,7 @@ class EnableIfRuleManager {
                 final conditionControl =
                     ExtAbstractControl.controlNested(condition.fieldId!, form);
                 if (conditionControl != null) {
-                  _manipulateStateFormControl(
+                  manipulateStateFormControl(
                     mainControl,
                     conditionControl,
                     condition,
@@ -41,7 +41,7 @@ class EnableIfRuleManager {
                 final conditionControl =
                     ExtAbstractControl.controlNested(condition.fieldId!, form);
                 if (conditionControl != null) {
-                  _manipulateStateFormControl(
+                  manipulateStateFormControl(
                     mainControl,
                     conditionControl,
                     condition,
@@ -61,8 +61,8 @@ class EnableIfRuleManager {
     });
   }
 
-  void _manipulateStateFormControl(
-    AbstractControl<dynamic> mainControl,
+  void manipulateStateFormControl(
+    AbstractControl<dynamic> control,
     AbstractControl<dynamic> conditionControl,
     EnabledIfCondition condition,
   ) {
@@ -71,27 +71,27 @@ class EnableIfRuleManager {
       case EnabledIfConstraints.ContainsAll:
         if (conditionControl.value != null) {
           if (conditionValues.every((e) => e == conditionControl.value)) {
-            mainControl.markAsEnabled();
+            control.markAsEnabled();
           } else {
-            mainControl.markAsDisabled();
+            control.markAsDisabled();
           }
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
 
         break;
       case EnabledIfConstraints.ContainsOne:
         if (conditionValues.any((e) => e == conditionControl.value)) {
-          mainControl.markAsEnabled();
+          control.markAsEnabled();
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
         break;
       case EnabledIfConstraints.Equal:
         if (conditionValues.every((e) => e == conditionControl.value)) {
-          mainControl.markAsEnabled();
+          control.markAsEnabled();
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
 
         break;
@@ -100,9 +100,9 @@ class EnableIfRuleManager {
             conditionControl.value != null &&
             conditionControl.value is num &&
             conditionControl.value >= e)) {
-          mainControl.markAsEnabled();
+          control.markAsEnabled();
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
 
         break;
@@ -111,9 +111,9 @@ class EnableIfRuleManager {
             conditionControl.value != null &&
             conditionControl.value is num &&
             conditionControl.value > e)) {
-          mainControl.markAsEnabled();
+          control.markAsEnabled();
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
         break;
 
@@ -122,9 +122,9 @@ class EnableIfRuleManager {
             conditionControl.value != null &&
             conditionControl.value is num &&
             conditionControl.value <= e)) {
-          mainControl.markAsEnabled();
+          control.markAsEnabled();
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
 
         break;
@@ -133,16 +133,16 @@ class EnableIfRuleManager {
             conditionControl.value != null &&
             conditionControl.value is num &&
             conditionControl.value < e)) {
-          mainControl.markAsEnabled();
+          control.markAsEnabled();
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
         break;
       case EnabledIfConstraints.NotEqual:
         if (conditionValues.every((e) => e != conditionControl.value)) {
-          mainControl.markAsEnabled();
+          control.markAsEnabled();
         } else {
-          mainControl.markAsDisabled();
+          control.markAsDisabled();
         }
 
         break;

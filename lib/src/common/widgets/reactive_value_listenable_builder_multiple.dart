@@ -12,7 +12,7 @@ class ReactiveValueListenableBuilderMultiple<T> extends StatelessWidget {
   const ReactiveValueListenableBuilderMultiple({
     super.key,
     required this.controls,
-    required this.child,
+    this.child,
     required this.builder,
     this.onValueChanged,
   });

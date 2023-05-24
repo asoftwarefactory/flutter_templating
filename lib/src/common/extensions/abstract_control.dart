@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../enums/abstract_control_type.dart';
 import '../models/abstract_control_result.dart';
@@ -118,5 +119,23 @@ extension ExtAbstractControl on AbstractControl {
 
     // If no matching control is found, I return null
     return null;
+  }
+
+  static AbstractControl<T> getControl<T>(
+    BuildContext context, {
+    String? formControlName,
+    AbstractControl<T>? formControl,
+  }) {
+    var control = formControl;
+    if (control == null) {
+      final form = ReactiveForm.of(context, listen: false);
+      if (form == null || form is! FormControlCollection) {
+        throw FormControlParentNotFoundException(context.widget);
+      }
+
+      final collection = form as FormControlCollection;
+      control = collection.control(formControlName!) as AbstractControl<T>;
+    }
+    return control;
   }
 }

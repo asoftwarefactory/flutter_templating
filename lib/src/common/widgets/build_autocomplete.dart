@@ -6,6 +6,7 @@ import 'package:flutter_templating/src/common/extensions/section.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../core/http_client/http_client.dart';
 import '../../core/providers/providers.dart';
+import '../extensions/abstract_control.dart';
 import '../mixins/enable_if_rule_mixin.dart';
 import '../utils/field_is_searchable.dart';
 import 'inputs/autocomplete_input_widget.dart';
@@ -64,8 +65,7 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
       displayStringForOption: (value) => value.label ?? "",
       optionsBuilder: (text) async {
         if (text.text.length > 2) {
-          return await _autocompleteLoader<int>(
-              text, form, completeAutocomplete, ref);
+          return await _autocompleteLoader(text, completeAutocomplete, ref);
         } else {
           return [];
         }
@@ -73,9 +73,8 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
     );
   }
 
-  Future<List<Item>> _autocompleteLoader<T>(
+  Future<List<Item>> _autocompleteLoader(
     TextEditingValue value,
-    FormGroup form,
     AutocompleteModel completeAutocomplete,
     WidgetRef ref,
   ) async {
@@ -84,16 +83,23 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
     queryParameters.addAll({"searchText": value.text});
     for (final input in section.autocomplete?.inputs ??
         <TemplateAutocompleteFieldMapping>[]) {
-      if (input.autocompleteFieldName != null && input.fieldId != null) {
+      final inputIsSerchable = input.autocompleteFieldName != null &&
+          input.fieldId != null &&
+          fieldIsSearchable(
+              ref.read(templateRenderInputProvider).template, input.fieldId!);
+      if (inputIsSerchable) {
         final key = input.autocompleteFieldName!;
-        final template = ref.read(templateRenderInputProvider).template;
-        if (form.contains(input.fieldId!) &&
-            fieldIsSearchable(template, input.fieldId!) == true) {
-          final data = form.control(input.fieldId!).value;
+        final mainForm = ref.read(mainFormProvider);
+        final controlWithAutocompleteInputs =
+            ExtAbstractControl.controlNested(input.fieldId!, mainForm);
+        if (controlWithAutocompleteInputs != null) {
+          final data = controlWithAutocompleteInputs.value;
           if (data != null && data.toString().isNotEmpty) {
             queryParameters.addAll({key: data.toString()});
           }
         }
+      } else {
+        // autocomplete input cannot be searched
       }
     }
 
@@ -104,7 +110,9 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
               .urlOutputAutocomplete
               ?.call(client.options.baseUrl,
                   completeAutocomplete.backofficeUrl!) ??
-          '${client.options.baseUrl}${completeAutocomplete.backofficeUrl!}';
+          '${client.options.baseUrl}${completeAutocomplete.backofficeUrl!}'
+              .replaceAll("/v1//v1/", "/v1/")
+              .replaceAll("/v1/v1/", "/v1/");
       try {
         return await client
             .get(urlOutputAutocomplete, queryParameters: queryParameters)

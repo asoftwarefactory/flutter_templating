@@ -7,13 +7,8 @@ import '../models/dataprovider_model.dart';
 import '../models/template.dart';
 
 class DataProviderManagerWidget extends ConsumerWidget {
-  final Widget Function(
-    BuildContext context,
-    TemplateDataProvider? currentDataProvider,
-    TemplateRenderPut? currentRenderPut,
-    Section section,
-    dynamic data,
-  ) builder;
+  final Widget Function(BuildContext context, DPManagerWidgetRes result)
+      builder;
   final Section section;
   const DataProviderManagerWidget({
     super.key,
@@ -47,21 +42,33 @@ class DataProviderManagerWidget extends ConsumerWidget {
                 _dataProviderGet(dataProviderWithTemplate!.dataProviderName!))
             .when(
               data: (data) => builder.call(
-                  context, dataProviderWithTemplate, output, section, data),
+                context,
+                DPManagerWidgetRes(
+                    verticalDataProvider: data.verticalDataProvider,
+                    currentDataProvider: dataProviderWithTemplate,
+                    currentRenderPut: output,
+                    section: section,
+                    resultData: data.resultData),
+              ),
               error: (err, stacktrace) => const SizedBox(),
               loading: () => const CircularProgressIndicator(),
             );
       } else {
-        return builder.call(context, null, null, section, null);
+        return builder.call(
+            context,
+            DPManagerWidgetRes(
+                currentDataProvider: dataProviderWithTemplate,
+                currentRenderPut: output,
+                section: section));
       }
     } else {
-      return builder.call(context, null, null, section, null);
+      return builder.call(context, DPManagerWidgetRes(section: section));
     }
   }
 }
 
-final _dataProviderGet =
-    FutureProvider.family<dynamic, String>((ref, dataProviderName) async {
+final _dataProviderGet = FutureProvider.family<DataProviderResult, String>(
+    (ref, dataProviderName) async {
   final dataProviders = ref.watch(dataprovidersProvider);
   final a = dataProviders.when(
     data: (data) => data,
@@ -81,17 +88,32 @@ final _dataProviderGet =
           // inputs ????
           final client = ref.read(httpClient);
           final b = await client.get(dataproviderUrl);
-          return b.data;
-        } else {
-          return null;
+          return DataProviderResult(
+              resultData: b.data, verticalDataProvider: findedDataProvider);
         }
-      } else {
-        return null;
       }
-    } else {
-      return null;
     }
-  } else {
-    return null;
   }
+  return DataProviderResult();
 });
+
+class DataProviderResult {
+  final DataproviderModel? verticalDataProvider;
+  final dynamic resultData;
+  DataProviderResult({this.verticalDataProvider, this.resultData});
+}
+
+/// DataProviderManagerWidget widget builder model
+class DPManagerWidgetRes extends DataProviderResult {
+  final Section section;
+  final TemplateRenderPut? currentRenderPut;
+  final TemplateDataProvider? currentDataProvider;
+
+  DPManagerWidgetRes({
+    super.resultData,
+    super.verticalDataProvider,
+    this.currentRenderPut,
+    required this.section,
+    this.currentDataProvider,
+  });
+}

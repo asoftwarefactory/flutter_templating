@@ -27,26 +27,26 @@ class SectionStepWidget extends ConsumerWidget {
     }
   }
 
-  Widget _buildField(BuildContext context, WidgetRef ref) {
+  Widget _buildField(BuildContext ctx, WidgetRef ref) {
     if (section.type == SectionType.GROUP) {
       return DataProviderManagerWidget(
           section: section,
-          builder: (ctx, _, __, sec, data) {
+          builder: (ctx, res) {
             /* if (data != null) {
               debugPrint(data!.toString());
             } */
-            return SectionGroupWidget(section: section, form: mainForm)
+            return SectionGroupWidget(section: res.section, form: mainForm)
                 .createMargin(
                     ref.read(templateRenderInputProvider).defaultMarginWidgets);
           });
     } else if (section.type == SectionType.FIELD) {
       return DataProviderManagerWidget(
           section: section,
-          builder: (ctx, _, __, sec, data) {
+          builder: (ctx, res) {
             /* if (data != null) {
               debugPrint(data!.toString());
             } */
-            return SectionFieldWidget(section: sec, form: mainForm)
+            return SectionFieldWidget(section: res.section, form: mainForm)
                 .createMargin(
                     ref.read(templateRenderInputProvider).defaultMarginWidgets);
           });

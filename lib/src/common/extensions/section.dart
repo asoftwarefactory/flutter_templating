@@ -52,7 +52,7 @@ extension ExtSection on Section {
             a.name != null &&
             autocomplete!.name!.isNotEmpty &&
             a.name!.isNotEmpty &&
-            autocomplete!.name!.toLowerCase() == a.name!.toLowerCase()) {
+            autocomplete!.name! == a.name!) {
           return true;
         } else {
           return false;

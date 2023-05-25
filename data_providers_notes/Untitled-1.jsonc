@@ -1,13 +1,17 @@
-// questo il json che arriva dal verticale
+// 1
+// data provider ricevuto dalla GET generica dataproviders ...
 
-/* [{
+[
+    {
         "inputs": [],
-        "outputs": [{
-            "name": "Key",
-            "label": "Chiave",
-            "type": "Integer",
-            "isArray": false
-        }],
+        "outputs": [
+            {
+                "name": "Key",
+                "label": "Chiave",
+                "type": "Integer",
+                "isArray": false
+            }
+        ],
         "name": "Protective",
         "label": "Protettivi",
         "backofficeUrl": "/v1/dataproviders/protectives",
@@ -16,12 +20,14 @@
     },
     {
         "inputs": [],
-        "outputs": [{
-            "name": "Key",  
-            "label": "Chiave",
-            "type": "Integer",
-            "isArray": false
-        }],
+        "outputs": [
+            {
+                "name": "Key",
+                "label": "Chiave",
+                "type": "Integer",
+                "isArray": false
+            }
+        ],
         "name": "Support",
         "label": "Supporti",
         "backofficeUrl": "/v1/dataproviders/supports",
@@ -30,12 +36,14 @@
     },
     {
         "inputs": [],
-        "outputs": [{
-            "name": "Key",
-            "label": "Chiave",
-            "type": "Integer",
-            "isArray": false
-        }],
+        "outputs": [
+            {
+                "name": "Key",
+                "label": "Chiave",
+                "type": "Integer",
+                "isArray": false
+            }
+        ],
         "name": "DamageTypes",
         "label": "Tipologie di danno",
         "backofficeUrl": "/v1/dataproviders/damagetypes",
@@ -44,7 +52,8 @@
     },
     {
         "inputs": [],
-        "outputs": [{
+        "outputs": [
+            {
                 "name": "peopleCount",
                 "label": "Integer",
                 "type": "Integer",
@@ -83,7 +92,8 @@
     },
     {
         "inputs": [],
-        "outputs": [{
+        "outputs": [
+            {
                 "name": "id",
                 "label": "Integer",
                 "type": "Integer",
@@ -110,12 +120,14 @@
     },
     {
         "inputs": [],
-        "outputs": [{
-            "name": "Key",
-            "label": "Chiave",
-            "type": "Integer",
-            "isArray": false
-        }],
+        "outputs": [
+            {
+                "name": "Key",
+                "label": "Chiave",
+                "type": "Integer",
+                "isArray": false
+            }
+        ],
         "name": "SmearMaterials",
         "label": "Materiali Imbrattanti",
         "backofficeUrl": "/v1/dataproviders/smearmaterials",
@@ -124,12 +136,14 @@
     },
     {
         "inputs": [],
-        "outputs": [{
-            "name": "Key",
-            "label": "Chiave",
-            "type": "Integer",
-            "isArray": false
-        }],
+        "outputs": [
+            {
+                "name": "Key",
+                "label": "Chiave",
+                "type": "Integer",
+                "isArray": false
+            }
+        ],
         "name": "Colors",
         "label": "Colori",
         "backofficeUrl": "/v1/dataproviders/colors",
@@ -138,31 +152,18 @@
     },
     {
         "inputs": [],
-        "outputs": [{
-            "name": "Key",
-            "label": "Chiave",
-            "type": "Integer",
-            "isArray": false
-        }],
+        "outputs": [
+            {
+                "name": "Key",
+                "label": "Chiave",
+                "type": "Integer",
+                "isArray": false
+            }
+        ],
         "name": "People",
         "label": "Elenco indivdui",
         "backofficeUrl": "/v1/dataproviders/people",
         "publicUrl": null,
         "type": "Items"
     }
-] */
-
-{
-    "inputs": [],
-    "outputs": [{
-        "name": "Key",
-        "label": "Chiave",
-        "type": "Integer",
-        "isArray": false
-    }],
-    "name": "Support",
-    "label": "Supporti",
-    "backofficeUrl": "/v1/dataproviders/supports",
-    "publicUrl": null,
-    "type": "Items"
-}
+]

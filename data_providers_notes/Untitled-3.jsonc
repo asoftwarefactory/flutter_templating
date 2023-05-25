@@ -1,0 +1,67 @@
+// 3
+// dettaglio del dataprovider ricevuto dalla GET del dettaglio dataprovider ...
+
+// semplice
+//  Simple,
+// gruppo di riempimento
+//  FillGroup,
+// elementi
+//  Items,
+
+// esempio di dataprovider di tipo Items
+
+/* {
+    "1": "Protettivo di VIALE ALDO MORO 10 - 20",
+    "2": "Protettivo di VIALE ALDO MORO 10 - 20",
+    "3": "Protettivo di VIALE ALDO MORO 10 - 20",
+    "4": "Protettivo di VIALE ALDO MORO 10 - 20",
+    "5": "Protettivo di VIALE ALDO MORO 10 - 20",
+    "6": "Protettivo di VIALE ALDO MORO 10 - 20",
+    "7": "Protettivo di MURA DI PORTA SAN FELICE 1 - 1",
+    "8": "Protettivo di GALLERIA CAMILLO CAVOUR 1 - 1/V",
+    "10": "Protettivo di VIA 21 APRILE 1945 5/9 - 20"
+} */
+
+// esempio di dataprovider di tipo Simple
+
+/* {
+    "peopleCount": 2000,
+    "area": 1000,
+    "id": 1,
+    "cityName": "Roma",
+    "counrtryName": "Italia"
+} */
+
+// esempio di dataprovider di tipo FillGroup
+
+/* [{
+        "id": 1,
+        "cityName": "Roma",
+        "counrtryName": "Italia"
+    },
+    {
+        "id": 2,
+        "cityName": "Parigi",
+        "counrtryName": "Francia"
+    },
+    {
+        "id": 3,
+        "cityName": "Madrid",
+        "counrtryName": "Spagna"
+    },
+    {
+        "id": 4,
+        "cityName": "Lisbona",
+        "counrtryName": "Portogallo"
+    },
+    {
+        "id": 5,
+        "cityName": "Amsterdam",
+        "counrtryName": "Olanda"
+    },
+    {
+        "id": 6,
+        "cityName": "Londra",
+        "counrtryName": "Inghilterra"
+    }
+] */

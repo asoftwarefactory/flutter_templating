@@ -107,7 +107,7 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
         completeAutocomplete.backofficeUrl!.isNotEmpty) {
       final urlOutputAutocomplete = ref
               .read(templateRenderInputProvider)
-              .urlOutputAutocomplete
+              .urlOutput
               ?.call(client.options.baseUrl,
                   completeAutocomplete.backofficeUrl!) ??
           '${client.options.baseUrl}${completeAutocomplete.backofficeUrl!}'

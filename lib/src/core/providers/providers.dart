@@ -33,7 +33,7 @@ final autocompletesProvider =
 });
 
 final dataprovidersProvider =
-    FutureProvider.autoDispose<List<DataproviderModel>>((ref) async {
+    FutureProvider<List<DataproviderModel>>((ref) async {
   final client = ref.read(httpClient);
   return await client.get("dataproviders").then((e) {
     return dataprovidersModelFromList(e.data);

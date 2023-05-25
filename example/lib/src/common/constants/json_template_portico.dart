@@ -1,8 +1,8 @@
 const jsonTemplatePortico = """
 {
-    "id": "244",
+    "id": "254",
     "groupId": "23",
-    "createdAt": "2023-05-18T20:19:07.1850161Z",
+    "createdAt": "2023-05-24T13:45:02.5954921Z",
     "isValid": true,
     "scopes": [
         "Portico"
@@ -212,43 +212,6 @@ const jsonTemplatePortico = """
                             "label": "2 - due"
                         }
                     ],
-                    "multiple": false,
-                    "children": [],
-                    "autocomplete": null,
-                    "type": "Field",
-                    "workflowFieldId": null
-                },
-                {
-                    "id": "b8bfaad7-c92b-4e1b-91be-46943c41787a",
-                    "name": "Test Decimal",
-                    "searchable": false,
-                    "names": [
-                        {
-                            "culture": "it",
-                            "label": "Test Decimal"
-                        },
-                        {
-                            "culture": "en",
-                            "label": "Test Decimal"
-                        }
-                    ],
-                    "descriptions": [
-                        {
-                            "culture": "it",
-                            "label": null
-                        },
-                        {
-                            "culture": "en",
-                            "label": null
-                        }
-                    ],
-                    "hidden": false,
-                    "readonly": false,
-                    "fieldType": "Decimal",
-                    "isArray": false,
-                    "defaultValue": null,
-                    "validators": [],
-                    "items": [],
                     "multiple": false,
                     "children": [],
                     "autocomplete": null,
@@ -1277,6 +1240,20 @@ const jsonTemplatePortico = """
                 }
             ],
             "sectionChildId": "bd90e4b7-2fca-426f-8778-e970be1d97c5"
+        },
+        {
+            "id": "cda5373a-467c-41d8-864b-095f7dc7ffc6",
+            "name": "test",
+            "type": "FillGroup",
+            "dataProviderName": "Cities",
+            "inputs": [],
+            "outputs": [
+                {
+                    "fieldId": "52a18fb1-3a12-4f01-a4d0-ae9ff1746892",
+                    "dataProviderFieldName": "id"
+                }
+            ],
+            "sectionChildId": "af7e41ae-36ff-4235-a99b-42ba6cba7d26"
         }
     ],
     "scoringRules": [],

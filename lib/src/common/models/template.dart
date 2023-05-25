@@ -36,7 +36,7 @@ class Template {
   final List<Description>? descriptions;
   final List<Section>? sections;
   final List<EnabledIfRule>? enabledIfRules;
-  final List<DataProvider>? dataProviders;
+  final List<TemplateDataProvider>? dataProviders;
   final List<TemplateStep>? steps;
   final String? name;
   final TemplateMigrationTypes? migrationType;
@@ -65,7 +65,7 @@ class Template {
     List<Description>? descriptions,
     List<Section>? sections,
     List<EnabledIfRule>? enabledIfRules,
-    List<DataProvider>? dataProviders,
+    List<TemplateDataProvider>? dataProviders,
     List<TemplateStep>? steps,
     String? name,
     TemplateMigrationTypes? migrationType,
@@ -114,8 +114,8 @@ class Template {
                 json["enabledIfRules"]!.map((x) => EnabledIfRule.fromJson(x))),
         dataProviders: json["dataProviders"] == null
             ? []
-            : List<DataProvider>.from(
-                json["dataProviders"]!.map((x) => DataProvider.fromJson(x))),
+            : List<TemplateDataProvider>.from(
+                json["dataProviders"]!.map((x) => TemplateDataProvider.fromJson(x))),
         steps: json["steps"] == null
             ? []
             : List<TemplateStep>.from(
@@ -154,8 +154,8 @@ class Template {
       };
 }
 
-class DataProvider {
-  DataProvider({
+class TemplateDataProvider {
+  TemplateDataProvider({
     this.id,
     this.name,
     this.type,
@@ -169,8 +169,8 @@ class DataProvider {
   final String? name;
   final DataProviderTypes? type;
   final String? dataProviderName;
-  final List<Put>? inputs;
-  final List<Put>? outputs;
+  final List<TemplateRenderPut>? inputs;
+  final List<TemplateRenderPut>? outputs;
   final String? sectionChildId;
 
   static String get pNameid => "id";
@@ -181,16 +181,16 @@ class DataProvider {
   static String get pNameoutputs => "outputs";
   static String get pNamesectionChildId => "sectionChildId";
 
-  DataProvider copyWith({
+  TemplateDataProvider copyWith({
     String? id,
     String? name,
     DataProviderTypes? type,
     String? dataProviderName,
-    List<Put>? inputs,
-    List<Put>? outputs,
+    List<TemplateRenderPut>? inputs,
+    List<TemplateRenderPut>? outputs,
     String? sectionChildId,
   }) =>
-      DataProvider(
+      TemplateDataProvider(
         id: id ?? this.id,
         name: name ?? this.name,
         type: type ?? this.type,
@@ -200,17 +200,17 @@ class DataProvider {
         sectionChildId: sectionChildId ?? this.sectionChildId,
       );
 
-  factory DataProvider.fromJson(Map<String, dynamic> json) => DataProvider(
+  factory TemplateDataProvider.fromJson(Map<String, dynamic> json) => TemplateDataProvider(
         id: json["id"],
         name: json["name"],
         type: dataProviderTypesValues.map[json["type"]],
         dataProviderName: json["dataProviderName"],
         inputs: json["outputs"] == null
             ? []
-            : List<Put>.from(json["inputs"]!.map((x) => Put.fromJson(x))),
+            : List<TemplateRenderPut>.from(json["inputs"]!.map((x) => TemplateRenderPut.fromJson(x))),
         outputs: json["outputs"] == null
             ? []
-            : List<Put>.from(json["outputs"]!.map((x) => Put.fromJson(x))),
+            : List<TemplateRenderPut>.from(json["outputs"]!.map((x) => TemplateRenderPut.fromJson(x))),
         sectionChildId: json["sectionChildId"],
       );
 
@@ -243,8 +243,8 @@ final dataProviderTypesValues = EnumValues({
   "Items": DataProviderTypes.Items
 });
 
-class Put {
-  Put({
+class TemplateRenderPut {
+  TemplateRenderPut({
     this.fieldId,
     this.dataProviderFieldName,
   });
@@ -255,17 +255,17 @@ class Put {
   static String get pNamefieldId => "fieldId";
   static String get pNamedataProviderFieldName => "dataProviderFieldName";
 
-  Put copyWith({
+  TemplateRenderPut copyWith({
     String? fieldId,
     String? dataProviderFieldName,
   }) =>
-      Put(
+      TemplateRenderPut(
         fieldId: fieldId ?? this.fieldId,
         dataProviderFieldName:
             dataProviderFieldName ?? this.dataProviderFieldName,
       );
 
-  factory Put.fromJson(Map<String, dynamic> json) => Put(
+  factory TemplateRenderPut.fromJson(Map<String, dynamic> json) => TemplateRenderPut(
         fieldId: json["fieldId"],
         dataProviderFieldName: json["dataProviderFieldName"],
       );

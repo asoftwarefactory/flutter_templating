@@ -24,8 +24,7 @@ class TemplateRenderInput {
   final String apiBaseUrl;
 
   /// calculate the url of the output autocomplete
-  final String Function(String baseUrl, String partOfTheUrlOutput)?
-      urlOutputAutocomplete;
+  final String Function(String baseUrl, String partOfTheUrlOutput)? urlOutput;
 
   TemplateRenderInput({
     required this.template,
@@ -43,7 +42,7 @@ class TemplateRenderInput {
     required String bearerAccessToken,
     required this.authorityId,
     required this.apiBaseUrl,
-    this.urlOutputAutocomplete,
+    this.urlOutput,
   }) {
     String bearer = bearerAccessToken;
     bearer = bearer.trim();

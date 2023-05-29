@@ -107,7 +107,8 @@ class DataProviderGet extends _$DataProviderGet {
               ?.call(templateRenderInput.apiBaseUrl, url);
           if (dataproviderUrl != null) {
             final client = ref.read(httpClient);
-            final b = await client.get(dataproviderUrl);
+            final b = await client.get(dataproviderUrl,
+                queryParameters: queryParameters);
             return DataProviderResult(
                 resultData: b.data, verticalDataProvider: findedDataProvider);
           }

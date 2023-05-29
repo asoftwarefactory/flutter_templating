@@ -44,7 +44,7 @@ class DropdownField<T> extends ConsumerWidget implements InputField {
             }).toList(),
           ).expandIntoColumnOrRow(),
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.clear_rounded),
             onPressed: () {
               control.value = null;
             },

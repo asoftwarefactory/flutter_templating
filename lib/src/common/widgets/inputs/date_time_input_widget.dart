@@ -62,6 +62,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   @override
   Widget build(BuildContext context) {
     return ReactiveDateTimePicker(
+      clearIcon: const Icon(Icons.clear_rounded),
       showClearIcon: widget.showClearIcon,
       formControl: widget.control,
       type: _getDatePickerType,
@@ -70,7 +71,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         labelText: widget.section.names?.getDescriptionLabelTranslated(context),
         border: const OutlineInputBorder(),
         helperText: '',
-        suffixIcon: const Icon(Icons.calendar_today),
+        suffixIcon: const Icon(Icons.calendar_today_rounded),
       ),
     );
   }

@@ -25,7 +25,7 @@ final mainFormProvider = Provider((ref) {
 });
 
 final autocompletesProvider =
-    FutureProvider.autoDispose<List<AutocompleteModel>>((ref) async {
+    FutureProvider<List<AutocompleteModel>>((ref) async {
   final client = ref.read(httpClient);
   return await client.get("autocompletes").then((e) {
     return autocompletesModelFromList(e.data);

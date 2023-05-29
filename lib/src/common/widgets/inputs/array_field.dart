@@ -20,7 +20,7 @@ class ArrayField<T> extends ConsumerWidget implements InputField {
     this.description,
     required this.formArray,
     required this.fieldBuilder,
-    this.addButtonIcon = Icons.add,
+    this.addButtonIcon = Icons.add_rounded,
   });
 
   @override
@@ -58,7 +58,7 @@ class ArrayField<T> extends ConsumerWidget implements InputField {
                       .expandIntoColumnOrRow(),
                   ref.read(templateRenderInputProvider).defaultGapRow,
                   IconButton(
-                    icon: const Icon(Icons.delete),
+                    icon: const Icon(Icons.delete_rounded),
                     onPressed: () {
                       set(() => formArray.removeAt(index));
                     },

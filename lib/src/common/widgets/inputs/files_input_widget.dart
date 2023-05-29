@@ -47,7 +47,7 @@ class FilesInputWidget extends StatelessWidget implements InputField {
                                       ..removeAt(key)));
                               }
                             : null,
-                        leading: const Icon(Icons.delete),
+                        leading: const Icon(Icons.delete_rounded),
                         title: CustomMainText(
                           value.name,
                           expandIntoColumnOnRow: false,

@@ -114,8 +114,8 @@ class Template {
                 json["enabledIfRules"]!.map((x) => EnabledIfRule.fromJson(x))),
         dataProviders: json["dataProviders"] == null
             ? []
-            : List<TemplateDataProvider>.from(
-                json["dataProviders"]!.map((x) => TemplateDataProvider.fromJson(x))),
+            : List<TemplateDataProvider>.from(json["dataProviders"]!
+                .map((x) => TemplateDataProvider.fromJson(x))),
         steps: json["steps"] == null
             ? []
             : List<TemplateStep>.from(
@@ -200,17 +200,20 @@ class TemplateDataProvider {
         sectionChildId: sectionChildId ?? this.sectionChildId,
       );
 
-  factory TemplateDataProvider.fromJson(Map<String, dynamic> json) => TemplateDataProvider(
+  factory TemplateDataProvider.fromJson(Map<String, dynamic> json) =>
+      TemplateDataProvider(
         id: json["id"],
         name: json["name"],
         type: dataProviderTypesValues.map[json["type"]],
         dataProviderName: json["dataProviderName"],
         inputs: json["outputs"] == null
             ? []
-            : List<TemplateRenderPut>.from(json["inputs"]!.map((x) => TemplateRenderPut.fromJson(x))),
+            : List<TemplateRenderPut>.from(
+                json["inputs"]!.map((x) => TemplateRenderPut.fromJson(x))),
         outputs: json["outputs"] == null
             ? []
-            : List<TemplateRenderPut>.from(json["outputs"]!.map((x) => TemplateRenderPut.fromJson(x))),
+            : List<TemplateRenderPut>.from(
+                json["outputs"]!.map((x) => TemplateRenderPut.fromJson(x))),
         sectionChildId: json["sectionChildId"],
       );
 
@@ -231,8 +234,10 @@ class TemplateDataProvider {
 enum DataProviderTypes {
   /// semplice
   Simple,
+
   /// gruppo di riempimento
   FillGroup,
+
   /// elementi
   Items,
 }
@@ -265,7 +270,8 @@ class TemplateRenderPut {
             dataProviderFieldName ?? this.dataProviderFieldName,
       );
 
-  factory TemplateRenderPut.fromJson(Map<String, dynamic> json) => TemplateRenderPut(
+  factory TemplateRenderPut.fromJson(Map<String, dynamic> json) =>
+      TemplateRenderPut(
         fieldId: json["fieldId"],
         dataProviderFieldName: json["dataProviderFieldName"],
       );
@@ -398,7 +404,8 @@ class EnabledIfCondition {
         values: values ?? this.values,
       );
 
-  factory EnabledIfCondition.fromJson(Map<String, dynamic> json) => EnabledIfCondition(
+  factory EnabledIfCondition.fromJson(Map<String, dynamic> json) =>
+      EnabledIfCondition(
         fieldId: json["fieldId"],
         constraint: enabledIfConstraintsValues.map[json["constraint"]],
         values: json["values"] == null
@@ -417,18 +424,25 @@ class EnabledIfCondition {
 enum EnabledIfConstraints {
   /// uguale
   Equal,
+
   /// contiene uno
   ContainsOne,
+
   /// contiene tutti
   ContainsAll,
+
   /// più grande di
   GreaterThan,
+
   /// Maggiore o uguale a
   GreaterOrEqualThan,
+
   /// Meno di
   LessThan,
+
   /// Minore o uguale a
   LessOrEqualThan,
+
   /// non uguale
   NotEqual,
 }
@@ -739,10 +753,12 @@ class Item {
         "key": key,
         "label": label,
       };
-  /* @override
+
+  // Fix Bug ReactiveRawAutocomplete
+  @override
   String toString() {
-    return toJson().toString();
-  } */
+    return label ?? "Instance of Item";
+  }
 }
 
 enum SectionType { GROUP, FIELD }

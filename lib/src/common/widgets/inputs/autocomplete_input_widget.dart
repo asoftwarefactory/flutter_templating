@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_raw_autocomplete/reactive_raw_autocomplete.dart';
@@ -6,7 +7,7 @@ import '../../models/template.dart';
 import '../custom_main_text.dart';
 import 'input_field.dart';
 
-class AutocompleteInputWidget<T, D extends Object> extends StatelessWidget
+class AutocompleteInputWidget<T, D extends Object> extends ConsumerWidget
     implements InputField {
   final Section section;
   final FormControl<T> control;
@@ -21,7 +22,7 @@ class AutocompleteInputWidget<T, D extends Object> extends StatelessWidget
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context, ref) {
     return ReactiveRawAutocomplete<T, D>(
       readOnly: section.readonly == true,
       enableInteractiveSelection: true,
@@ -36,7 +37,6 @@ class AutocompleteInputWidget<T, D extends Object> extends StatelessWidget
           displayStringForOption ?? RawAutocomplete.defaultStringForOption,
       optionsViewBuilder: (ctx, onSelected, options) {
         return Align(
-          key: UniqueKey(),
           alignment: Alignment.topLeft,
           child: Material(
             elevation: 4.0,
@@ -50,14 +50,10 @@ class AutocompleteInputWidget<T, D extends Object> extends StatelessWidget
                   final label = (displayStringForOption ??
                           RawAutocomplete.defaultStringForOption)
                       .call(option);
-                  return GestureDetector(
-                    onTap: () {
-                      onSelected(option);
-                    },
-                    child: ListTile(
-                      title:
-                          CustomMainText(label, expandIntoColumnOnRow: false),
-                    ),
+                  return ListTile(
+                    onTap: () => onSelected(option),
+                    title: CustomMainText(label,
+                        expandIntoColumnOnRow: false, inputRef: ref),
                   );
                 },
               ),

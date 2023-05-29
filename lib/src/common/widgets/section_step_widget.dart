@@ -55,14 +55,12 @@ class SectionStepWidget extends ConsumerWidget {
 Section adapteSectionWithDataProvider(DPManagerWidgetRes res) {
   switch (res.currentDataProvider?.type) {
     case DataProviderTypes.FillGroup:
-      debugPrint(
-          "DataProvider path ${res.verticalDataProvider?.backofficeUrl}, Type ${res.currentDataProvider?.type?.name}, result  => ${res.resultData}");
-
+      debugPrint("DataProvider path ${res.verticalDataProvider?.backofficeUrl}, Type ${res.currentDataProvider?.type?.name}, result  => ${res.resultData}");
       return res.section;
     case DataProviderTypes.Items:
-      debugPrint(
-          "DataProvider path ${res.verticalDataProvider?.backofficeUrl}, Type ${res.currentDataProvider?.type?.name}, result  => ${res.resultData}");
-      /*  {
+      debugPrint("DataProvider path ${res.verticalDataProvider?.backofficeUrl}, Type ${res.currentDataProvider?.type?.name}, result  => ${res.resultData}");
+      
+      /* {
         "1": "Protettivo di VIALE ALDO MORO 10 - 20",
         "2": "Protettivo di VIALE ALDO MORO 10 - 20",
         "3": "Protettivo di VIALE ALDO MORO 10 - 20",
@@ -74,16 +72,13 @@ Section adapteSectionWithDataProvider(DPManagerWidgetRes res) {
         "10": "Protettivo di VIA 21 APRILE 1945 5/9 - 20"
       } */
 
-      if (res.resultData is Map &&
-          res.section.fieldType ==
-              res.verticalDataProvider?.outputs?.first.type) {
+      if (res.resultData is Map && res.section.fieldType == res.verticalDataProvider?.outputs?.first.type) {
         final items = <Item>[];
         (res.resultData as Map).forEach((key, value) {
           if (res.section.fieldType == FieldTypes.Integer) {
             items.add(Item(key: int.parse(key), label: value.toString()));
-          }else{
-          items.add(Item(key: (key), label: value.toString()));
-
+          } else {
+            items.add(Item(key: (key), label: value.toString()));
           }
         });
         return res.section.copyWith(items: items);

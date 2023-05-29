@@ -76,7 +76,7 @@ class _FileInputWidgetState extends State<FileInputWidget> {
                                 const MultiFile(files: [], platformFiles: []));
                           }
                         : null,
-                    leading: const Icon(Icons.delete),
+                    leading: const Icon(Icons.delete_rounded),
                     title: CustomMainText(
                       file.name,
                       expandIntoColumnOnRow: false,

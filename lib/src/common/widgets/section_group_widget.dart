@@ -54,7 +54,7 @@ class SectionGroupWidget extends ConsumerWidget {
                           .expandIntoColumnOrRow(),
                     ref.read(templateRenderInputProvider).defaultGapRow,
                     IconButton(
-                      icon: const Icon(Icons.delete),
+                      icon: const Icon(Icons.delete_rounded),
                       onPressed: () {
                         sectionGroupFormArray.removeAt(index);
                       },
@@ -75,7 +75,7 @@ class SectionGroupWidget extends ConsumerWidget {
                     onPressed: () {
                       sectionGroupFormArray.add(FormGroup({}));
                     },
-                    icon: const Icon(Icons.add),
+                    icon: const Icon(Icons.add_rounded),
                   ),
                 ],
               ),

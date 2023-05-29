@@ -2,9 +2,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/core/providers/providers.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../core/http_client/http_client.dart';
 import '../models/dataprovider_model.dart';
 import '../models/template.dart';
+part 'dataprovider_manager_widget.g.dart';
 
 class DataProviderManagerWidget extends ConsumerWidget {
   final Widget Function(BuildContext context, DPManagerWidgetRes result)
@@ -38,8 +40,7 @@ class DataProviderManagerWidget extends ConsumerWidget {
           currentDataProviderName != null &&
           dataProviderWithTemplate?.dataProviderName != null) {
         return ref
-            .watch(
-                _dataProviderGet(dataProviderWithTemplate!.dataProviderName!))
+            .watch(dataProviderGetProvider(dataProviderWithTemplate!))
             .when(
               data: (data) => builder.call(
                 context,
@@ -67,35 +68,45 @@ class DataProviderManagerWidget extends ConsumerWidget {
   }
 }
 
-final _dataProviderGet = FutureProvider.family<DataProviderResult, String>(
-    (ref, dataProviderName) async {
-  final dataProviders = ref.watch(dataprovidersProvider);
-  final a = dataProviders.when(
-    data: (data) => data,
-    error: (err, stacktrace) => <DataproviderModel>[],
-    loading: () => <DataproviderModel>[],
-  );
+@Riverpod(keepAlive: true)
+class DataProviderGet extends _$DataProviderGet {
+  @override
+  Future<DataProviderResult> build(TemplateDataProvider dataProvider) async {
+    final dataProviders = ref.watch(dataprovidersProvider);
+    final a = dataProviders.when(
+      data: (data) => data,
+      error: (err, stacktrace) => <DataproviderModel>[],
+      loading: () => <DataproviderModel>[],
+    );
 
-  if (a.isNotEmpty) {
-    final findedDataProvider = a.firstWhereOrNull(
-        (dataProvider) => dataProvider.name == dataProviderName);
-    if (findedDataProvider != null) {
-      final url = findedDataProvider.backofficeUrl;
-      if (url != null) {
-        final input = ref.read(templateRenderInputProvider);
-        final dataproviderUrl = input.urlOutput?.call(input.apiBaseUrl, url);
-        if (dataproviderUrl != null) {
-          // inputs ????
-          final client = ref.read(httpClient);
-          final b = await client.get(dataproviderUrl);
-          return DataProviderResult(
-              resultData: b.data, verticalDataProvider: findedDataProvider);
+    if (a.isNotEmpty) {
+      final findedDataProvider = a.firstWhereOrNull((verticalDataProvider) =>
+          verticalDataProvider.name != null &&
+          dataProvider.dataProviderName != null &&
+          verticalDataProvider.name == dataProvider.dataProviderName);
+      if (findedDataProvider != null) {
+        final url = findedDataProvider.backofficeUrl;
+        if (url != null) {
+          //  final queryParameters = <String, dynamic>{};
+          final templateRenderInput = ref.read(templateRenderInputProvider);
+
+          // final a=  ExtAbstractControl.getControl(context);
+          // final mainForm = ref.read(mainFormProvider);
+          final dataproviderUrl = templateRenderInput.urlOutput
+              ?.call(templateRenderInput.apiBaseUrl, url);
+          if (dataproviderUrl != null) {
+            // inputs ????
+            final client = ref.read(httpClient);
+            final b = await client.get(dataproviderUrl);
+            return DataProviderResult(
+                resultData: b.data, verticalDataProvider: findedDataProvider);
+          }
         }
       }
     }
+    return DataProviderResult();
   }
-  return DataProviderResult();
-});
+}
 
 class DataProviderResult {
   final DataproviderModel? verticalDataProvider;

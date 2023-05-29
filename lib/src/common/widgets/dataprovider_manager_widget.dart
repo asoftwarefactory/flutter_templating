@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/src/core/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../core/http_client/http_client.dart';
+import '../extensions/abstract_control.dart';
 import '../models/dataprovider_model.dart';
 import '../models/template.dart';
 part 'dataprovider_manager_widget.g.dart';
@@ -87,15 +88,24 @@ class DataProviderGet extends _$DataProviderGet {
       if (findedDataProvider != null) {
         final url = findedDataProvider.backofficeUrl;
         if (url != null) {
-          //  final queryParameters = <String, dynamic>{};
+          final queryParameters = <String, dynamic>{};
+          final mainForm = ref.read(mainFormProvider);
+          for (final input in dataProvider.inputs ?? <TemplateRenderPut>[]) {
+            if (input.fieldId != null && input.dataProviderFieldName != null) {
+              final referencedControl =
+                  ExtAbstractControl.controlNested(input.fieldId!, mainForm);
+              if (referencedControl != null) {
+                queryParameters.addAll({
+                  input.dataProviderFieldName!:
+                      referencedControl.value.toString(),
+                });
+              }
+            }
+          }
           final templateRenderInput = ref.read(templateRenderInputProvider);
-
-          // final a=  ExtAbstractControl.getControl(context);
-          // final mainForm = ref.read(mainFormProvider);
           final dataproviderUrl = templateRenderInput.urlOutput
               ?.call(templateRenderInput.apiBaseUrl, url);
           if (dataproviderUrl != null) {
-            // inputs ????
             final client = ref.read(httpClient);
             final b = await client.get(dataproviderUrl);
             return DataProviderResult(

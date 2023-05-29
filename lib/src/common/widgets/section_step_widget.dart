@@ -32,10 +32,8 @@ class SectionStepWidget extends ConsumerWidget {
       return DataProviderManagerWidget(
           section: section,
           builder: (ctx, res) {
-            /* if (data != null) {
-              debugPrint(data!.toString());
-            } */
-            return SectionGroupWidget(section: res.section, form: mainForm)
+            final adaptedSection = adapteSectionWithDataProvider(res);
+            return SectionGroupWidget(section: adaptedSection, form: mainForm)
                 .createMargin(
                     ref.read(templateRenderInputProvider).defaultMarginWidgets);
           });
@@ -43,15 +41,61 @@ class SectionStepWidget extends ConsumerWidget {
       return DataProviderManagerWidget(
           section: section,
           builder: (ctx, res) {
-            /* if (data != null) {
-              debugPrint(data!.toString());
-            } */
-            return SectionFieldWidget(section: res.section, form: mainForm)
+            final adaptedSection = adapteSectionWithDataProvider(res);
+            return SectionFieldWidget(section: adaptedSection, form: mainForm)
                 .createMargin(
                     ref.read(templateRenderInputProvider).defaultMarginWidgets);
           });
     } else {
       return const SizedBox();
     }
+  }
+}
+
+Section adapteSectionWithDataProvider(DPManagerWidgetRes res) {
+  switch (res.currentDataProvider?.type) {
+    case DataProviderTypes.FillGroup:
+      debugPrint(
+          "DataProvider path ${res.verticalDataProvider?.backofficeUrl}, Type ${res.currentDataProvider?.type?.name}, result  => ${res.resultData}");
+
+      return res.section;
+    case DataProviderTypes.Items:
+      debugPrint(
+          "DataProvider path ${res.verticalDataProvider?.backofficeUrl}, Type ${res.currentDataProvider?.type?.name}, result  => ${res.resultData}");
+      /*  {
+        "1": "Protettivo di VIALE ALDO MORO 10 - 20",
+        "2": "Protettivo di VIALE ALDO MORO 10 - 20",
+        "3": "Protettivo di VIALE ALDO MORO 10 - 20",
+        "4": "Protettivo di VIALE ALDO MORO 10 - 20",
+        "5": "Protettivo di VIALE ALDO MORO 10 - 20",
+        "6": "Protettivo di VIALE ALDO MORO 10 - 20",
+        "7": "Protettivo di MURA DI PORTA SAN FELICE 1 - 1",
+        "8": "Protettivo di GALLERIA CAMILLO CAVOUR 1 - 1/V",
+        "10": "Protettivo di VIA 21 APRILE 1945 5/9 - 20"
+      } */
+
+      if (res.resultData is Map &&
+          res.section.fieldType ==
+              res.verticalDataProvider?.outputs?.first.type) {
+        final items = <Item>[];
+        (res.resultData as Map).forEach((key, value) {
+          if (res.section.fieldType == FieldTypes.Integer) {
+            items.add(Item(key: int.parse(key), label: value.toString()));
+          }else{
+          items.add(Item(key: (key), label: value.toString()));
+
+          }
+        });
+        return res.section.copyWith(items: items);
+      }
+
+      return res.section;
+    case DataProviderTypes.Simple:
+      debugPrint(
+          "DataProvider path ${res.verticalDataProvider?.backofficeUrl}, Type ${res.currentDataProvider?.type?.name}, result  => ${res.resultData}");
+
+      return res.section;
+    default:
+      return res.section;
   }
 }

@@ -12,6 +12,7 @@ class CustomMainText extends ConsumerWidget {
   final int maxLines;
   final bool expandIntoColumnOnRow;
   final WidgetRef? inputRef;
+  final TextStyle? style;
 
   const CustomMainText(
     this.text, {
@@ -21,6 +22,7 @@ class CustomMainText extends ConsumerWidget {
     // I don't want to have a limit on rows
     this.maxLines = 100000,
     this.inputRef,
+    this.style,
   }) : super(key: key);
 
   @override
@@ -29,12 +31,18 @@ class CustomMainText extends ConsumerWidget {
       overflow: TextOverflow.ellipsis,
       text ?? '',
       maxLines: maxLines,
-      style: TextStyle(
-        fontSize: getFontSize(
-            size,
-            inputRef?.read(templateRenderInputProvider) ??
-                ref.read(templateRenderInputProvider)),
-      ),
+      style: style?.copyWith(
+            fontSize: getFontSize(
+                size,
+                inputRef?.read(templateRenderInputProvider) ??
+                    ref.read(templateRenderInputProvider)),
+          ) ??
+          TextStyle(
+            fontSize: getFontSize(
+                size,
+                inputRef?.read(templateRenderInputProvider) ??
+                    ref.read(templateRenderInputProvider)),
+          ),
     );
     if (expandIntoColumnOnRow) {
       return textW.expandIntoColumnOrRow();

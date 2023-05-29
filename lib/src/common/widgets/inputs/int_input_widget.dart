@@ -19,9 +19,6 @@ class IntInputWidget extends StatelessWidget implements InputField {
     return ReactiveTextField(
       readOnly: section.readonly ?? false,
       keyboardType: TextInputType.number,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^-?\d{0,5}')),
-      ],
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         label: CustomMainText(

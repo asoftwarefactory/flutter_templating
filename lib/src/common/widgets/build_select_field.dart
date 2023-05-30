@@ -28,14 +28,15 @@ class BuildSelectField extends ConsumerWidget with EnableIfRuleMixin {
 
   Widget _buildSelectField(FormGroup form) {
     final isArray = section.isArray ?? false;
+
     switch (section.fieldType) {
       case FieldTypes.String:
-        final control = form.getOrSetAbstractControlAndSetValidators(
+        final control = form.getOrSetAbstractControlAndSetValidators<String>(
             section.id!,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
-        return DropdownField(control: control, section: section);
+        return DropdownField<String>(control: control, section: section);
       case FieldTypes.Integer:
         final control = form.getOrSetAbstractControlAndSetValidators(
             section.id!,

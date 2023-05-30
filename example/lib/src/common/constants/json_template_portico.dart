@@ -1204,7 +1204,10 @@ const jsonTemplatePortico = """
             "name": "dp supporti parete",
             "type": "Items",
             "dataProviderName": "Support",
-            "inputs": [],
+           "inputs": [{
+                "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+                "dataProviderFieldName": "region"
+            }],
             "outputs": [
                 {
                     "fieldId": "c00ed910-9bca-4269-aef7-5ef5b6672fc4",
@@ -1218,7 +1221,10 @@ const jsonTemplatePortico = """
             "name": "dp colori parete",
             "type": "Items",
             "dataProviderName": "Colors",
-            "inputs": [],
+            "inputs": [{
+                "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+                "dataProviderFieldName": "region"
+            }],
             "outputs": [
                 {
                     "fieldId": "d15babf6-b25f-4cec-bfb4-742ccf6cf514",
@@ -1232,7 +1238,10 @@ const jsonTemplatePortico = """
             "name": "dp supporti pavimento",
             "type": "Items",
             "dataProviderName": "Support",
-            "inputs": [],
+           "inputs": [{
+                "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+                "dataProviderFieldName": "region"
+            }],
             "outputs": [
                 {
                     "fieldId": "2de3495a-3cca-42fa-b2fc-28d564c2ad4e",
@@ -1246,7 +1255,10 @@ const jsonTemplatePortico = """
             "name": "test",
             "type": "FillGroup",
             "dataProviderName": "Cities",
-            "inputs": [],
+            "inputs": [{
+                "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+                "dataProviderFieldName": "region"
+            }],
             "outputs": [
                 {
                     "fieldId": "52a18fb1-3a12-4f01-a4d0-ae9ff1746892",

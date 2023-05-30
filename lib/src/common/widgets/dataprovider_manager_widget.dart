@@ -94,7 +94,9 @@ class DataProviderGet extends _$DataProviderGet {
             if (input.fieldId != null && input.dataProviderFieldName != null) {
               final referencedControl =
                   ExtAbstractControl.controlNested(input.fieldId!, mainForm);
-              if (referencedControl != null) {
+              if (referencedControl != null &&
+                  referencedControl.value != null &&
+                  referencedControl.value.toString().isNotEmpty) {
                 queryParameters.addAll({
                   input.dataProviderFieldName!:
                       referencedControl.value.toString(),

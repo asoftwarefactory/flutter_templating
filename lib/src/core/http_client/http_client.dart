@@ -13,5 +13,6 @@ final httpClient = Provider.autoDispose<Dio>((ref) {
     },
     baseUrl: apiBaseUrl,
   ));
+  // httpClient.interceptors.add(LoggerInterceptor());
   return httpClient;
 });

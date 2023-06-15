@@ -16,18 +16,18 @@ dependencies:
     sdk: flutter
 
   # for state managment
-  flutter_riverpod: ^2.3.2
-  riverpod_annotation: ^2.0.4
+  flutter_riverpod: ^2.3.6
+  riverpod_annotation: ^2.1.1
 
   # for dates manipulation
   jiffy: ^6.1.0
 
   # forms
-  reactive_forms: ^14.3.0
-  reactive_raw_autocomplete: ^0.6.0
-  reactive_file_picker: ^0.12.1
-  reactive_date_time_picker: ^0.6.1 
-  reactive_multi_select_flutter: ^0.0.1
+  reactive_forms: ^15.0.0
+  reactive_raw_autocomplete: ^1.0.0
+  reactive_file_picker: ^1.0.0
+  reactive_date_time_picker: ^1.0.0
+  reactive_multi_select_flutter: ^1.0.0
   reactive_dropdown_multiple_field:
     git: 
       url: https://github.com/asoftwarefactory/reactive_dropdown_multiple_field.git
@@ -37,7 +37,7 @@ dependencies:
   auto_size_text: ^3.0.0
   intl: ^0.18.1
   universal_platform: ^1.0.0+1
-  dio: ^5.1.2
+  dio: ^5.2.1+1
   rxdart: ^0.27.7
   
   
@@ -47,9 +47,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  build_runner: ^2.3.3
-  riverpod_generator: ^2.1.6
+  flutter_lints: ^2.0.1
+  build_runner: ^2.4.5
+  riverpod_generator: ^2.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

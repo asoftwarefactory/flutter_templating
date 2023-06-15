@@ -6,7 +6,10 @@
         "name": "dp supporti parete",
         "type": "Items",
         "dataProviderName": "Support",
-        "inputs": [],
+        "inputs": [{
+            "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+            "dataProviderFieldName": "region"
+        }],
         "outputs": [{
             "fieldId": "c00ed910-9bca-4269-aef7-5ef5b6672fc4",
             "dataProviderFieldName": "Key"
@@ -18,7 +21,10 @@
         "name": "dp colori parete",
         "type": "Items",
         "dataProviderName": "Colors",
-        "inputs": [],
+        "inputs": [{
+            "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+            "dataProviderFieldName": "region"
+        }],
         "outputs": [{
             "fieldId": "d15babf6-b25f-4cec-bfb4-742ccf6cf514",
             "dataProviderFieldName": "Key"
@@ -30,11 +36,29 @@
         "name": "dp supporti pavimento",
         "type": "Items",
         "dataProviderName": "Support",
-        "inputs": [],
+        "inputs": [{
+            "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+            "dataProviderFieldName": "region"
+        }],
         "outputs": [{
             "fieldId": "2de3495a-3cca-42fa-b2fc-28d564c2ad4e",
             "dataProviderFieldName": "Key"
         }],
         "sectionChildId": "bd90e4b7-2fca-426f-8778-e970be1d97c5"
+    },
+    {
+        "id": "cda5373a-467c-41d8-864b-095f7dc7ffc6",
+        "name": "test",
+        "type": "FillGroup",
+        "dataProviderName": "Cities",
+        "inputs": [{
+            "fieldId": "0a313e8d-2627-46be-ba00-862fadb55597",
+            "dataProviderFieldName": "region"
+        }],
+        "outputs": [{
+            "fieldId": "52a18fb1-3a12-4f01-a4d0-ae9ff1746892",
+            "dataProviderFieldName": "id"
+        }],
+        "sectionChildId": "af7e41ae-36ff-4235-a99b-42ba6cba7d26"
     }
 ]

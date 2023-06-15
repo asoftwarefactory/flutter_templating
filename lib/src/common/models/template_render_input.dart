@@ -15,6 +15,8 @@ class TemplateRenderInput {
   final double defaultFontSize;
   final double primaryFontSize;
   final double secondaryFontSize;
+  final bool enableDebugLog;
+  final bool enableStepperMargin;
 
   /// Authentication API service;
   late final String _bearerAccessToken;
@@ -43,6 +45,8 @@ class TemplateRenderInput {
     required this.authorityId,
     required this.apiBaseUrl,
     this.urlOutput,
+    this.enableDebugLog = false,
+    this.enableStepperMargin = false,
   }) {
     String bearer = bearerAccessToken;
     bearer = bearer.trim();

@@ -31,7 +31,12 @@ class TemplateStepperWidget extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final index = ref.watch(templateStepperBuilderProvider);
+        final templateRenderInput = ref.read(templateRenderInputProvider);
+
         return Stepper(
+          margin: templateRenderInput.enableStepperMargin
+              ? templateRenderInput.defaultMarginWidgets
+              : EdgeInsets.zero,
           controlsBuilder: (ctx, details) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -41,8 +46,7 @@ class TemplateStepperWidget extends StatelessWidget {
                     onPressed: details.onStepCancel,
                     icon: const Icon(Icons.arrow_upward_rounded),
                   ),
-                if (details.stepIndex > 0)
-                  ref.read(templateRenderInputProvider).defaultGapRow,
+                if (details.stepIndex > 0) templateRenderInput.defaultGapRow,
                 Visibility(
                   visible:
                       details.stepIndex == (template.steps?.length ?? 0) - 1,
@@ -55,8 +59,7 @@ class TemplateStepperWidget extends StatelessWidget {
                   child: const SaveTemplateButton(),
                 ),
               ],
-            ).createMargin(
-                ref.read(templateRenderInputProvider).defaultMarginWidgets);
+            ).createMargin(templateRenderInput.defaultMarginWidgets);
           },
           onStepCancel: () {
             if (index > 0) {
@@ -93,21 +96,16 @@ class TemplateStepperWidget extends StatelessWidget {
                     sectionsFromStep.firstOrNull?.names
                         ?.getDescriptionLabelTranslated(context),
                     expandIntoColumnOnRow: false,
-                  ).padding(ref
-                      .read(templateRenderInputProvider)
-                      .defaultPaddingWidgets),
+                  ).padding(templateRenderInput.defaultPaddingWidgets),
                   subtitle: CustomMainText(
                     sectionsFromStep.firstOrNull?.descriptions
                         ?.getDescriptionLabelTranslated(context),
                     expandIntoColumnOnRow: false,
-                  ).padding(ref
-                      .read(templateRenderInputProvider)
-                      .defaultPaddingWidgets),
+                  ).padding(templateRenderInput.defaultPaddingWidgets),
                 );
               }).toList() ??
               <Step>[const Step(content: SizedBox(), title: SizedBox())],
-        ).createMargin(
-            ref.read(templateRenderInputProvider).defaultMarginWidgets);
+        ).createMargin(templateRenderInput.defaultMarginWidgets);
       },
     );
   }

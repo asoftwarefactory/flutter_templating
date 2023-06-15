@@ -6,7 +6,7 @@ part of 'dataprovider_manager_widget.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dataProviderGetHash() => r'1e73bc212ea9fad26fe3a2bf21f83af34fe28dc7';
+String _$dataProviderGetHash() => r'8d0e7a8b0e0242424d2e6282ef6db190d2189f9b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -82,7 +82,6 @@ class DataProviderGetFamily extends Family<AsyncValue<DataProviderResult>> {
 
 /// See also [DataProviderGet].
 class DataProviderGetProvider
-    // ignore: invalid_use_of_visible_for_testing_member
     extends AsyncNotifierProviderImpl<DataProviderGet, DataProviderResult> {
   /// See also [DataProviderGet].
   DataProviderGetProvider(

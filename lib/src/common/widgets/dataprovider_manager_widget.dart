@@ -19,21 +19,68 @@ class DataProviderManagerWidget extends ConsumerWidget {
     required this.section,
   });
 
+  Widget _defaultBuilder(BuildContext context, Section section) {
+    return builder.call(context, DPManagerWidgetRes(section: section));
+  }
+
   @override
+  Widget build(context, ref) {
+    final currentSectionId = section.id;
+    if (currentSectionId == null || currentSectionId.isEmpty) {
+      return _defaultBuilder(context, section);
+    }
+    final mainTemplate = ref.read(templateRenderInputProvider).template;
+    final templateDataProviders =
+        mainTemplate.dataProviders ?? <TemplateDataProvider>[];
+
+    final dataProviderAttached = templateDataProviders.any(
+        (templateDataProvider) =>
+            templateDataProvider.sectionChildId != null &&
+            templateDataProvider.sectionChildId == currentSectionId);
+    if (dataProviderAttached) {
+      final templateDataProvider = templateDataProviders.firstWhere(
+          (templateDataProvider) =>
+              templateDataProvider.sectionChildId != null &&
+              templateDataProvider.sectionChildId == currentSectionId);
+      return ref.watch(dataProviderGetProvider(templateDataProvider)).when(
+            data: (verticalDataProviderResult) => builder.call(
+              context,
+              DPManagerWidgetRes(
+                verticalDataProvider:
+                    verticalDataProviderResult.verticalDataProvider,
+                currentDataProvider: templateDataProvider,
+                // currentRenderPut: output,
+                section: section,
+                dataProviderFounded:
+                    verticalDataProviderResult.dataProviderFounded,
+                resultData: verticalDataProviderResult.resultData,
+              ),
+            ),
+            error: (err, stacktrace) => const SizedBox(),
+            loading: () => const CircularProgressIndicator(),
+          );
+    }
+
+    return _defaultBuilder(context, section);
+  }
+
+  /* @override
   Widget build(context, ref) {
     final template = ref.read(templateRenderInputProvider).template;
     final sectionAsDataProviderAttached = template.dataProviders?.any((dp) =>
-            dp.outputs?.any((output) =>
-                section.id != null && output.fieldId == section.id!) ??
-            false) ??
+            (dp.sectionChildId == section.id) ||
+            (dp.outputs?.any((output) =>
+                    section.id != null && output.fieldId == section.id!) ??
+                false)) ??
         false;
 
     if (sectionAsDataProviderAttached) {
       final dataProviderWithTemplate = template.dataProviders?.firstWhereOrNull(
           (dataProviderTemplate) =>
-              dataProviderTemplate.outputs
-                  ?.any((output) => output.fieldId == section.id) ??
-              false);
+              (dataProviderTemplate.sectionChildId == section.id) ||
+              (dataProviderTemplate.outputs
+                      ?.any((output) => output.fieldId == section.id) ??
+                  false));
       final output = dataProviderWithTemplate?.outputs
           ?.firstWhereOrNull((out) => out.fieldId == section.id);
       final currentDataProviderName = output?.dataProviderFieldName;
@@ -46,42 +93,41 @@ class DataProviderManagerWidget extends ConsumerWidget {
               data: (data) => builder.call(
                 context,
                 DPManagerWidgetRes(
-                    verticalDataProvider: data.verticalDataProvider,
-                    currentDataProvider: dataProviderWithTemplate,
-                    currentRenderPut: output,
-                    section: section,
-                    resultData: data.resultData),
+                  verticalDataProvider: data.verticalDataProvider,
+                  currentDataProvider: dataProviderWithTemplate,
+                  currentRenderPut: output,
+                  section: section,
+                  resultData: data.resultData,
+                ),
               ),
               error: (err, stacktrace) => const SizedBox(),
               loading: () => const CircularProgressIndicator(),
             );
       } else {
         return builder.call(
-            context,
-            DPManagerWidgetRes(
-                currentDataProvider: dataProviderWithTemplate,
-                currentRenderPut: output,
-                section: section));
+          context,
+          DPManagerWidgetRes(
+            currentDataProvider: dataProviderWithTemplate,
+            currentRenderPut: output,
+            section: section,
+          ),
+        );
       }
     } else {
       return builder.call(context, DPManagerWidgetRes(section: section));
     }
-  }
+  } */
 }
 
 @Riverpod(keepAlive: true)
 class DataProviderGet extends _$DataProviderGet {
   @override
   Future<DataProviderResult> build(TemplateDataProvider dataProvider) async {
-    final dataProviders = ref.watch(dataprovidersProvider);
-    final a = dataProviders.when(
-      data: (data) => data,
-      error: (err, stacktrace) => <DataproviderModel>[],
-      loading: () => <DataproviderModel>[],
-    );
-
-    if (a.isNotEmpty) {
-      final findedDataProvider = a.firstWhereOrNull((verticalDataProvider) =>
+    return ref.watch(dataprovidersProvider).when(
+          data: (allVerticalDataProviders)async  {
+            
+             if (allVerticalDataProviders.isNotEmpty) {
+      final findedDataProvider = allVerticalDataProviders.firstWhereOrNull((verticalDataProvider) =>
           verticalDataProvider.name != null &&
           dataProvider.dataProviderName != null &&
           verticalDataProvider.name == dataProvider.dataProviderName);
@@ -117,26 +163,36 @@ class DataProviderGet extends _$DataProviderGet {
         }
       }
     }
-    return DataProviderResult();
+    return DataProviderResult(); 
+          },
+          error: (err, stacktrace) => DataProviderResult(),
+          loading: () => DataProviderResult(),
+        );
   }
 }
 
 class DataProviderResult {
   final DataproviderModel? verticalDataProvider;
   final dynamic resultData;
-  DataProviderResult({this.verticalDataProvider, this.resultData});
+  final bool dataProviderFounded;
+  DataProviderResult({
+    this.verticalDataProvider,
+    this.resultData,
+    this.dataProviderFounded = false,
+  });
 }
 
 /// DataProviderManagerWidget widget builder model
 class DPManagerWidgetRes extends DataProviderResult {
   final Section section;
-  final TemplateRenderPut? currentRenderPut;
+  // final TemplateRenderPut? currentRenderPut;
   final TemplateDataProvider? currentDataProvider;
 
   DPManagerWidgetRes({
     super.resultData,
     super.verticalDataProvider,
-    this.currentRenderPut,
+    super.dataProviderFounded,
+    // this.currentRenderPut,
     required this.section,
     this.currentDataProvider,
   });

@@ -6,8 +6,7 @@ import '../models/form_control_typed.dart';
 
 extension ExtAbstractControl on AbstractControl {
   void pushValidators(
-    List<Map<String, dynamic>? Function(AbstractControl<dynamic>)>
-        otherValidators, {
+    List<Validator<dynamic>> otherValidators, {
     bool autoValidate = false,
     bool updateParent = true,
     bool emitEvent = true,
@@ -21,7 +20,7 @@ extension ExtAbstractControl on AbstractControl {
   }
 
   void pushValidator(
-    Map<String, dynamic>? Function(AbstractControl<dynamic>) otherValidator, {
+    Validator<dynamic> otherValidator, {
     bool autoValidate = false,
     bool updateParent = true,
     bool emitEvent = true,

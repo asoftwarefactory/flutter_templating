@@ -6,10 +6,8 @@ class FormControlTyped<T> extends FormControl<T> {
   FormControlTyped({
     required this.type,
     T? value,
-    List<Map<String, dynamic>? Function(AbstractControl<dynamic>)> validators =
-        const [],
-    List<Future<Map<String, dynamic>?> Function(AbstractControl<dynamic>)>
-        asyncValidators = const [],
+    List<Validator<dynamic>> validators = const [],
+    List<AsyncValidator<dynamic>> asyncValidators = const [],
     int asyncValidatorsDebounceTime = 250,
     bool touched = false,
     bool disabled = false,

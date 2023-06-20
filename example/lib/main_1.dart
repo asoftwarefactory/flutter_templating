@@ -58,12 +58,14 @@ class _TemplateScreenState extends State<TemplateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*  appBar: AppBar(
+      /* appBar: AppBar(
         title: const Text("Prova Template"),
       ), */
       body: SafeArea(
         child: CoreTemplateRenderWidget(
           templateRenderInput: TemplateRenderInput(
+            enableStepperMargin: false,
+            enableDebugLog: true,
             buttonAddFieldToSection: "Aggiungi",
             defaultPaddingWidgets: const EdgeInsets.symmetric(vertical: 5),
             defaultMarginWidgets: const EdgeInsets.symmetric(vertical: 5),

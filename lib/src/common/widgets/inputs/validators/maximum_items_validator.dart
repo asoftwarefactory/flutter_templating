@@ -1,7 +1,7 @@
 import 'package:reactive_forms/reactive_forms.dart';
 import 'validation_message.dart';
 
-class MaximumItemsValidator implements Validator<dynamic> {
+class MaximumItemsValidator extends Validator<dynamic> {
   final int maximumItems;
 
   MaximumItemsValidator(this.maximumItems);

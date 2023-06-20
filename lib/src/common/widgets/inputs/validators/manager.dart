@@ -35,15 +35,14 @@ class ValidatorsManager {
     switch (validator.type) {
       case FieldValidatorTypes.RequiredValidator:
         t.pushValidator(
-          RequiredValidator(isArray: isArray).validate,
+          RequiredValidator(isArray: isArray),
           autoValidate: true,
         );
         break;
       case FieldValidatorTypes.DecimalNumbersValidator:
         if (validator.numOfDecimals != null) {
           t.pushValidator(
-            DecimalNumbersValidator(validator.numOfDecimals!, isArray: isArray)
-                .validate,
+            DecimalNumbersValidator(validator.numOfDecimals!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -51,8 +50,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.ExtensionsValidator:
         if (validator.extensions != null) {
           t.pushValidator(
-            ExtensionsValidator(validator.extensions!, isArray: isArray)
-                .validate,
+            ExtensionsValidator(validator.extensions!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -60,8 +58,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MaximumConstDateValidator:
         if (validator.date != null) {
           t.pushValidator(
-            MaximumConstDateValidator(validator.date!, isArray: isArray)
-                .validate,
+            MaximumConstDateValidator(validator.date!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -69,7 +66,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MaximumItemsValidator:
         if (validator.length != null) {
           t.pushValidator(
-            MaximumItemsValidator(validator.length!).validate,
+            MaximumItemsValidator(validator.length!),
             autoValidate: true,
           );
         }
@@ -77,8 +74,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MaximumLengthValidator:
         if (validator.length != null) {
           t.pushValidator(
-            MaximumLengthValidator(validator.length!, isArray: isArray)
-                .validate,
+            MaximumLengthValidator(validator.length!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -86,8 +82,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MaximumNumberValidator:
         if (validator.number != null) {
           t.pushValidator(
-            MaximumNumberValidator(validator.number!, isArray: isArray)
-                .validate,
+            MaximumNumberValidator(validator.number!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -95,8 +90,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MaximumRelativeDateValidator:
         if (validator.date != null) {
           t.pushValidator(
-            MaximumRelativeDateValidator(validator.date!, isArray: isArray)
-                .validate,
+            MaximumRelativeDateValidator(validator.date!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -104,8 +98,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MinimumConstDateValidator:
         if (validator.date != null) {
           t.pushValidator(
-            MinimumConstDateValidator(validator.date!, isArray: isArray)
-                .validate,
+            MinimumConstDateValidator(validator.date!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -113,7 +106,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MinimumItemsValidator:
         if (validator.length != null) {
           t.pushValidator(
-            MinimumItemsValidator(validator.length!).validate,
+            MinimumItemsValidator(validator.length!),
             autoValidate: true,
           );
         }
@@ -121,8 +114,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MinimumLengthValidator:
         if (validator.length != null) {
           t.pushValidator(
-            MinimumLengthValidator(validator.length!, isArray: isArray)
-                .validate,
+            MinimumLengthValidator(validator.length!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -130,8 +122,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MinimumNumberValidator:
         if (validator.number != null) {
           t.pushValidator(
-            MinimumNumberValidator(validator.number!, isArray: isArray)
-                .validate,
+            MinimumNumberValidator(validator.number!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -139,8 +130,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.MinimumRelativeDateValidator:
         if (validator.date != null) {
           t.pushValidator(
-            MinimumRelativeDateValidator(validator.date!, isArray: isArray)
-                .validate,
+            MinimumRelativeDateValidator(validator.date!, isArray: isArray),
             autoValidate: true,
           );
         }
@@ -148,7 +138,7 @@ class ValidatorsManager {
       case FieldValidatorTypes.RegexValidator:
         if (validator.regex != null) {
           t.pushValidator(
-            RegexValidator(RegExp(validator.regex!), isArray: isArray).validate,
+            RegexValidator(RegExp(validator.regex!), isArray: isArray),
             autoValidate: true,
           );
         }
@@ -160,14 +150,14 @@ class ValidatorsManager {
     if (validator.regex != null &&
         validator.type != FieldValidatorTypes.RegexValidator) {
       t.pushValidator(
-        RegexValidator(RegExp(validator.regex!), isArray: isArray).validate,
+        RegexValidator(RegExp(validator.regex!), isArray: isArray),
         autoValidate: true,
       );
     }
     if (validator.required == true &&
         validator.type != FieldValidatorTypes.RequiredValidator) {
       t.pushValidator(
-        RequiredValidator(isArray: isArray).validate,
+        RequiredValidator(isArray: isArray),
         autoValidate: true,
       );
     }

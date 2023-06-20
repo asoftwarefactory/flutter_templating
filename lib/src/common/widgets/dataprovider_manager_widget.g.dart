@@ -82,6 +82,7 @@ class DataProviderGetFamily extends Family<AsyncValue<DataProviderResult>> {
 
 /// See also [DataProviderGet].
 class DataProviderGetProvider
+    // ignore: invalid_use_of_visible_for_testing_member
     extends AsyncNotifierProviderImpl<DataProviderGet, DataProviderResult> {
   /// See also [DataProviderGet].
   DataProviderGetProvider(

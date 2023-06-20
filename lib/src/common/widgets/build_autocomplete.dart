@@ -88,7 +88,7 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
           });
 
           // ignore: unused_catch_clause
-        } on DioError catch (e) {
+        } on DioException catch (e) {
           return [];
         }
       } else {

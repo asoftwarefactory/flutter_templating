@@ -3,6 +3,7 @@ import 'package:reactive_file_picker/reactive_file_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'unique_value.dart';
 
+// fundamental section for the creation and typing of all the forms that the template will use
 void initializeMainFormWithTtemplate(FormGroup mainForm, Template template) {
   for (final section in template.sections) {
     _initializeMainFormWithSection(mainForm, section);
@@ -33,10 +34,6 @@ AbstractControl<dynamic> _createControlWithSectionGroup(
     FormGroup parentForm, Section sectionIn) {
   if (sectionIn.isMultiple) {
     final formArray = FormArray([]);
-    /* final control = FormGroup({} /* {sectionIn.id: formArray} */);
-    for (final section in sectionIn.children) {
-      _initializeMainFormWithSection(control, section);
-    } */
     for (final section in sectionIn.children) {
       _initializeMainFormWithSection(parentForm, section);
     }

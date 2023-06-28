@@ -37,35 +37,35 @@ class BuildField extends ConsumerWidget with EnableIfRuleMixin {
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
         return StringInputWidget(control: control, section: section);
       case FieldTypes.Integer:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<int>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<int>;
         return IntInputWidget(control: control, section: section);
       case FieldTypes.Decimal:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<double>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<double>;
         return DecimalInputWidget(control: control, section: section);
       case FieldTypes.Currency:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<double>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<double>;
         return CurrencyInputWidget(control: control, section: section);
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<bool>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<bool>;
@@ -73,28 +73,28 @@ class BuildField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<DateTime>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<DateTime>;
         return DateTimeInputWidget(control: control, section: section);
       case FieldTypes.DateNoUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<DateTime>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<DateTime>;
         return DateTimeInputWidget(control: control, section: section);
       case FieldTypes.DateTime:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<DateTime>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<DateTime>;
         return DateTimeInputWidget(control: control, section: section);
       case FieldTypes.Time:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<DateTime>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<DateTime>;
@@ -102,7 +102,7 @@ class BuildField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<PlatformFile>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<PlatformFile>;

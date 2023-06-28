@@ -18,18 +18,14 @@ class SectionGroupWidget extends ConsumerWidget {
     super.key,
   });
 
-  bool get _sectionIsMultiple {
-    return section.type == SectionType.GROUP && section.multiple == true;
-  }
-
   @override
   Widget build(context, ref) {
     // section group is multiple
-
-    if (_sectionIsMultiple) {
+    final templateRenderInput = ref.read(templateRenderInputProvider);
+    if (section.isMultiple) {
       final sectionGroupFormArray =
           form.getOrSetAbstractControlAndSetValidators(
-        section.id!,
+        section.id,
         () => FormArray([]),
         isArray: section.isArray ?? false,
         validators: section.validators,
@@ -47,12 +43,12 @@ class SectionGroupWidget extends ConsumerWidget {
                   // key: UniqueKey(),
                   children: [
                     if (control is FormGroup)
-                      _buildSectionGroup(ref, control)
+                      _buildSectionGroup(ref, control, templateRenderInput)
                           .padding(ref
                               .read(templateRenderInputProvider)
                               .defaultPaddingWidgets)
                           .expandIntoColumnOrRow(),
-                    ref.read(templateRenderInputProvider).defaultGapRow,
+                    templateRenderInput.defaultGapRow,
                     IconButton(
                       icon: const Icon(Icons.delete_rounded),
                       onPressed: () {
@@ -62,15 +58,15 @@ class SectionGroupWidget extends ConsumerWidget {
                   ],
                 );
               }).toList(),
-              ref.read(templateRenderInputProvider).defaultGapColumn,
+              templateRenderInput.defaultGapColumn,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomMainText(
-                    "${ref.read(templateRenderInputProvider).buttonAddFieldToSection} ${section.names?.getDescriptionLabelTranslated(context)}",
+                    "${templateRenderInput.buttonAddFieldToSection} ${section.names?.getDescriptionLabelTranslated(context)}",
                     expandIntoColumnOnRow: false,
                   ),
-                  ref.read(templateRenderInputProvider).defaultGapRow,
+                  templateRenderInput.defaultGapRow,
                   IconButton(
                     onPressed: () {
                       sectionGroupFormArray.add(FormGroup({}));
@@ -87,16 +83,17 @@ class SectionGroupWidget extends ConsumerWidget {
       // normal section group
 
       final sectionGroupForm = form.getOrSetAbstractControlAndSetValidators(
-        section.id!,
+        section.id,
         () => FormGroup({}),
         isArray: section.isArray ?? false,
         validators: section.validators,
       ) as FormGroup;
-      return _buildSectionGroup(ref, sectionGroupForm);
+      return _buildSectionGroup(ref, sectionGroupForm, templateRenderInput);
     }
   }
 
-  Widget _buildSectionGroup(WidgetRef ref, FormGroup sectionGroupForm) {
+  Widget _buildSectionGroup(WidgetRef ref, FormGroup sectionGroupForm,
+      TemplateRenderInput templateRenderInput) {
     bool expanded = true;
     return StatefulBuilder(builder: (context, reload) {
       return Card(
@@ -123,29 +120,27 @@ class SectionGroupWidget extends ConsumerWidget {
                 ],
               ),
             ),
-            ref.read(templateRenderInputProvider).defaultGapColumn,
+            templateRenderInput.defaultGapColumn,
             if (expanded)
-              ...section.children?.map((e) {
-                    // readonly feature
-                    return Visibility(
-                      visible: (section.readonly ?? false) == false,
-                      replacement: IgnorePointer(
-                        ignoring: true,
-                        child: Opacity(
-                          opacity: 0.5,
-                          child: SectionStepWidget(
-                              section: e, mainForm: sectionGroupForm),
-                        ),
-                      ),
+              ...section.children.map((e) {
+                // readonly feature
+                return Visibility(
+                  visible: (section.readonly ?? false) == false,
+                  replacement: IgnorePointer(
+                    ignoring: true,
+                    child: Opacity(
+                      opacity: 0.5,
                       child: SectionStepWidget(
                           section: e, mainForm: sectionGroupForm),
-                    );
-                  }).toList() ??
-                  [],
+                    ),
+                  ),
+                  child:
+                      SectionStepWidget(section: e, mainForm: sectionGroupForm),
+                );
+              }).toList()
           ],
         ),
-      ).createMargin(
-          ref.read(templateRenderInputProvider).defaultMarginWidgets);
+      ).createMargin(templateRenderInput.defaultMarginWidgets);
     });
   }
 }

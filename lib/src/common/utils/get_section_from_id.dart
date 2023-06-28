@@ -9,7 +9,7 @@ Section? getSectionFromId(String? sectionFieldId,
       // recursivity 🔥
       if (section.type == SectionType.GROUP) {
         final sec =
-            getSectionFromId(sectionFieldId, sections: section.children ?? []);
+            getSectionFromId(sectionFieldId, sections: section.children);
         if (sec != null) {
           return sec;
         } else {

@@ -31,7 +31,7 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
       final currentAutocomplete =
           section.filterAutocompleteBySectionField(autocompletes);
       if (currentAutocomplete != null) {
-        if (section.id == null || section.autocomplete == null) {
+        if (section.autocomplete == null) {
           return null;
         }
         return currentAutocomplete;
@@ -110,7 +110,7 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
   Widget _buildAutocompleteWidget(FormGroup form, WidgetRef ref) {
     final isArray = section.isArray ?? false;
     final control = form.getOrSetAbstractControlAndSetValidators(
-      section.id!,
+      section.id,
       () => FormControl<Item>(touched: true, value: defaultValue),
       validators: section.validators,
       isArray: isArray,

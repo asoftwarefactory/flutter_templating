@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../models/template.dart';
 import '../widgets/inputs/validators/manager.dart';
+
+
 
 extension FormGroupExt on FormGroup {
   AbstractControl<T> getOrSetAbstractControl<T>(
@@ -16,20 +19,29 @@ extension FormGroupExt on FormGroup {
     }
   }
 
+  void setAbstractControlAndValidator<T>(
+      String controlId, AbstractControl<T> Function() ifNotExistControl,
+      {bool isArray = false, List<FieldValidator>? validators}) {
+    final control = ifNotExistControl();
+    ValidatorsManager.initializeValidators(
+      control,
+      validators ?? [],
+      isArray,
+    );
+    addAll({controlId: control});
+    return;
+  }
+
   AbstractControl<T> getOrSetAbstractControlAndSetValidators<T>(
       String controlId, AbstractControl<T> Function() ifNotExistControl,
       {bool isArray = false, List<FieldValidator>? validators}) {
     if (controls.containsKey(controlId)) {
       return control(controlId) as AbstractControl<T>;
     } else {
-      final control = ifNotExistControl();
-      ValidatorsManager.initializeValidators(
-        control,
-        validators ?? [],
-        isArray,
-      );
-      addAll({controlId: control});
-      return control;
+      debugPrint("iofiewgowjgoiwejgewogjiewogjwioegjwogj");
+      setAbstractControlAndValidator(controlId, ifNotExistControl,
+          isArray: isArray, validators: validators);
+      return control(controlId) as AbstractControl<T>;
     }
   }
 

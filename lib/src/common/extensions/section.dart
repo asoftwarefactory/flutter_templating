@@ -3,8 +3,16 @@ import '../models/autocomplete_model.dart';
 import '../models/template.dart';
 
 extension ExtSection on Section {
+  bool get isField {
+    return type == SectionType.FIELD;
+  }
+
+  bool get isFieldGroup {
+    return type == SectionType.GROUP;
+  }
+
   Section getAndOrderChildrenByTypeField() {
-    final apChildren = children ?? [];
+    final apChildren = children;
     apChildren.sort((e1, e2) {
       if (e1.type == SectionType.GROUP && e2.type == SectionType.FIELD) {
         return 1;

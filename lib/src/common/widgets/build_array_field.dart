@@ -38,7 +38,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
     switch (section.fieldType) {
       case FieldTypes.String:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<String>(
                 [FormControl<String>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -54,7 +54,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Integer:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<int>(
                   [FormControl<int>(value: defaultValue, touched: true)],
                 ),
@@ -71,7 +71,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Decimal:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<double>(
                 [FormControl<double>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -87,7 +87,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Currency:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<double>(
                 [FormControl<double>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -103,7 +103,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Boolean:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<bool>(
                 [FormControl<bool>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -120,7 +120,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<DateTime>(
                 [FormControl<DateTime>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -138,7 +138,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.DateNoUtc:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<DateTime>(
                 [FormControl<DateTime>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -156,7 +156,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.DateTime:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<DateTime>(
                 [FormControl<DateTime>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -174,7 +174,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Time:
         final formArray = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormArray<DateTime>(
                 [FormControl<DateTime>(value: defaultValue, touched: true)]),
             validators: section.validators,
@@ -193,7 +193,7 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<MultiFile<String>>(
                 value: defaultValue, touched: true),
             validators: section.validators,
@@ -203,4 +203,12 @@ class BuildArrayField extends ConsumerWidget with EnableIfRuleMixin {
         return const SizedBox();
     }
   }
+}
+
+
+
+
+
+void initializeFormWithTemplate(){
+
 }

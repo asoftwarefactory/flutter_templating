@@ -26,7 +26,7 @@ class DataProviderManagerWidget extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final currentSectionId = section.id;
-    if (currentSectionId == null || currentSectionId.isEmpty) {
+    if (currentSectionId.isEmpty) {
       return _defaultBuilder(context, section);
     }
     final mainTemplate = ref.read(templateRenderInputProvider).template;
@@ -70,7 +70,7 @@ class DataProviderManagerWidget extends ConsumerWidget {
     final sectionAsDataProviderAttached = template.dataProviders?.any((dp) =>
             (dp.sectionChildId == section.id) ||
             (dp.outputs?.any((output) =>
-                    section.id != null && output.fieldId == section.id!) ??
+                    section.id != null && output.fieldId == section.id) ??
                 false)) ??
         false;
 
@@ -124,46 +124,51 @@ class DataProviderGet extends _$DataProviderGet {
   @override
   Future<DataProviderResult> build(TemplateDataProvider dataProvider) async {
     return ref.watch(dataprovidersProvider).when(
-          data: (allVerticalDataProviders)async  {
-            
-             if (allVerticalDataProviders.isNotEmpty) {
-      final findedDataProvider = allVerticalDataProviders.firstWhereOrNull((verticalDataProvider) =>
-          verticalDataProvider.name != null &&
-          dataProvider.dataProviderName != null &&
-          verticalDataProvider.name == dataProvider.dataProviderName);
-      if (findedDataProvider != null) {
-        final url = findedDataProvider.backofficeUrl;
-        if (url != null) {
-          final queryParameters = <String, dynamic>{};
-          final mainForm = ref.read(mainFormProvider);
-          for (final input in dataProvider.inputs ?? <TemplateRenderPut>[]) {
-            if (input.fieldId != null && input.dataProviderFieldName != null) {
-              final referencedControl =
-                  ExtAbstractControl.controlNested(input.fieldId!, mainForm);
-              if (referencedControl != null &&
-                  referencedControl.value != null &&
-                  referencedControl.value.toString().isNotEmpty) {
-                queryParameters.addAll({
-                  input.dataProviderFieldName!:
-                      referencedControl.value.toString(),
-                });
+          data: (allVerticalDataProviders) async {
+            if (allVerticalDataProviders.isNotEmpty) {
+              final findedDataProvider = allVerticalDataProviders
+                  .firstWhereOrNull((verticalDataProvider) =>
+                      verticalDataProvider.name != null &&
+                      dataProvider.dataProviderName != null &&
+                      verticalDataProvider.name ==
+                          dataProvider.dataProviderName);
+              if (findedDataProvider != null) {
+                final url = findedDataProvider.backofficeUrl;
+                if (url != null) {
+                  final queryParameters = <String, dynamic>{};
+                  final mainForm = ref.read(mainFormProvider);
+                  for (final input
+                      in dataProvider.inputs ?? <TemplateRenderPut>[]) {
+                    if (input.dataProviderFieldName != null) {
+                      final referencedControl =
+                          ExtAbstractControl.controlNested(
+                              input.fieldId, mainForm);
+                      if (referencedControl != null &&
+                          referencedControl.value != null &&
+                          referencedControl.value.toString().isNotEmpty) {
+                        queryParameters.addAll({
+                          input.dataProviderFieldName!:
+                              referencedControl.value.toString(),
+                        });
+                      }
+                    }
+                  }
+                  final templateRenderInput =
+                      ref.read(templateRenderInputProvider);
+                  final dataproviderUrl = templateRenderInput.urlOutput
+                      ?.call(templateRenderInput.apiBaseUrl, url);
+                  if (dataproviderUrl != null) {
+                    final client = ref.read(httpClient);
+                    final b = await client.get(dataproviderUrl,
+                        queryParameters: queryParameters);
+                    return DataProviderResult(
+                        resultData: b.data,
+                        verticalDataProvider: findedDataProvider);
+                  }
+                }
               }
             }
-          }
-          final templateRenderInput = ref.read(templateRenderInputProvider);
-          final dataproviderUrl = templateRenderInput.urlOutput
-              ?.call(templateRenderInput.apiBaseUrl, url);
-          if (dataproviderUrl != null) {
-            final client = ref.read(httpClient);
-            final b = await client.get(dataproviderUrl,
-                queryParameters: queryParameters);
-            return DataProviderResult(
-                resultData: b.data, verticalDataProvider: findedDataProvider);
-          }
-        }
-      }
-    }
-    return DataProviderResult(); 
+            return DataProviderResult();
           },
           error: (err, stacktrace) => DataProviderResult(),
           loading: () => DataProviderResult(),

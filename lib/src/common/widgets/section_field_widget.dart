@@ -7,7 +7,6 @@ import 'build_autocomplete.dart';
 import 'build_field.dart';
 import 'build_multiple_select_field.dart';
 import 'build_select_field.dart';
-import 'inputs/validators/manager.dart';
 
 class SectionFieldWidget extends ConsumerWidget {
   final Section section;
@@ -24,14 +23,7 @@ class SectionFieldWidget extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    if (section.id == null) {
-      return const SizedBox();
-    }
-
-    return ReactiveFormConfig(
-      validationMessages: ValidatorsManager.defaultValidationMessages,
-      child: _initializeField(context),
-    );
+    return _initializeField(context);
   }
 
   Widget _initializeField(BuildContext context) {

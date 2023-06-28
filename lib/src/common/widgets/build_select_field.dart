@@ -32,35 +32,35 @@ class BuildSelectField extends ConsumerWidget with EnableIfRuleMixin {
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = form.getOrSetAbstractControlAndSetValidators<String>(
-            section.id!,
+            section.id,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
         return DropdownField<String>(control: control, section: section);
       case FieldTypes.Integer:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<int>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<int>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Decimal:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<double>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<double>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Currency:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<double>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<double>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<Unique<bool>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<Unique<bool>>;
@@ -72,28 +72,28 @@ class BuildSelectField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       case FieldTypes.DateNoUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       case FieldTypes.DateTime:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
         return DropdownField(control: control, section: section);
       case FieldTypes.Time:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
@@ -101,7 +101,7 @@ class BuildSelectField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;

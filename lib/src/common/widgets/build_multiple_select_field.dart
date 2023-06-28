@@ -31,7 +31,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
     switch (section.fieldType) {
       case FieldTypes.String:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
@@ -43,7 +43,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Integer:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<int>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<int>>;
@@ -55,7 +55,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Decimal:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<double>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<double>>;
@@ -67,7 +67,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Currency:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<double>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<double>>;
@@ -79,7 +79,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Boolean:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
@@ -99,7 +99,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
@@ -111,7 +111,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.DateNoUtc:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
@@ -123,7 +123,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.DateTime:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
@@ -135,7 +135,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         );
       case FieldTypes.Time:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
@@ -148,7 +148,7 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
         final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id!,
+            section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;

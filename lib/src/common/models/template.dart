@@ -12,14 +12,14 @@ String templateToJson(Template data) => json.encode(data.toJson());
 
 class Template {
   Template({
-    this.id,
+    required this.id,
     this.groupId,
     this.createdAt,
     this.isValid,
     this.scopes,
     this.names,
     this.descriptions,
-    this.sections,
+    required this.sections,
     this.enabledIfRules,
     this.dataProviders,
     this.steps,
@@ -27,14 +27,14 @@ class Template {
     this.migrationType,
   });
 
-  final String? id;
+  final String id;
   final String? groupId;
   final DateTime? createdAt;
   final bool? isValid;
   final List<String>? scopes;
   final List<Description>? names;
   final List<Description>? descriptions;
-  final List<Section>? sections;
+  final List<Section> sections;
   final List<EnabledIfRule>? enabledIfRules;
   final List<TemplateDataProvider>? dataProviders;
   final List<TemplateStep>? steps;
@@ -137,9 +137,7 @@ class Template {
         "descriptions": descriptions == null
             ? []
             : List<dynamic>.from(descriptions!.map((x) => x.toJson())),
-        "sections": sections == null
-            ? []
-            : List<dynamic>.from(sections!.map((x) => x.toJson())),
+        "sections": List<dynamic>.from(sections.map((x) => x.toJson())),
         "enabledIfRules": enabledIfRules == null
             ? []
             : List<dynamic>.from(enabledIfRules!.map((x) => x.toJson())),
@@ -250,11 +248,11 @@ final dataProviderTypesValues = EnumValues({
 
 class TemplateRenderPut {
   TemplateRenderPut({
-    this.fieldId,
+    required this.fieldId,
     this.dataProviderFieldName,
   });
 
-  final String? fieldId;
+  final String fieldId;
   final String? dataProviderFieldName;
 
   static String get pNamefieldId => "fieldId";
@@ -460,7 +458,7 @@ final enabledIfConstraintsValues = EnumValues<EnabledIfConstraints>({
 
 class Section {
   Section({
-    this.id,
+    required this.id,
     this.name,
     this.searchable,
     this.names,
@@ -473,13 +471,13 @@ class Section {
     this.validators,
     this.items,
     this.multiple,
-    this.children,
+    required this.children,
     this.type,
     this.workflowFieldId,
     this.autocomplete,
   });
 
-  final String? id;
+  final String id;
   final String? name;
   final bool? searchable;
   final List<Description>? names;
@@ -492,7 +490,7 @@ class Section {
   final List<FieldValidator>? validators;
   final List<Item>? items;
   final bool? multiple;
-  final List<Section>? children;
+  final List<Section> children;
   final SectionType? type;
   final String? workflowFieldId;
   final TemplateFieldAutocomplete? autocomplete;
@@ -612,13 +610,13 @@ class Section {
             ? []
             : List<dynamic>.from(items!.map((x) => x.toJson())),
         "multiple": multiple,
-        "children": children == null
-            ? []
-            : List<dynamic>.from(children!.map((x) => x.toJson())),
+        "children": List<dynamic>.from(children.map((x) => x.toJson())),
         "type": sectionTypeValues.reverse[type],
         "workflowFieldId": workflowFieldId,
         "autocomplete": autocomplete?.toJson(),
       };
+
+  bool get isMultiple => type == SectionType.GROUP && multiple == true;
 }
 
 enum FieldTypes {

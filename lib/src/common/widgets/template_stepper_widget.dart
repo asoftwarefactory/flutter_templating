@@ -81,7 +81,7 @@ class TemplateStepperWidget extends StatelessWidget {
           currentStep: index,
           steps: template.steps?.map((step) {
                 final sectionsFromStep =
-                    step.getSectionsFromStep(template.sections ?? []);
+                    step.getSectionsFromStep(template.sections);
                 return Step(
                   state: StepState.indexed,
                   content: Column(

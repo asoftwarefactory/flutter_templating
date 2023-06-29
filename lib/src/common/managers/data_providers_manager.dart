@@ -1,70 +1,26 @@
-import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_templating/src/core/providers/providers.dart';
+/* import 'package:flutter_templating/src/core/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../core/http_client/http_client.dart';
-import '../extensions/abstract_control.dart';
+import '../../../flutter_templating.dart';
 import '../models/dataprovider_model.dart';
-import '../models/template.dart';
-part 'dataprovider_manager_widget.g.dart';
+part 'data_providers_manager.g.dart';
 
-class DataProviderManagerWidget extends ConsumerWidget {
-  final Widget Function(BuildContext context, DPManagerWidgetRes result)
-      builder;
-  final Section section;
-  const DataProviderManagerWidget({
-    super.key,
-    required this.builder,
-    required this.section,
-  });
-
-  Widget _defaultBuilder(BuildContext context, Section section) {
-    return builder.call(context, DPManagerWidgetRes(section: section));
-  }
-
+@Riverpod(keepAlive: true)
+class DataProvidersManager extends _$DataProvidersManager {
+  late final dataProviders = ref.watch(dataprovidersProvider);
+  final dataProvidersImplementations = <DataProviderImplementation>[];
+  late final template = ref.read(templateRenderInputProvider).template;
+  late final mainForm = ref.read(mainFormProvider);
   @override
-  Widget build(context, ref) {
-    final currentSectionId = section.id;
-    if (currentSectionId.isEmpty) {
-      return _defaultBuilder(context, section);
-    }
-    final mainTemplate = ref.read(templateRenderInputProvider).template;
-    final templateDataProviders =
-        mainTemplate.dataProviders ?? <TemplateDataProvider>[];
+  Future<void> build() async {}
 
-    final dataProviderAttached = templateDataProviders.any(
-        (templateDataProvider) =>
-            templateDataProvider.sectionChildId != null &&
-            templateDataProvider.sectionChildId == currentSectionId);
-    if (dataProviderAttached) {
-      final templateDataProvider = templateDataProviders.firstWhere(
-          (templateDataProvider) =>
-              templateDataProvider.sectionChildId != null &&
-              templateDataProvider.sectionChildId == currentSectionId);
-      return ref.watch(dataProviderGetProvider(templateDataProvider)).when(
-            data: (verticalDataProviderResult) => builder.call(
-              context,
-              DPManagerWidgetRes(
-                verticalDataProvider:
-                    verticalDataProviderResult.verticalDataProvider,
-                currentDataProvider: templateDataProvider,
-                // currentRenderPut: output,
-                section: section,
-                dataProviderFounded:
-                    verticalDataProviderResult.dataProviderFounded,
-                resultData: verticalDataProviderResult.resultData,
-              ),
-            ),
-            error: (err, stacktrace) => const SizedBox(),
-            loading: () => const CircularProgressIndicator(),
-          );
-    }
+  void onFieldInitialize(Section section) {}
 
-    return _defaultBuilder(context, section);
-  }
+  /* void loadDataProviders() {
+    // updateShouldNotify(state, state);
+  } */
+
+  // void initialize() {}
 }
-
 
 @Riverpod(keepAlive: true)
 class DataProviderGet extends _$DataProviderGet {
@@ -123,7 +79,6 @@ class DataProviderGet extends _$DataProviderGet {
   }
 }
 
-
 class DataProviderResult {
   final DataproviderModel? verticalDataProvider;
   final dynamic resultData;
@@ -150,3 +105,14 @@ class DPManagerWidgetRes extends DataProviderResult {
     this.currentDataProvider,
   });
 }
+
+class DataProviderImplementation {
+  final dynamic data;
+  final String sectionId;
+  final String dataProviderPath;
+
+  DataProviderImplementation(this.data, this.sectionId, this.dataProviderPath);
+}
+
+typedef DataProviderImplementations = List<DataProviderImplementation>;
+ */

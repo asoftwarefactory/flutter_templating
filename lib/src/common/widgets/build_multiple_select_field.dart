@@ -20,66 +20,69 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
 
   @override
   Widget build(context, ref) {
-    final field = _buildMultipleSelectField(context, form);
-   super.initializeField(form, ref.read(templateRenderInputProvider).template,
+    final state = ref.watch(itemsStateProvider);
+    final items = state[section.id] ?? <Item>[];
+    final widget = _buildMultipleSelectField(
+        context, form, items.isEmpty ? (section.items ?? []) : items);
+    super.initializeField(form, ref.read(templateRenderInputProvider).template,
         fieldId: section.id);
-    return field;
+    return widget;
   }
 
-  Widget _buildMultipleSelectField(BuildContext ctx, FormGroup form) {
+  Widget _buildMultipleSelectField(
+      BuildContext ctx, FormGroup form, Items items) {
     final isArray = section.isArray ?? false;
     switch (section.fieldType) {
       case FieldTypes.String:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
+          items: items,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as String == v)?.label ?? "",
         );
       case FieldTypes.Integer:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<int>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<int>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
+          items: items,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as int == v)?.label ?? "",
         );
       case FieldTypes.Decimal:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<double>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<double>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
+          items: items,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as double == v)?.label ?? "",
         );
       case FieldTypes.Currency:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<double>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<double>>;
         return MultiSelectDropdownField<double>(
           control: control,
+          items: items,
           section: section,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as double == v)?.label ?? "",
         );
       case FieldTypes.Boolean:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
@@ -93,67 +96,68 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
         return MultiSelectDropdownField<String>(
           control: control,
           section: sec,
+          items: items,
           label: (v, items) =>
               items.firstWhere((i) => v == i.key.toString()).label ?? '',
         );
       // DATES -----------------------------------------------------
       case FieldTypes.DateUtc:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
+          items: items,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as String == v)?.label ?? "",
         );
       case FieldTypes.DateNoUtc:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
+          items: items,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as String == v)?.label ?? "",
         );
       case FieldTypes.DateTime:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
           section: section,
+          items: items,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as String == v)?.label ?? "",
         );
       case FieldTypes.Time:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
+          items: items,
           section: section,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as String == v)?.label ?? "",
         );
       // DATES ----------------------------------------------------- END
       case FieldTypes.File:
-        final control = form.getOrSetAbstractControlAndSetValidators(
-            section.id,
+        final control = form.getOrSetAbstractControlAndSetValidators(section.id,
             () => FormControl<List<String>>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<List<String>>;
         return MultiSelectDropdownField(
           control: control,
+          items: items,
           section: section,
           label: (v, items) =>
               items.firstWhereOrNull((e) => e.key as String == v)?.label ?? "",

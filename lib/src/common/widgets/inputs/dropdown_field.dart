@@ -11,11 +11,13 @@ class DropdownField<T> extends ConsumerWidget implements InputField {
   final FormControl<T> control;
   final Section section;
   final T Function(Item)? valueFromSectionItem;
+  final List<Item> items;
 
   const DropdownField({
     super.key,
     required this.control,
     required this.section,
+    required this.items,
     this.valueFromSectionItem,
   });
   @override
@@ -32,7 +34,7 @@ class DropdownField<T> extends ConsumerWidget implements InputField {
             ),
             readOnly: section.readonly == true,
             formControl: control,
-            items: (section.items ?? <Item>[]).map((e) {
+            items: items.map((e) {
               return DropdownMenuItem<T>(
                 value: valueFromSectionItem?.call(e) ?? e.key,
                 child: CustomMainText(

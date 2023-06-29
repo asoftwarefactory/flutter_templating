@@ -1,12 +1,14 @@
 import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../common/models/autocomplete_model.dart';
 import '../../common/models/dataprovider_model.dart';
 import '../../common/models/template.dart';
 import '../../common/models/template_render_input.dart';
 import '../../common/utils/initialize_main_form_with_template.dart';
 import '../http_client/http_client.dart';
+part 'providers.g.dart';
 
 final templateRenderInputProvider =
     StateProvider.autoDispose<TemplateRenderInput>((ref) {
@@ -48,3 +50,23 @@ final dataprovidersProvider =
     return dataprovidersModelFromList(e.data);
   });
 });
+
+@Riverpod(keepAlive: true)
+class ItemsState extends _$ItemsState {
+  final _itemsData = <String, Items>{};
+
+  void set(String fieldId, Items items) {
+    final apItemsData = state;
+    apItemsData[fieldId] = items;
+    state = apItemsData;
+  }
+
+  Items get(String fieldId) {
+    return state[fieldId] ?? <Item>[];
+  }
+
+  @override
+  Map<String, Items> build() {
+    return _itemsData;
+  }
+}

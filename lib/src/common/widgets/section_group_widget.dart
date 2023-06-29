@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/flutter_templating.dart';
+import 'package:flutter_templating/src/common/extensions/abstract_control.dart';
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import 'package:flutter_templating/src/common/extensions/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -11,25 +12,16 @@ import 'title_description_widget.dart';
 
 class SectionGroupWidget extends ConsumerWidget {
   final Section section;
-  final FormGroup form; // main form
-  const SectionGroupWidget({
-    required this.section,
-    required this.form,
-    super.key,
-  });
+  const SectionGroupWidget({required this.section, super.key});
 
   @override
   Widget build(context, ref) {
-    // section group is multiple
     final templateRenderInput = ref.read(templateRenderInputProvider);
+    final mainForm = ref.read(mainFormProvider);
+    // section group is multiple
     if (section.isMultiple) {
       final sectionGroupFormArray =
-          form.getOrSetAbstractControlAndSetValidators(
-        section.id,
-        () => FormArray([]),
-        isArray: section.isArray ?? false,
-        validators: section.validators,
-      ) as FormArray;
+          ExtAbstractControl.controlNested(section.id, mainForm) as FormArray;
       return ReactiveValueListenableBuilder(
         formControl: sectionGroupFormArray,
         builder: (ctx, control, _) {
@@ -81,13 +73,8 @@ class SectionGroupWidget extends ConsumerWidget {
       );
     } else {
       // normal section group
-
-      final sectionGroupForm = form.getOrSetAbstractControlAndSetValidators(
-        section.id,
-        () => FormGroup({}),
-        isArray: section.isArray ?? false,
-        validators: section.validators,
-      ) as FormGroup;
+      final sectionGroupForm =
+          ExtAbstractControl.controlNested(section.id, mainForm) as FormGroup;
       return _buildSectionGroup(ref, sectionGroupForm, templateRenderInput);
     }
   }

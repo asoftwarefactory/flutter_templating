@@ -35,9 +35,8 @@ class SectionStepWidget extends ConsumerWidget {
           section: section,
           builder: (ctx, res) {
             final adaptedSection = adapteSectionWithDataProvider(ref, res);
-            return SectionGroupWidget(section: adaptedSection, form: mainForm)
-                .createMargin(
-                    ref.read(templateRenderInputProvider).defaultMarginWidgets);
+            return SectionGroupWidget(section: adaptedSection).createMargin(
+                ref.read(templateRenderInputProvider).defaultMarginWidgets);
           });
     } else if (section.type == SectionType.FIELD) {
       return DataProviderManagerWidget(
@@ -110,44 +109,67 @@ Section adapteSectionWithDataProvider(WidgetRef ref, DPManagerWidgetRes res) {
       return res.section.copyWith(); */
 
     case DataProviderTypes.FillGroup:
+      // TODO 🖕🏻🖕🏻🖕🏻
       final mainForm = ref.read(mainFormProvider);
-      final outputs = (res.currentDataProvider?.outputs ?? []);
-      for (final dataProviderOutput in outputs) {
-        final childControl = ExtAbstractControl.controlNested(
-          dataProviderOutput.fieldId,
+      if (res.currentDataProvider?.sectionChildId != null) {
+        // ignore: unused_local_variable
+        final parentControl = ExtAbstractControl.controlNested(
+          res.currentDataProvider!.sectionChildId!,
           mainForm,
         );
-        if (childControl != null) {
-          if (res.resultData is List && dataProviderOutput.dataProviderFieldName != null) {
-            for (final section in res.section.children) {
-              if (section.id == dataProviderOutput.fieldId) {
-                final resultDataList = res.resultData as List;
-                // final resultDataMap = resultDataList.
-                /* TODO check if this part must be there ? if (section.isField) {
+
+        if (res.section.isMultiple && res.section.isFieldGroup) {
+          final data = [];
+
+          if (res.resultData is List) {
+            data.addAll((res.resultData as List).map((data) => {
+                  /* "res.currentDataProvider?.outputs??<TemplateRenderPut>[].first.fieldId" */ "52a18fb1-3a12-4f01-a4d0-ae9ff1746892":
+                      64646466
+                }));
+          }
+
+          parentControl?.value = data;
+        }
+
+        /* final outputs = (res.currentDataProvider?.outputs ?? []);
+        for (final dataProviderOutput in outputs) {
+          final childControl = ExtAbstractControl.controlNested(
+            dataProviderOutput.fieldId,
+            mainForm,
+          );
+          if (childControl != null) {
+            if (res.resultData is List &&
+                dataProviderOutput.dataProviderFieldName != null) {
+              for (final section in res.section.children) {
+                if (section.id == dataProviderOutput.fieldId) {
+                  final resultDataList = res.resultData as List;
+                  // final resultDataMap = resultDataList.
+                  /* TODO check if this part must be there ? if (section.isField) {
                   if (section.isArray == true) {
                     final finalData = resultDataList.map(
                         (e) => e[dataProviderOutput.dataProviderFieldName]);
                     childControl.value = finalData;
                   }
                 } else  */
-                if (section.isFieldGroup) {
-                  if (section.multiple == true) {
-                    final finalData = resultDataList
-                        .map((e) => {
-                              dataProviderOutput.fieldId:
-                                  e[dataProviderOutput.dataProviderFieldName]
-                            })
-                        .toList();
 
-                    childControl.value = finalData;
-                  }
-                }
+                  if (section.isFieldGroup) {
+                    if (section.multiple == true) {
+                      final finalData = resultDataList
+                          .map((e) => {
+                                dataProviderOutput.fieldId:
+                                    e[dataProviderOutput.dataProviderFieldName]
+                              })
+                          .toList();
 
-                /* for (final resultDataItem in resultDataList) {
+                      childControl.value = finalData;
+                    }
+                  } else if (section.isField) {}
+
+                  /* for (final resultDataItem in resultDataList) {
                   debugPrint(resultDataItem.toString());
                 } */
 
-                /* if (res.resultData is Map) {
+                  /* if (res.resultData is Map) {
                   final newSection = addItemsIntoSectionFromDynamicMap(
                       section, res.resultData);
                   if (newSection.items?.isNotEmpty ?? false) {
@@ -155,12 +177,13 @@ Section adapteSectionWithDataProvider(WidgetRef ref, DPManagerWidgetRes res) {
                     section.items?.addAll(newSection.items!);
                   }
                 } */
+                }
               }
-            }
 
-            // ? childControl.value = res.resultData[dataProviderOutput.dataProviderFieldName];
+              // ? childControl.value = res.resultData[dataProviderOutput.dataProviderFieldName];
+            }
           }
-        }
+        } */
       }
 
       return res.section;
@@ -171,13 +194,23 @@ Section adapteSectionWithDataProvider(WidgetRef ref, DPManagerWidgetRes res) {
       for (final dataProviderOutput in outputs) {
         for (final section in res.section.children) {
           if (section.id == dataProviderOutput.fieldId) {
-            if (res.resultData is Map) {
-              final newSection =
-                  addItemsIntoSectionFromDynamicMap(section, res.resultData);
-              if (newSection.items?.isNotEmpty ?? false) {
+            /* if (res.resultData is Map) {
+              final newItems = getDropdownItemsFromDataProvider(
+                  section.fieldType, res.resultData);
+              if (newItems.isNotEmpty) {
                 section.items?.clear();
-                section.items?.addAll(newSection.items!);
+                section.items?.addAll(newItems);
               }
+            } */
+            if (res.resultData is Map) {
+              final items = getDropdownItemsFromDataProvider(
+                  section.fieldType, res.resultData);
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                ref.read(itemsStateProvider.notifier).set(section.id, items);
+              });
+              /* Future.delayed(Duration(seconds: 4), () {
+                ref.read(itemsStateProvider.notifier).set(section.id, items);
+              }); */
             }
           }
         }
@@ -208,10 +241,10 @@ Section adapteSectionWithDataProvider(WidgetRef ref, DPManagerWidgetRes res) {
   }
 }
 
-Section addItemsIntoSectionFromDynamicMap(Section inputSection, Map map) {
+Items getDropdownItemsFromDataProvider(FieldTypes? type, Map map) {
   final items = <Item>[];
   (map).forEach((key, value) {
-    switch (inputSection.fieldType) {
+    switch (type) {
       case FieldTypes.String:
         items.add(Item(key: key.toString(), label: value.toString()));
       case FieldTypes.Integer:
@@ -233,7 +266,8 @@ Section addItemsIntoSectionFromDynamicMap(Section inputSection, Map map) {
       case FieldTypes.File:
         items.add(Item(key: (key), label: value.toString()));
       default:
+        items.add(Item(key: (key), label: value.toString()));
     }
   });
-  return inputSection.copyWith(items: items);
+  return items;
 }

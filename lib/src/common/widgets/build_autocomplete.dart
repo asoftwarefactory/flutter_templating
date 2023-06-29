@@ -14,12 +14,12 @@ import 'inputs/autocomplete_input_widget.dart';
 class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
-  final FormGroup form;
+  // final FormGroup form;
   const BuildAutocomplete({
     super.key,
     this.defaultValue,
     required this.section,
-    required this.form,
+    // required this.form,
   });
   Future<List<Item>> _autocompleteLoader(String value, WidgetRef ref) async {
     value = value.trim();
@@ -101,20 +101,17 @@ class BuildAutocomplete extends ConsumerWidget with EnableIfRuleMixin {
 
   @override
   Widget build(context, ref) {
-    final field = _buildAutocompleteWidget(form, ref);
-    super.initializeField(form, ref.read(templateRenderInputProvider).template,
+    final field = _buildAutocompleteWidget(ref);
+    super.initializeField(ref.read(mainFormProvider),
+        ref.read(templateRenderInputProvider).template,
         fieldId: section.id);
     return field;
   }
 
-  Widget _buildAutocompleteWidget(FormGroup form, WidgetRef ref) {
-    final isArray = section.isArray ?? false;
-    final control = form.getOrSetAbstractControlAndSetValidators(
-      section.id,
-      () => FormControl<Item>(touched: true, value: defaultValue),
-      validators: section.validators,
-      isArray: isArray,
-    ) as FormControl<Item>;
+  Widget _buildAutocompleteWidget(WidgetRef ref) {
+    final control =
+        ExtAbstractControl.controlNested(section.id, ref.read(mainFormProvider))
+            as FormControl<Item>;
     String apValueString = "";
     return AutocompleteInputWidget<Item, Item>(
       control: control,

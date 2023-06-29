@@ -37,7 +37,6 @@ class SectionFieldWidget extends ConsumerWidget {
       return BuildAutocomplete(
         defaultValue: _defaultValue,
         section: section,
-        form: form,
       );
     } else if (items.isEmpty && !isArray) {
       return BuildField(

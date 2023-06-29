@@ -5,42 +5,42 @@ import 'package:reactive_multi_select_flutter/reactive_multi_select_flutter.dart
 import 'package:flutter_templating/src/common/extensions/list_description.dart';
 import '../../models/template.dart';
 import '../custom_main_text.dart';
+import '../readonly.dart';
 import 'input_field.dart';
 
 class MultiSelectChipItemField<T> extends ConsumerWidget implements InputField {
   final FormControl<List<T>> control;
   final Section section;
   final T Function(Item)? valueFromSectionItem;
+  final Items items;
 
   const MultiSelectChipItemField({
     super.key,
     required this.control,
     required this.section,
+    required this.items,
     this.valueFromSectionItem,
   });
 
   @override
   Widget build(context, ref) {
-    return IgnorePointer(
-      ignoring: section.readonly == true,
-      child: Opacity(
-        opacity: section.readonly == true ? 0.5 : 1,
-        child: ReactiveMultiSelectChipField<T, T>(
-          searchable: true,
-          title: CustomMainText.createText(
-              section.descriptions?.getDescriptionLabelTranslated(context) ??
-                  section.names?.getDescriptionLabelTranslated(context),
-              inputRef: ref),
-          formControl: control,
-          items: (section.items ?? [])
-              .map(
-                (e) => MultiSelectItem<T>(
-                  valueFromSectionItem?.call(e) ?? e.key,
-                  e.label ?? '',
-                ),
-              )
-              .toList(),
-        ),
+    return Readonly(
+      readonly: section.readonly == true,
+      child: ReactiveMultiSelectChipField<T, T>(
+        searchable: true,
+        title: CustomMainText.createText(
+            section.descriptions?.getDescriptionLabelTranslated(context) ??
+                section.names?.getDescriptionLabelTranslated(context),
+            inputRef: ref),
+        formControl: control,
+        items: items
+            .map(
+              (e) => MultiSelectItem<T>(
+                valueFromSectionItem?.call(e) ?? e.key,
+                e.label ?? '',
+              ),
+            )
+            .toList(),
       ),
     );
   }

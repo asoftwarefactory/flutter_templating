@@ -24,6 +24,7 @@ class SectionStepWidget extends ConsumerWidget {
       return const SizedBox();
     } else {
       return Builder(builder: (context) {
+        // initialize the dataProvider for each child
         ref
             .read(dataProvidersManagerProvider.notifier)
             .onFieldInitialize(section);

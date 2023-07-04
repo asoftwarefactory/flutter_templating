@@ -812,11 +812,11 @@ const jsonTemplatePortico = """
                                     "isArray": false,
                                     "defaultValue": null,
                                     "validators": [
-  {
-    "required": true,
-    "type": "RequiredValidator"
-  }
-],
+                                      {
+                                        "required": true,
+                                        "type": "RequiredValidator"
+                                      }
+                                    ],
                                     "items": [],
                                     "multiple": false,
                                     "children": [],

@@ -199,7 +199,7 @@ const jsonTemplatePortico = """
                     "hidden": false,
                     "readonly": false,
                     "fieldType": "Integer",
-                    "isArray": false,
+                    "isArray": true,
                     "defaultValue": null,
                     "validators": [],
                     "items": [
@@ -811,7 +811,12 @@ const jsonTemplatePortico = """
                                     "fieldType": "Integer",
                                     "isArray": false,
                                     "defaultValue": null,
-                                    "validators": [],
+                                    "validators": [
+  {
+    "required": true,
+    "type": "RequiredValidator"
+  }
+],
                                     "items": [],
                                     "multiple": false,
                                     "children": [],

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/flutter_templating.dart';
@@ -24,31 +25,31 @@ class SectionGroupWidget extends ConsumerWidget {
           ExtAbstractControl.controlNested(section.id, mainForm) as FormArray;
       return ReactiveValueListenableBuilder(
         formControl: sectionGroupFormArray,
-        builder: (ctx, control, _) {
+        builder: (ctx, formArray, _) {
           return Column(
             children: [
-              ...(control as FormArray).controls.asMap().entries.map((entry) {
-                final index = entry.key;
-                final control = entry.value;
-                return Row(
-                  // unique key because otherwise some bugs could occur
-                  // key: UniqueKey(),
-                  children: [
-                    if (control is FormGroup)
+              ...(formArray as FormArray).controls.mapIndexed((index, control) {
+                if (control is FormGroup) {
+                  return Row(
+                    // for fix bug reactive_forms
+                    key: UniqueKey(),
+                    children: [
                       _buildSectionGroup(ref, control, templateRenderInput)
                           .padding(ref
                               .read(templateRenderInputProvider)
                               .defaultPaddingWidgets)
                           .expandIntoColumnOrRow(),
-                    templateRenderInput.defaultGapRow,
-                    IconButton(
-                      icon: const Icon(Icons.delete_rounded),
-                      onPressed: () {
-                        sectionGroupFormArray.removeAt(index);
-                      },
-                    ),
-                  ],
-                );
+                      templateRenderInput.defaultGapRow,
+                      IconButton(
+                        icon: const Icon(Icons.delete_rounded),
+                        onPressed: () {
+                          sectionGroupFormArray.removeAt(index);
+                        },
+                      ),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
               }).toList(),
               templateRenderInput.defaultGapColumn,
               Row(

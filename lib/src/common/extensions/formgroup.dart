@@ -1,6 +1,6 @@
 import 'package:reactive_forms/reactive_forms.dart';
 import '../models/template.dart';
-import '../widgets/inputs/validators/manager.dart';
+import '../widgets/inputs/validators/validators_manager.dart';
 
 extension FormGroupExt on FormGroup {
   /*  AbstractControl<T> getOrSetAbstractControl<T>(

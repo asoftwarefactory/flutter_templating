@@ -11,17 +11,17 @@ class BuildMultipleSelectField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
   final FormGroup form;
+  final List<Item> items;
   const BuildMultipleSelectField({
     Key? key,
     required this.defaultValue,
     required this.section,
     required this.form,
+    this.items = const [],
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final state = ref.watch(itemsStateProvider);
-    final items = state[section.id] ?? <Item>[];
     final widget = _buildMultipleSelectField(
         context, form, items.isEmpty ? (section.items ?? []) : items);
     super.initializeField(form, ref.read(templateRenderInputProvider).template,

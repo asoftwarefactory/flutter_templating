@@ -11,17 +11,17 @@ class BuildSelectField extends ConsumerWidget with EnableIfRuleMixin {
   final dynamic defaultValue;
   final Section section;
   final FormGroup form;
+  final List<Item> items;
   const BuildSelectField({
     Key? key,
     required this.defaultValue,
     required this.section,
     required this.form,
+    this.items = const [],
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final pr = ref.watch(itemsStateProvider);
-    final items = pr[section.id] ?? [];
     final widget =
         _buildSelectField(form, items.isEmpty ? (section.items ?? []) : items);
     super.initializeField(form, ref.read(templateRenderInputProvider).template,
@@ -39,7 +39,7 @@ class BuildSelectField extends ConsumerWidget with EnableIfRuleMixin {
             () => FormControl<String>(value: defaultValue, touched: true),
             validators: section.validators,
             isArray: isArray) as FormControl<String>;
-            
+
         return DropdownField<String>(
             control: control, section: section, items: items);
       case FieldTypes.Integer:

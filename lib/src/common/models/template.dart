@@ -6,6 +6,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 Template templateFromJson(String str) => Template.fromJson(json.decode(str));
 
 String templateToJson(Template data) => json.encode(data.toJson());
@@ -187,16 +189,17 @@ class TemplateDataProvider {
     List<TemplateRenderPut>? inputs,
     List<TemplateRenderPut>? outputs,
     String? sectionChildId,
-  }) =>
-      TemplateDataProvider(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        type: type ?? this.type,
-        dataProviderName: dataProviderName ?? this.dataProviderName,
-        inputs: inputs ?? this.inputs,
-        outputs: outputs ?? this.outputs,
-        sectionChildId: sectionChildId ?? this.sectionChildId,
-      );
+  }) {
+    return TemplateDataProvider(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      dataProviderName: dataProviderName ?? this.dataProviderName,
+      inputs: inputs ?? this.inputs,
+      outputs: outputs ?? this.outputs,
+      sectionChildId: sectionChildId ?? this.sectionChildId,
+    );
+  }
 
   factory TemplateDataProvider.fromJson(Map<String, dynamic> json) =>
       TemplateDataProvider(
@@ -227,6 +230,36 @@ class TemplateDataProvider {
             : List<dynamic>.from(outputs!.map((x) => x.toJson())),
         "sectionChildId": sectionChildId,
       };
+
+  @override
+  String toString() {
+    return 'TemplateDataProvider(id: $id, name: $name, type: $type, dataProviderName: $dataProviderName, inputs: $inputs, outputs: $outputs, sectionChildId: $sectionChildId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is TemplateDataProvider &&
+        other.id == id &&
+        other.name == name &&
+        other.type == type &&
+        other.dataProviderName == dataProviderName &&
+        listEquals(other.inputs, inputs) &&
+        listEquals(other.outputs, outputs) &&
+        other.sectionChildId == sectionChildId;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        type.hashCode ^
+        dataProviderName.hashCode ^
+        inputs.hashCode ^
+        outputs.hashCode ^
+        sectionChildId.hashCode;
+  }
 }
 
 enum DataProviderTypes {
@@ -987,6 +1020,5 @@ class EnumValues<T> {
     return reverseMap;
   }
 }
-
 
 typedef Items = List<Item>;

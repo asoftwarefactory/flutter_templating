@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_templating/flutter_templating.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import '../../core/providers/providers.dart';
 import 'build_array_field.dart';
 import 'build_autocomplete.dart';
 import 'build_field.dart';
@@ -23,11 +24,16 @@ class SectionFieldWidget extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    return _initializeField(context);
+    return _initializeField(context, ref);
   }
 
-  Widget _initializeField(BuildContext context) {
+  Widget _initializeField(BuildContext context, WidgetRef ref) {
     final items = section.items ?? [];
+    final dataProviderItems = ref.watch(sectionItemsProvider(section.id));
+    if (dataProviderItems.isNotEmpty) {
+      items.clear();
+      items.addAll(dataProviderItems);
+    }
     final isArray = section.isArray ?? false;
     final isAutocomplete = section.autocomplete != null &&
         (section.autocomplete?.name != null ||
@@ -55,12 +61,14 @@ class SectionFieldWidget extends ConsumerWidget {
         defaultValue: _defaultValue,
         section: section,
         form: form,
+        items: items,
       );
     } else if (items.isNotEmpty && isArray) {
       return BuildMultipleSelectField(
         defaultValue: _defaultValue,
         section: section,
         form: form,
+        items: items,
       );
     } else {
       return const SizedBox();

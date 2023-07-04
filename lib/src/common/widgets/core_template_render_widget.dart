@@ -6,7 +6,7 @@ import 'package:flutter_templating/src/common/extensions/widget.dart';
 import '../../../flutter_templating.dart';
 import '../../core/providers/providers.dart';
 import '../managers/enable_if_rule.dart';
-import 'inputs/validators/manager.dart';
+import 'inputs/validators/validators_manager.dart';
 import 'template_stepper_widget.dart';
 import 'title_description_widget.dart';
 

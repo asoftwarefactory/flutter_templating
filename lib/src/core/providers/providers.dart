@@ -1,26 +1,25 @@
 import 'dart:developer';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../common/models/autocomplete_model.dart';
-import '../../common/models/dataprovider_model.dart';
 import '../../common/models/template.dart';
 import '../../common/models/template_render_input.dart';
 import '../../common/utils/initialize_main_form_with_template.dart';
 import '../http_client/http_client.dart';
 part 'providers.g.dart';
 
-final templateRenderInputProvider =
-    StateProvider.autoDispose<TemplateRenderInput>((ref) {
+@Riverpod(keepAlive: true)
+TemplateRenderInput templateRenderInput(TemplateRenderInputRef ref) {
   return TemplateRenderInput(
     authorityId: '',
     apiBaseUrl: '',
     bearerAccessToken: '',
     template: Template(id: "", sections: []),
   );
-});
+}
 
-final mainFormProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+FormGroup mainForm(MainFormRef ref) {
   final templatingInput = ref.read(templateRenderInputProvider);
   final template = templatingInput.template;
   final formGroup = FormGroup({"template": FormGroup({})});
@@ -33,40 +32,32 @@ final mainFormProvider = Provider((ref) {
     formGroup.dispose();
   });
   return formGroup.control("template") as FormGroup;
-});
+}
 
-final autocompletesProvider =
-    FutureProvider<List<AutocompleteModel>>((ref) async {
+@Riverpod(keepAlive: true)
+Future<List<AutocompleteModel>> autocompletes(AutocompletesRef ref) async {
   final client = ref.read(httpClient);
   return await client.get("autocompletes").then((e) {
     return autocompletesModelFromList(e.data);
   });
-});
-
-final dataprovidersProvider =
-    FutureProvider<List<DataproviderModel>>((ref) async {
-  final client = ref.read(httpClient);
-  return await client.get("dataproviders").then((e) {
-    return dataprovidersModelFromList(e.data);
-  });
-});
+}
 
 @Riverpod(keepAlive: true)
 class ItemsState extends _$ItemsState {
-  final _itemsData = <String, Items>{};
-
   void set(String fieldId, Items items) {
     final apItemsData = state;
-    apItemsData[fieldId] = items;
-    state = apItemsData;
-  }
-
-  Items get(String fieldId) {
-    return state[fieldId] ?? <Item>[];
+    apItemsData.addAll({fieldId: items});
+    updateShouldNotify(state, apItemsData);
   }
 
   @override
   Map<String, Items> build() {
-    return _itemsData;
+    return <String, Items>{};
   }
+}
+
+
+@Riverpod(keepAlive: true)
+Items sectionItems(SectionItemsRef ref , String sectionId){
+  return ref.watch(itemsStateProvider.select((value) => value[sectionId]??<Item>[]));
 }

@@ -20,7 +20,7 @@ void _initializeMainFormWithSection(FormGroup mainForm, Section childSection) {
       validators: childSection.validators,
     );
   } else if (childSection.type == SectionType.FIELD) {
-    final control = _createControlWithSectionField(childSection);
+    final control = createControlWithSectionField(childSection);
     mainForm.setAbstractControlAndValidator(
       childSection.id,
       () => control,
@@ -47,7 +47,7 @@ AbstractControl<dynamic> _createControlWithSectionGroup(
   }
 }
 
-AbstractControl _createControlWithSectionField(Section section) {
+AbstractControl createControlWithSectionField(Section section) {
   dynamic defaultValueField() {
     dynamic value = section.defaultValue;
     return value;

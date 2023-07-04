@@ -7,7 +7,6 @@ class LoggerInterceptor extends QueuedInterceptor {
     debugPrint('LoggerInterceptor 🔥');
     debugPrint(
         'REQUEST[${options.method}] => PATH: ${options.path} => [${options.queryParameters}]');
-    debugPrint(options.data);
     debugPrint('HEADERS : ${options.headers}');
     super.onRequest(options, handler);
   }

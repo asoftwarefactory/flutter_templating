@@ -28,13 +28,25 @@ class SectionGroupWidget extends ConsumerWidget {
         builder: (ctx, formArray, _) {
           return Column(
             children: [
+              Row(
+                children: [
+                  TitleDescriptionWidget(
+                    title:
+                        section.names?.getDescriptionLabelTranslated(context) ??
+                            '',
+                    description: section.descriptions
+                        ?.getDescriptionLabelTranslated(context),
+                  ).expandIntoColumnOrRow(),
+                ],
+              ),
               ...(formArray as FormArray).controls.mapIndexed((index, control) {
                 if (control is FormGroup) {
                   return Row(
                     // for fix bug reactive_forms
                     key: UniqueKey(),
                     children: [
-                      _buildSectionGroup(ref, control, templateRenderInput)
+                      _buildSectionGroup(ref, control, templateRenderInput,
+                              includeGroupInCard: false)
                           .padding(ref
                               .read(templateRenderInputProvider)
                               .defaultPaddingWidgets)
@@ -81,54 +93,65 @@ class SectionGroupWidget extends ConsumerWidget {
   }
 
   Widget _buildSectionGroup(WidgetRef ref, FormGroup sectionGroupForm,
-      TemplateRenderInput templateRenderInput) {
+      TemplateRenderInput templateRenderInput,
+      {bool includeGroupInCard = true}) {
     bool expanded = true;
-    return StatefulBuilder(builder: (context, reload) {
-      return Card(
-        child: Column(
-          children: [
-            TextButton(
-              onPressed: () {
-                reload(() {
-                  expanded = !expanded;
-                });
-              },
-              child: Row(
-                children: [
-                  TitleDescriptionWidget(
-                    title:
-                        section.names?.getDescriptionLabelTranslated(context) ??
-                            '',
-                    description: section.descriptions
-                        ?.getDescriptionLabelTranslated(context),
-                  ).expandIntoColumnOrRow(),
-                  Icon(expanded
-                      ? Icons.keyboard_arrow_up_rounded
-                      : Icons.keyboard_arrow_down_rounded),
-                ],
-              ),
-            ),
-            templateRenderInput.defaultGapColumn,
-            if (expanded)
-              ...section.children.map((e) {
-                // readonly feature
-                return Visibility(
-                  visible: (section.readonly ?? false) == false,
-                  replacement: IgnorePointer(
-                    ignoring: true,
-                    child: Opacity(
-                      opacity: 0.5,
-                      child: SectionStepWidget(
-                          section: e, mainForm: sectionGroupForm),
-                    ),
-                  ),
-                  child:
-                      SectionStepWidget(section: e, mainForm: sectionGroupForm),
-                );
-              }).toList()
-          ],
+
+    final otherSteps = section.children.map((e) {
+      // readonly feature
+      return Visibility(
+        visible: (section.readonly ?? false) == false,
+        replacement: IgnorePointer(
+          ignoring: true,
+          child: Opacity(
+            opacity: 0.5,
+            child: SectionStepWidget(section: e, mainForm: sectionGroupForm),
+          ),
         ),
-      ).createMargin(templateRenderInput.defaultMarginWidgets);
+        child: SectionStepWidget(section: e, mainForm: sectionGroupForm),
+      );
+    }).toList();
+
+    final title = Builder(builder: (context) {
+      return Row(
+        children: [
+          TitleDescriptionWidget(
+            title: section.names?.getDescriptionLabelTranslated(context) ?? '',
+            description:
+                section.descriptions?.getDescriptionLabelTranslated(context),
+          ).expandIntoColumnOrRow(),
+          Icon(expanded
+              ? Icons.keyboard_arrow_up_rounded
+              : Icons.keyboard_arrow_down_rounded),
+        ],
+      );
     });
+
+    if (includeGroupInCard) {
+      return StatefulBuilder(builder: (context, reload) {
+        return Card(
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  reload(() {
+                    expanded = !expanded;
+                  });
+                },
+                child: title,
+              ),
+              templateRenderInput.defaultGapColumn,
+              if (expanded) ...otherSteps
+            ],
+          ),
+        ).createMargin(templateRenderInput.defaultMarginWidgets);
+      });
+    } else {
+      return Column(children: [
+        /*   title,
+        templateRenderInput.defaultGapColumn, */
+        ...otherSteps
+      ]);
+    }
   }
 }
